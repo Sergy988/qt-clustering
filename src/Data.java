@@ -70,6 +70,10 @@ public class Data {
 		return attributeSet.length;
 	}
 	
+	public Attribute[] getAttributeScheme() {
+		return attributeSet;
+	}
+	
 	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
 		return data[exampleIndex][attributeIndex];
 	}
