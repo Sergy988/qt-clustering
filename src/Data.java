@@ -2,8 +2,8 @@
 public class Data {
 	
 	private Object data[][];
-	private int numberOfExamples;
-	private Attribute attributeSet[];
+	private int sampleCount;
+	private Attribute attributeScheme[];
 	
 	Data() {
 		data = new Object[14][5];
@@ -23,7 +23,7 @@ public class Data {
 		data[12] = new String[]{ "overcast", "hot", "normal", "weak", "yes" };
 		data[13] = new String[]{ "rain", "mild", "high", "strong", "no" };
 
-		numberOfExamples = 14;
+		sampleCount = 14;
 
 		String outlookValues[] = {
 			"overcast",
@@ -53,43 +53,43 @@ public class Data {
 			"yes"
 		};
 
-		attributeSet = new Attribute[5];
+		attributeScheme = new Attribute[5];
 		
-		attributeSet[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
-		attributeSet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
-		attributeSet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
-		attributeSet[3] = new DiscreteAttribute("Wind", 3, windValues);
-		attributeSet[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
+		attributeScheme[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
+		attributeScheme[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
+		attributeScheme[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
+		attributeScheme[3] = new DiscreteAttribute("Wind", 3, windValues);
+		attributeScheme[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
 	}
 	
-	public int getNumberOfExamples() {
-		return numberOfExamples;
+	public int getSampleCount() {
+		return sampleCount;
 	}
 	
 	public int getNumberOfAttributes() {
-		return attributeSet.length;
+		return attributeScheme.length;
 	}
 	
 	public Attribute[] getAttributeScheme() {
-		return attributeSet;
+		return attributeScheme;
 	}
 	
-	public Object getAttributeValue(int exampleIndex, int attributeIndex) {
-		return data[exampleIndex][attributeIndex];
+	public Object getAttributeValue(int sampleIndex, int attributeIndex) {
+		return data[sampleIndex][attributeIndex];
 	}
 	
 	public Attribute getAttribute(int i) {
-		return attributeSet[i];
+		return attributeScheme[i];
 	}
 	
 	public String toString() {
 		String output = new String("");
 		
 		for(int i = 0; i < getNumberOfAttributes(); i++) {
-			output += attributeSet[i] + " ";
+			output += attributeScheme[i] + " ";
 		}
 		
-		for(int i = 0; i < getNumberOfExamples(); i++) {
+		for(int i = 0; i < getSampleCount(); i++) {
 			output += "\n" + (i + 1) + ". ";
 			
 			for(int j = 0; j < getNumberOfAttributes(); j++) {
