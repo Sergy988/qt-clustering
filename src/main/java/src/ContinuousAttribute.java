@@ -1,4 +1,6 @@
 
+package src;
+
 public class ContinuousAttribute extends Attribute {
 
 	private double min;

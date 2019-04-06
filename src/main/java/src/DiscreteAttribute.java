@@ -1,4 +1,6 @@
 
+package src;
+
 public class DiscreteAttribute extends Attribute {
 
 	private String[] values;

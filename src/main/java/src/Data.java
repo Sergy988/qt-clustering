@@ -1,4 +1,6 @@
 
+package src;
+
 public class Data {
 	
 	private Object data[][];
