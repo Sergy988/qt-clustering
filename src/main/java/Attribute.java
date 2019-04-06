@@ -1,6 +1,4 @@
 
-package src;
-
 public abstract class Attribute {
 
 	private String name;
