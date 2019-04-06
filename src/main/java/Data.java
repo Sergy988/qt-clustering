@@ -5,7 +5,7 @@ public class Data {
 	private int sampleCount;
 	private Attribute attributeScheme[];
 	
-	Data() {
+	public Data() {
 		data = new Object[14][5];
 
 		data[ 0] = new String[]{ "sunny", "hot", "high", "weak", "no" };
