@@ -2,7 +2,7 @@
 public class Data {
 	
 	private Object data[][];
-	private int sampleCount;
+	private int samplesCount;
 	private Attribute attributeScheme[];
 	
 	public Data() {
@@ -23,7 +23,7 @@ public class Data {
 		data[12] = new String[]{ "overcast", "hot", "normal", "weak", "yes" };
 		data[13] = new String[]{ "rain", "mild", "high", "strong", "no" };
 
-		sampleCount = 14;
+		samplesCount = 14;
 
 		String outlookValues[] = {
 			"overcast",
@@ -63,10 +63,10 @@ public class Data {
 	}
 	
 	public int getSampleCount() {
-		return sampleCount;
+		return samplesCount;
 	}
 	
-	public int getNumberOfAttributes() {
+	public int getAttributesCount() {
 		return attributeScheme.length;
 	}
 	
@@ -85,14 +85,14 @@ public class Data {
 	public String toString() {
 		String output = new String("");
 		
-		for(int i = 0; i < getNumberOfAttributes(); i++) {
+		for(int i = 0; i < getAttributesCount(); i++) {
 			output += attributeScheme[i] + " ";
 		}
 		
 		for(int i = 0; i < getSampleCount(); i++) {
 			output += "\n" + (i + 1) + ". ";
 			
-			for(int j = 0; j < getNumberOfAttributes(); j++) {
+			for(int j = 0; j < getAttributesCount(); j++) {
 				output += getAttributeValue(i, j) + " ";
 			}
 		}
