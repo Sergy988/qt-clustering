@@ -10,14 +10,14 @@ public class Data {
 	private Object data[][];
 
 	/**
-	 * The number of samples
+	 * The number of examples
 	 */
-	private int samplesCount;
+	private int numberOfExamples;
 
 	/**
 	 * The attribute scheme which is based the data
 	 */
-	private Attribute attributeScheme[];
+	private Attribute explanatorySet[];
 	
 	/**
 	 * Instantiate a source data
@@ -40,7 +40,7 @@ public class Data {
 		data[12] = new String[]{ "overcast", "hot", "normal", "weak", "yes" };
 		data[13] = new String[]{ "rain", "mild", "high", "strong", "no" };
 
-		samplesCount = 14;
+		numberOfExamples = 14;
 
 		String outlookValues[] = {
 			"overcast",
@@ -70,37 +70,37 @@ public class Data {
 			"yes"
 		};
 
-		attributeScheme = new Attribute[5];
+		explanatorySet = new Attribute[5];
 		
-		attributeScheme[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
-		attributeScheme[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
-		attributeScheme[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
-		attributeScheme[3] = new DiscreteAttribute("Wind", 3, windValues);
-		attributeScheme[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
+		explanatorySet[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
+		explanatorySet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
+		explanatorySet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
+		explanatorySet[3] = new DiscreteAttribute("Wind", 3, windValues);
+		explanatorySet[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
 	}
 	
 	/**
-	 * Get the number of samples
-	 * @return The number of samples
+	 * Get the number of examples
+	 * @return The number of examples
 	 */
-	public int getSampleCount() {
-		return samplesCount;
+	public int getNumberOfExamples() {
+		return numberOfExamples;
 	}
 
 	/**
 	 * Get the scheme which is based the source data
 	 * @return The attribute scheme
 	 */
-	public Attribute[] getAttributeScheme() {
-		return attributeScheme;
+	public Attribute[] getExplanatorySet() {
+		return explanatorySet;
 	}
 	
 	/**
 	 * Get the number of attributes
 	 * @return The size of the attribute scheme
 	 */
-	public int getAttributesCount() {
-		return attributeScheme.length;
+	public int getNumberOfExplanatoryAttributes() {
+		return explanatorySet.length;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class Data {
 	 * @return The attribute at position i in the attribute scheme
 	 */
 	public Attribute getAttribute(int i) {
-		return attributeScheme[i];
+		return explanatorySet[i];
 	}
 
 	/**
@@ -118,8 +118,26 @@ public class Data {
 	 * @param attributeIndex The index of the attribute
 	 * @return The attribute value from the source data
 	 */
-	public Object getAttributeValue(int sampleIndex, int attributeIndex) {
+	public Object getValue(int sampleIndex, int attributeIndex) {
 		return data[sampleIndex][attributeIndex];
+	}
+
+	/**
+	 * Create a Tuple of a row in data
+	 * @param index The index of the row
+	 * @return A new tuple
+	 */
+	Tuple getItemSet(int index) {
+		Tuple tuple = new Tuple(getNumberOfExplanatoryAttributes());
+
+		for(int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
+			tuple.add(
+				new DiscreteItem(explanatorySet[i],
+				(String)data[index][i]			
+			), i);
+		}
+
+		return tuple;
 	}
 	
 	/**
@@ -127,17 +145,17 @@ public class Data {
 	 * @return The textual rappresentation of the source data
 	 */
 	public String toString() {
-		String output = new String("");
+		String output = "";
 		
-		for(int i = 0; i < getAttributesCount(); i++) {
-			output += attributeScheme[i] + " ";
+		for(int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
+			output += explanatorySet[i] + " ";
 		}
 		
-		for(int i = 0; i < getSampleCount(); i++) {
+		for(int i = 0; i < getNumberOfExamples(); i++) {
 			output += "\n" + (i + 1) + ". ";
 			
-			for(int j = 0; j < getAttributesCount(); j++) {
-				output += getAttributeValue(i, j) + " ";
+			for(int j = 0; j < getNumberOfExplanatoryAttributes(); j++) {
+				output += getValue(i, j) + " ";
 			}
 		}
 		

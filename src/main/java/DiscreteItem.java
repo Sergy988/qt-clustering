@@ -1,0 +1,22 @@
+
+/**
+ * The discrete realization of Item
+ */
+public class DiscreteItem extends Item {
+	/**
+	 * Instantiate a discrete item
+	 * @param attribute The attribute
+	 * @param value The discrete value
+	 */
+	public DiscreteItem(Attribute attribute, Object value) {
+		super(attribute, value);
+	}
+
+	/**
+	 * Get the distance from a discrete item to a generic object
+	 * @return The actual distance
+	 */
+	public double distance(Object a) {
+		return getValue().equals(a) ? 0.0 : 1.0;
+	}
+}
