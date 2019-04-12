@@ -42,5 +42,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+javadoc {
+    // Enable documentation of all methods and members
+    options.addBooleanOption('private', true)
+}
+
 // Define the main class for the application
 mainClassName = 'App'

@@ -1,10 +1,27 @@
 
+/**
+ * Source data class
+ */
 public class Data {
 	
+	/**
+	 * The source data samples
+	 */
 	private Object data[][];
+
+	/**
+	 * The number of samples
+	 */
 	private int samplesCount;
+
+	/**
+	 * The attribute scheme which is based the data
+	 */
 	private Attribute attributeScheme[];
 	
+	/**
+	 * Instantiate a source data
+	 */
 	public Data() {
 		data = new Object[14][5];
 
@@ -62,26 +79,53 @@ public class Data {
 		attributeScheme[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
 	}
 	
+	/**
+	 * Get the number of samples
+	 * @return The number of samples
+	 */
 	public int getSampleCount() {
 		return samplesCount;
 	}
-	
-	public int getAttributesCount() {
-		return attributeScheme.length;
-	}
-	
+
+	/**
+	 * Get the scheme which is based the source data
+	 * @return The attribute scheme
+	 */
 	public Attribute[] getAttributeScheme() {
 		return attributeScheme;
 	}
 	
+	/**
+	 * Get the number of attributes
+	 * @return The size of the attribute scheme
+	 */
+	public int getAttributesCount() {
+		return attributeScheme.length;
+	}
+
+	/**
+	 * Get an attribute
+	 * @param i The attribute index
+	 * @return The attribute at position i in the attribute scheme
+	 */
+	public Attribute getAttribute(int i) {
+		return attributeScheme[i];
+	}
+
+	/**
+	 * Get an attribute value from the source data
+	 * @param sampleIndex The index of the sample
+	 * @param attributeIndex The index of the attribute
+	 * @return The attribute value from the source data
+	 */
 	public Object getAttributeValue(int sampleIndex, int attributeIndex) {
 		return data[sampleIndex][attributeIndex];
 	}
 	
-	public Attribute getAttribute(int i) {
-		return attributeScheme[i];
-	}
-	
+	/**
+	 * Convert the source data to a string
+	 * @return The textual rappresentation of the source data
+	 */
 	public String toString() {
 		String output = new String("");
 		
