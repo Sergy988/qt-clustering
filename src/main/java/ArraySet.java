@@ -1,76 +1,70 @@
 
 import java.util.Arrays;
 
-class ArraySet {
-	private boolean set[];
-	private int size = 0;	
-	private int cardinality = 0;
+public class ArraySet {
 
-	ArraySet() {
-		set = new boolean[50];
-		for(int i = 0; i < set.length; i++)
-			set[i] = false;
+	private int size;
+	private boolean set[];
+
+	public ArraySet() {
+		set = new boolean[64];
+		Arrays.fill(set, false);
 	}
 	
-	boolean add(int i) {
-		if(i >= set.length)
+	public boolean add(int i) {
+		while(i >= set.length)
 		{
-			boolean temp[] = new boolean[set.length*2];
-			Arrays.fill(temp, false);
-			System.arraycopy(set, 0, temp, 0, set.length);
-			set = temp;
+			boolean tmp[] = new boolean[set.length * 2];
+			Arrays.fill(tmp, false);
+			System.arraycopy(set, 0, tmp, 0, set.length);
+			set = tmp;
 		}
 
-		boolean added = set[i];
+		if(set[i]) {
+			return false;
+		}
+		
 		set[i] = true;
-
-		if(i >= size)
-			size = i + 1;
-
-		if(!added)
-			cardinality++;
-
-		return !added;		
+		size++;
+		
+		return true;
 	}
 	
-	boolean delete(int i){
-		if(i < size) {
-			boolean deleted = set[i];
-			set[i] = false;
-			if(i == size - 1) {
-				int j;
-				for(j = size - 1; j >= 0 && !set[j]; j--);
-				size = j + 1;
+	public boolean delete(int i){
+		if(i < set.length) {
+			if(!set[i]) {
+				return false;
 			}
 
-			if(deleted)
-				cardinality--;
-			
-			return deleted;
+			set[i] = false;
+			size--;
+
+			return true;
 		}
 
 		return false;
 	}
 	
-	boolean get(int i) {
+	public boolean get(int i) {
 		return set[i];
 	}
 	
-	int size() {
-		return cardinality;
+	public int size() {
+		return size;
 	}
 	
-	int[] toArray() {
-		int a[] = new int[0];
-		for(int i = 0; i < size; i++) {
+	public int[] toArray() {
+		int array[] = new int[0];
+
+		for(int i = 0; i < set.length; i++) {
 			if(get(i)) {
-				int temp[] = new int[a.length+1];
-				System.arraycopy(a, 0, temp, 0, a.length);
-				a = temp;
-				a[a.length - 1] = i;
+				int tmp[] = new int[array.length + 1];
+				System.arraycopy(array, 0, tmp, 0, array.length);
+				array = tmp;
+				array[array.length - 1] = i;
 			}
 		}
 		
-		return a;
+		return array;
 	}
 }
