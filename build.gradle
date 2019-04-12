@@ -48,4 +48,4 @@ javadoc {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'AppMain'

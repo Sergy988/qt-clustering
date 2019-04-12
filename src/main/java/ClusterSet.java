@@ -14,9 +14,13 @@ public class ClusterSet {
 	 * @param c The cluster to add
 	 */
 	public void add(Cluster c) {
-		Cluster temp[] = new Cluster[clusters.length + 1];
-		temp[clusters.length] = c;
-		clusters = temp;
+		Cluster tmp[] = new Cluster[clusters.length + 1];
+
+		for(int i = 0; i < clusters.length; i++)
+			tmp[i] = clusters[i];
+
+		tmp[clusters.length] = c;
+		clusters = tmp;
 	}
 
 	/**

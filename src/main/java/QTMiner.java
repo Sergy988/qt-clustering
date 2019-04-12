@@ -5,14 +5,14 @@
 public class QTMiner {
 
 	/**
-	 * The set of clusters
-	 */
-	private ClusterSet clusterSet;
-
-	/**
 	 * The radius to use
 	 */
 	private double radius;
+
+	/**
+	 * The set of clusters
+	 */
+	private ClusterSet clusterSet;
 
 	/**
 	 * Instantiate a Quality Threshold miner
@@ -20,6 +20,7 @@ public class QTMiner {
 	 */
 	public QTMiner(double radius) {
 		this.radius = radius;
+		this.clusterSet = new ClusterSet();
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class QTMiner {
 			countClustered += cluster.getSize();
 		}
 
-		return countClustered;
+		return numClusters;
 	}
 
 	/**
@@ -68,7 +69,34 @@ public class QTMiner {
 	 * @return The candidate cluster
 	 */
 	private Cluster buildCandidateCluster(Data data, boolean isClustered[]) {
-		// TODO
+		Cluster candidate = null;
+
+		for(int i = 0; i < data.getNumberOfExamples(); i++) {
+			if(isClustered[i]) {
+				continue;
+			}
+
+			Tuple centroid = data.getItemSet(i);
+			Cluster cluster = new Cluster(centroid);
+
+			for(int j = 0; j < data.getNumberOfExamples(); j++) {
+				if(isClustered[j]) {
+					continue;
+				}
+
+				Tuple other = data.getItemSet(j);
+
+				if(centroid.getDistance(other) <= radius) {
+					cluster.addData(j);
+				}
+			}
+
+			if(candidate == null || candidate.getSize() < cluster.getSize()) {
+				candidate = cluster;
+			}
+		}
+
+		return candidate;
 	}
 }
 

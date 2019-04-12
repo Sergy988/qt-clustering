@@ -35,10 +35,10 @@ class Cluster {
 	}
 	
 	public String toString() {
-		String str = "Centroid=(";
+		String str = "Centroid = ( ";
 
 		for(int i = 0; i < centroid.getLength(); i++) {
-			str += centroid.get(i);
+			str += centroid.get(i) + " ";
 		}
 
 		str += ")";
@@ -47,7 +47,7 @@ class Cluster {
 	}
 	
 	public String toString(Data data) {
-		String str= "Centroid=(";
+		String str= "Centroid = ( ";
 
 		for(int i = 0; i < centroid.getLength(); i++) {
 			str += centroid.get(i) + " ";
@@ -65,7 +65,7 @@ class Cluster {
 
 			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";		
 		}
-		str += "\nAvgDistance=" + getCentroid().avgDistance(data, array);
+		str += "AvgDistance=" + getCentroid().avgDistance(data, array) + "\n";
 
 		return str;		
 	}

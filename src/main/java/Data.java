@@ -161,9 +161,4 @@ public class Data {
 		
 		return output;
 	}
-
-	public static void main(String args[]) {
-		Data trainingSet = new Data();
-		System.out.println(trainingSet);
-	}
 }
