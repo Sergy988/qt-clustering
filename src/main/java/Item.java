@@ -15,6 +15,8 @@ public abstract class Item {
 
 	/**
 	 * Construct an Item
+	 * @param attribute The attribute
+	 * @param value The generic value
 	 */
 	public Item(Attribute attribute, Object value) {
 		this.attribute = attribute;
@@ -47,6 +49,7 @@ public abstract class Item {
 
 	/**
 	 * The abstract function to calculate the distance from a generic object
+	 * @param o A generic object
 	 * @return The actual distance
 	 */
 	public abstract double distance(Object o);
