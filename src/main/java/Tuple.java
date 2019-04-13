@@ -47,11 +47,11 @@ public class Tuple {
 	 * @param tuple The tuple from calculate the distance
 	 * @return The actual distance
 	 */
-	public double getDistance(Tuple obj) {
+	public double getDistance(Tuple tuple) {
 		double distance = 0.0;
 
 		for(int i = 0; i < getLength(); i++) {
-			distance += get(i).distance(obj.get(i));
+			distance += get(i).distance(tuple.get(i));
 		}
 
 		return distance;
