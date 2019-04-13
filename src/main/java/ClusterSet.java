@@ -41,6 +41,7 @@ public class ClusterSet {
 
 	/**
 	 * Convert the cluster set to a string based on source data
+	 * @param data The source data
 	 * @return The textual rappresentation of the cluster set
 	 */
 	public String toString(Data data) {
