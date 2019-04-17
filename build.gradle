@@ -12,6 +12,9 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+
+    // Apply the Jacoco java plugin
+    id 'jacoco'
 }
 
 repositories {
@@ -35,9 +38,6 @@ sourceSets {
 }
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    // implementation 'com.google.guava:guava:27.0.1-jre'
-
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
@@ -45,6 +45,11 @@ dependencies {
 javadoc {
     // Enable documentation of all methods and members
     options.addBooleanOption('private', true)
+}
+
+test {
+    // Produce the Jacoco coverage report at the end of the test
+    finalizedBy jacocoTestReport
 }
 
 // Define the main class for the application
