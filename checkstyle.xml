@@ -10,4 +10,9 @@
 		<property name="format" value="^(?!\s+\* $).*?\s+$"/>
 		<property name="message" value="Line has trailing spaces." />
 	</module>
+	<module name="TreeWalker">
+		<module name="JavadocMethod" />
+		<module name="JavadocType" />
+		<module name="JavadocVariable" />
+	</module>
 </module>
