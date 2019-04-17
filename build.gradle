@@ -15,6 +15,9 @@ plugins {
 
     // Apply the Jacoco java plugin
     id 'jacoco'
+
+    // Apply the Checkstyle java plugin
+    id 'checkstyle'
 }
 
 repositories {
@@ -50,6 +53,14 @@ javadoc {
 test {
     // Produce the Jacoco coverage report at the end of the test
     finalizedBy jacocoTestReport
+}
+
+checkstyle {
+    // Ignore warnings
+    ignoreFailures = true
+
+    // Set the configuration file
+    configFile = file("${projectDir}/checkstyle.xml")
 }
 
 // Define the main class for the application
