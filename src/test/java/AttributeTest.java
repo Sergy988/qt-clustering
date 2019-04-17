@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 public class AttributeTest {
 	@Test
-	public void getName() {
+	public void testGetName() {
 		DiscreteAttribute attribute = new DiscreteAttribute(
 			"discrete_attribute", 0,
 			new String[]{ "foo", "bar", "cin", "out" }
@@ -14,7 +14,7 @@ public class AttributeTest {
 	}
 
 	@Test
-	public void getIndex() {
+	public void testGetIndex() {
 		DiscreteAttribute attribute = new DiscreteAttribute(
 			"discrete_attribute", 42,
 			new String[]{ "foo", "bar", "cin", "out" }

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 public class TupleTest {
 	@Test
-	public void getDistance() {
+	public void testGetDistance() {
 		Attribute attribute = new DiscreteAttribute(
 			"attr", 0,
 			new String[]{ "foo", "bar", "cin" }

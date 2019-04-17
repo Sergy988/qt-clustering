@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 public class ContinuousAttributeTest {
 	@Test
-	public void getScaledValue() {
+	public void testGetScaledValue() {
 		ContinuousAttribute attribute = new ContinuousAttribute(
 			"attr", 0,
 			-128, 256
