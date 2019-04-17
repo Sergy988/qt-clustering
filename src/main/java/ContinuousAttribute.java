@@ -13,7 +13,7 @@ public class ContinuousAttribute extends Attribute {
 	 * The maximum value
 	 */
 	private double max;
-	
+
 	/**
 	 * Instantiate a new continuous attribute
 	 * @param name The name of the attribute
@@ -26,7 +26,7 @@ public class ContinuousAttribute extends Attribute {
 		this.min = min;
 		this.max = max;
 	}
-	
+
 	/**
 	 * Given a certain real value, get the scaled value
 	 * @param v The value to scale

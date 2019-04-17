@@ -11,6 +11,6 @@ public class AppMain {
 		int numIter = miner.compute(data);
 
 		System.out.println("Number of clusters: " + numIter);
-		System.out.println(miner.getClusterSet().toString(data));		
+		System.out.println(miner.getClusterSet().toString(data));
 	}
 }

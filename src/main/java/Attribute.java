@@ -13,7 +13,7 @@ public abstract class Attribute {
 	 * An unique identifier
 	 */
 	private int index;
-	
+
 	/**
 	 * Construct a new attribute
 	 * @param name The name of the attribute
@@ -23,7 +23,7 @@ public abstract class Attribute {
 		this.name = name;
 		this.index = index;
 	}
-	
+
 	/**
 	 * Get the name
 	 * @return The name
@@ -31,7 +31,7 @@ public abstract class Attribute {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Get the index
 	 * @return The unique identifier
@@ -39,7 +39,7 @@ public abstract class Attribute {
 	public int getIndex() {
 		return index;
 	}
-	
+
 	/**
 	 * Convert the attribute to a String
 	 * @return The textual rappresentation of the attribute

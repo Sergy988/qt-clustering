@@ -10,7 +10,7 @@ public class ArraySet {
 		set = new boolean[64];
 		Arrays.fill(set, false);
 	}
-	
+
 	public boolean add(int i) {
 		while(i >= set.length)
 		{
@@ -23,13 +23,13 @@ public class ArraySet {
 		if(set[i]) {
 			return false;
 		}
-		
+
 		set[i] = true;
 		size++;
-		
+
 		return true;
 	}
-	
+
 	public boolean delete(int i){
 		if(i < set.length) {
 			if(!set[i]) {
@@ -44,15 +44,15 @@ public class ArraySet {
 
 		return false;
 	}
-	
+
 	public boolean get(int i) {
 		return set[i];
 	}
-	
+
 	public int size() {
 		return size;
 	}
-	
+
 	public int[] toArray() {
 		int array[] = new int[0];
 
@@ -64,7 +64,7 @@ public class ArraySet {
 				array[array.length - 1] = i;
 			}
 		}
-		
+
 		return array;
 	}
 }

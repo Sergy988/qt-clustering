@@ -12,7 +12,7 @@ class Cluster {
 	/**
 	 * The ids of the other tuple in the cluster
 	 */
-	private ArraySet clusteredData; 
+	private ArraySet clusteredData;
 
 	/**
 	 * Instantiate a Cluster
@@ -22,7 +22,7 @@ class Cluster {
 		this.centroid = centroid;
 		clusteredData = new ArraySet();
 	}
-		
+
 	/**
 	 * Get the centroid tuple
 	 * @return The centroid tuple
@@ -56,7 +56,7 @@ class Cluster {
 	public void removeTuple(int id) {
 		clusteredData.delete(id);
 	}
-	
+
 	/**
 	 * Get the size of the cluster
 	 * @return The size of the cluster
@@ -64,7 +64,7 @@ class Cluster {
 	public int getSize() {
 		return clusteredData.size();
 	}
-	
+
 	/**
 	 * Get an array of clustered tuple ids
 	 * @return An array that contains the clustered tuple ids
@@ -72,7 +72,7 @@ class Cluster {
 	public int[] iterator() {
 		return clusteredData.toArray();
 	}
-	
+
 	/**
 	 * Convert a Cluster to a String
 	 * @return The textual rappresentation of the Cluster
@@ -86,9 +86,9 @@ class Cluster {
 
 		str += ")";
 
-		return str;		
+		return str;
 	}
-	
+
 	/**
 	 * Convert a Cluster to a String based on source data
 	 * @param data The source data
@@ -111,10 +111,10 @@ class Cluster {
 				str += data.getValue(array[i], j) + " ";
 			}
 
-			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";		
+			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
 		}
 		str += "AvgDistance=" + getCentroid().avgDistance(data, array) + "\n";
 
-		return str;		
+		return str;
 	}
 }

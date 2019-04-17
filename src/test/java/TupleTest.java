@@ -8,7 +8,7 @@ public class TupleTest {
 		Attribute attribute = new DiscreteAttribute(
 			"attr", 0,
 			new String[]{ "foo", "bar", "cin" }
-		); 
+		);
 
 		Tuple first  = new Tuple(4);
 		first.add(new DiscreteItem(attribute, "foo"), 0);

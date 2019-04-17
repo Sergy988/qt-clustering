@@ -3,7 +3,7 @@
  * Source data class
  */
 public class Data {
-	
+
 	/**
 	 * The source data samples
 	 */
@@ -18,7 +18,7 @@ public class Data {
 	 * The attribute scheme which is based the data
 	 */
 	private Attribute explanatorySet[];
-	
+
 	/**
 	 * Instantiate a source data
 	 */
@@ -47,38 +47,38 @@ public class Data {
 			"rain",
 			"sunny"
 		};
-		
+
 		String temperatureValues[] = {
 			"hot",
 			"mild",
 			"cold"
 		};
-		
+
 		String humidityValues[] = {
 			"low",
 			"normal",
 			"high"
 		};
-		
+
 		String windValues[] = {
 			"weak",
 			"strong"
 		};
-		
+
 		String playtennisValues[] = {
 			"no",
 			"yes"
 		};
 
 		explanatorySet = new Attribute[5];
-		
+
 		explanatorySet[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
 		explanatorySet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
 		explanatorySet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
 		explanatorySet[3] = new DiscreteAttribute("Wind", 3, windValues);
 		explanatorySet[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
 	}
-	
+
 	/**
 	 * Get the number of examples
 	 * @return The number of examples
@@ -94,7 +94,7 @@ public class Data {
 	public Attribute[] getExplanatorySet() {
 		return explanatorySet;
 	}
-	
+
 	/**
 	 * Get the number of attributes
 	 * @return The size of the attribute scheme
@@ -133,32 +133,32 @@ public class Data {
 		for(int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
 			tuple.add(
 				new DiscreteItem(explanatorySet[i],
-				(String)data[index][i]			
+				(String)data[index][i]
 			), i);
 		}
 
 		return tuple;
 	}
-	
+
 	/**
 	 * Convert the source data to a string
 	 * @return The textual rappresentation of the source data
 	 */
 	public String toString() {
 		String output = "";
-		
+
 		for(int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
 			output += explanatorySet[i] + " ";
 		}
-		
+
 		for(int i = 0; i < getNumberOfExamples(); i++) {
 			output += "\n" + (i + 1) + ". ";
-			
+
 			for(int j = 0; j < getNumberOfExplanatoryAttributes(); j++) {
 				output += getValue(i, j) + " ";
 			}
 		}
-		
+
 		return output;
 	}
 }

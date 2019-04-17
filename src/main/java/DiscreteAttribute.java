@@ -8,7 +8,7 @@ public class DiscreteAttribute extends Attribute {
 	 * The set of possible values that the attribute can be
 	 */
 	private String[] values;
-	
+
 	/**
 	 * Instantiate a new discrete attribute
 	 * @param name The name of the attribute
@@ -19,7 +19,7 @@ public class DiscreteAttribute extends Attribute {
 		super(name, index);
 		this.values = values;
 	}
-	
+
 	/**
 	 * Get the number of distinct values
 	 * @return The size of values
@@ -27,7 +27,7 @@ public class DiscreteAttribute extends Attribute {
 	public int getNumberOfDistinctValues() {
 		return values.length;
 	}
-	
+
 	/**
 	 * Get a value from the set of values
 	 * @param i The index of the value
