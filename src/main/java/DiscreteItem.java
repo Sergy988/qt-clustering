@@ -14,6 +14,7 @@ public class DiscreteItem extends Item {
 
 	/**
 	 * Get the distance from a discrete item to a generic object
+	 * @param a The object from which calculate the distance
 	 * @return The actual distance
 	 */
 	public double distance(Object a) {
