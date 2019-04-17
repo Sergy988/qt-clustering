@@ -1,6 +1,13 @@
 
+/**
+ * Main Application
+ */
 public class AppMain {
 
+	/**
+	 * Program entry point
+	 * @param args Program arguments
+	 */
 	public static void main(String[] args) {
 		Data data = new Data();
 		System.out.println(data);
