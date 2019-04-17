@@ -14,5 +14,10 @@
 		<module name="JavadocMethod" />
 		<module name="JavadocType" />
 		<module name="JavadocVariable" />
+		<module name="LineLength">
+			<property name="max" value="100" />
+		</module>
+		<module name="MethodLength" />
+		<module name="ParameterNumber" />
 	</module>
 </module>
