@@ -59,6 +59,9 @@ checkstyle {
     // Ignore warnings
     ignoreFailures = true
 
+    // Check only production source files
+    sourceSets = [sourceSets.main]
+
     // Set the configuration file
     configFile = file("${projectDir}/checkstyle.xml")
 }
