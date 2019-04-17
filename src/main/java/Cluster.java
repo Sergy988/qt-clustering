@@ -111,7 +111,8 @@ class Cluster {
 				str += data.getValue(array[i], j) + " ";
 			}
 
-			str += "] dist=" + getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
+			str += "] dist=";
+			str += getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
 		}
 		str += "AvgDistance=" + getCentroid().avgDistance(data, array) + "\n";
 
