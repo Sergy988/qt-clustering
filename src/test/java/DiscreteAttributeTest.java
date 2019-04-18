@@ -1,25 +1,33 @@
 
 import org.junit.Test;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
 
 public class DiscreteAttributeTest {
-	@Test
-	public void testGetNumberOfDistinctValues() {
-		DiscreteAttribute attribute = new DiscreteAttribute(
+
+	private static DiscreteAttribute attribute;
+
+	@BeforeClass
+	public static void setupClass() {
+		attribute = new DiscreteAttribute(
 			"attr", 0,
 			new String[]{ "foo", "bar", "cin", "out" }
 		);
+	}
 
+	@AfterClass
+	public static void clenupClass() {
+		// nothing
+	}
+
+	@Test
+	public void testGetNumberOfDistinctValues() {
 		assertEquals(attribute.getNumberOfDistinctValues(), 4);
 	}
 
 	@Test
 	public void testGetValue() {
-		DiscreteAttribute attribute = new DiscreteAttribute(
-			"attr", 0,
-			new String[]{ "foo", "bar", "cin", "out" }
-		);
-
 		assertEquals(attribute.getValue(1), "bar");
 	}
 }
