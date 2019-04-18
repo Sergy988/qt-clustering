@@ -51,7 +51,7 @@ public class Tuple {
 		double distance = 0.0;
 
 		for(int i = 0; i < getLength(); i++) {
-			distance += get(i).distance(tuple.get(i));
+			distance += get(i).distance(tuple.get(i).getValue());
 		}
 
 		return distance;

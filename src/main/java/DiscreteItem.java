@@ -18,6 +18,6 @@ public class DiscreteItem extends Item {
 	 * @return The actual distance
 	 */
 	public double distance(Object a) {
-		return getValue().toString().equals(a.toString()) ? 0.0 : 1.0;
+		return getValue().equals(a) ? 0.0 : 1.0;
 	}
 }
