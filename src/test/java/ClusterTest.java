@@ -45,7 +45,9 @@ public class ClusterTest {
 	@Test
 	public void testGetCentroid() {
 		assertEquals(cluster.getCentroid().getLength(), 3);
+		assertEquals(cluster.getCentroid().get(0).toString(), "bar");
 		assertEquals(cluster.getCentroid().get(1).toString(), "foo");
+		assertEquals(cluster.getCentroid().get(2).toString(), "cin");
 	}
 
 	@Test
@@ -63,12 +65,17 @@ public class ClusterTest {
 		cluster.addData(42);
 		cluster.addData(99);
 
-		assertEquals(cluster.contain(42), true);
-
 		cluster.removeTuple(42);
-
 		assertEquals(cluster.getSize(), 2);
 		assertEquals(cluster.contain(42), false);
+
+		cluster.removeTuple(17);
+		assertEquals(cluster.getSize(), 1);
+		assertEquals(cluster.contain(17), false);
+
+		cluster.removeTuple(99);
+		assertEquals(cluster.getSize(), 0);
+		assertEquals(cluster.contain(99), false);
 	}
 
 	@Test

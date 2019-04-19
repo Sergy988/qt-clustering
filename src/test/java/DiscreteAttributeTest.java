@@ -28,7 +28,10 @@ public class DiscreteAttributeTest {
 
 	@Test
 	public void testGetValue() {
+		assertEquals(attribute.getValue(0), "foo");
 		assertEquals(attribute.getValue(1), "bar");
+		assertEquals(attribute.getValue(2), "cin");
+		assertEquals(attribute.getValue(3), "out");
 	}
 }
 
