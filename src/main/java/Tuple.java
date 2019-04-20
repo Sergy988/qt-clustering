@@ -1,15 +1,15 @@
 
 /**
- * Sequence of items
+ * Sequence of items.
  */
 public class Tuple {
 	/**
-	 * The item array
+	 * The item array.
 	 */
 	private Item[] tuple;
 
 	/**
-	 * Construct a tuple
+	 * Construct a tuple.
 	 * @param size The number of items
 	 */
 	public Tuple(int size) {
@@ -17,7 +17,7 @@ public class Tuple {
 	}
 
 	/**
-	 * Get the length
+	 * Get the length.
 	 * @return The length
 	 */
 	public int getLength() {
@@ -25,7 +25,7 @@ public class Tuple {
 	}
 
 	/**
-	 * Get an item
+	 * Get an item.
 	 * @param i The position of the item
 	 * @return The item at position i
 	 */
@@ -34,7 +34,7 @@ public class Tuple {
 	}
 
 	/**
-	 * Add a new item
+	 * Add a new item.
 	 * @param item The item to add
 	 * @param i The position in which place the item
 	 */
@@ -43,7 +43,7 @@ public class Tuple {
 	}
 
 	/**
-	 * Get the distance from another tuple
+	 * Get the distance from another tuple.
 	 * @param tuple The tuple from calculate the distance
 	 * @return The actual distance
 	 */
@@ -58,7 +58,7 @@ public class Tuple {
 	}
 
 	/**
-	 * Get the average distance from the items of a source data
+	 * Get the average distance from the items of a source data.
 	 * @param data The source data
 	 * @param clusteredData The indices of the indices from which calculate the distance
 	 * @return The actual average distance

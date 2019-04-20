@@ -1,16 +1,16 @@
 
 /**
- * Attribute characterized by a discrete value
+ * Attribute characterized by a discrete value.
  */
 public class DiscreteAttribute extends Attribute {
 
 	/**
-	 * The set of possible values that the attribute can be
+	 * The set of possible values that the attribute can be.
 	 */
 	private String[] values;
 
 	/**
-	 * Instantiate a new discrete attribute
+	 * Instantiate a new discrete attribute.
 	 * @param name The name of the attribute
 	 * @param index An unique identifier
 	 * @param values The possible values
@@ -21,7 +21,7 @@ public class DiscreteAttribute extends Attribute {
 	}
 
 	/**
-	 * Get the number of distinct values
+	 * Get the number of distinct values.
 	 * @return The size of values
 	 */
 	public int getNumberOfDistinctValues() {
@@ -29,7 +29,7 @@ public class DiscreteAttribute extends Attribute {
 	}
 
 	/**
-	 * Get a value from the set of values
+	 * Get a value from the set of values.
 	 * @param i The index of the value
 	 * @return The value at i
 	 */

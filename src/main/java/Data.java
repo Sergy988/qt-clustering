@@ -1,26 +1,26 @@
 
 /**
- * Source data class
+ * Source data class.
  */
 public class Data {
 
 	/**
-	 * The source data samples
+	 * The source data samples.
 	 */
 	private Object data[][];
 
 	/**
-	 * The number of examples
+	 * The number of examples.
 	 */
 	private int numberOfExamples;
 
 	/**
-	 * The attribute scheme which is based the data
+	 * The attribute scheme which is based the data.
 	 */
 	private Attribute explanatorySet[];
 
 	/**
-	 * Instantiate a source data
+	 * Instantiate a source data.
 	 */
 	public Data() {
 		data = new Object[14][5];
@@ -80,7 +80,7 @@ public class Data {
 	}
 
 	/**
-	 * Get the number of examples
+	 * Get the number of examples.
 	 * @return The number of examples
 	 */
 	public int getNumberOfExamples() {
@@ -88,7 +88,7 @@ public class Data {
 	}
 
 	/**
-	 * Get the scheme which is based the source data
+	 * Get the scheme which is based the source data.
 	 * @return The attribute scheme
 	 */
 	public Attribute[] getExplanatorySet() {
@@ -96,7 +96,7 @@ public class Data {
 	}
 
 	/**
-	 * Get the number of attributes
+	 * Get the number of attributes.
 	 * @return The size of the attribute scheme
 	 */
 	public int getNumberOfExplanatoryAttributes() {
@@ -104,7 +104,7 @@ public class Data {
 	}
 
 	/**
-	 * Get an attribute
+	 * Get an attribute.
 	 * @param i The attribute index
 	 * @return The attribute at position i in the attribute scheme
 	 */
@@ -113,7 +113,7 @@ public class Data {
 	}
 
 	/**
-	 * Get an attribute value from the source data
+	 * Get an attribute value from the source data.
 	 * @param sampleIndex The index of the sample
 	 * @param attributeIndex The index of the attribute
 	 * @return The attribute value from the source data
@@ -123,7 +123,7 @@ public class Data {
 	}
 
 	/**
-	 * Create a Tuple of a row in data
+	 * Create a Tuple of a row in data.
 	 * @param index The index of the row
 	 * @return A new tuple
 	 */
@@ -141,7 +141,7 @@ public class Data {
 	}
 
 	/**
-	 * Convert the source data to a string
+	 * Convert the source data to a string.
 	 * @return The textual rappresentation of the source data
 	 */
 	public String toString() {

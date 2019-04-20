@@ -1,21 +1,21 @@
 
 /**
- * Generic attribute
+ * Generic attribute.
  */
 public abstract class Attribute {
 
 	/**
-	 * The name of the attribute
+	 * The name of the attribute.
 	 */
 	private String name;
 
 	/**
-	 * An unique identifier
+	 * An unique identifier.
 	 */
 	private int index;
 
 	/**
-	 * Construct a new attribute
+	 * Construct a new attribute.
 	 * @param name The name of the attribute
 	 * @param index An unique identifier
 	 */
@@ -25,7 +25,7 @@ public abstract class Attribute {
 	}
 
 	/**
-	 * Get the name
+	 * Get the name.
 	 * @return The name
 	 */
 	public String getName() {
@@ -33,7 +33,7 @@ public abstract class Attribute {
 	}
 
 	/**
-	 * Get the index
+	 * Get the index.
 	 * @return The unique identifier
 	 */
 	public int getIndex() {
@@ -41,7 +41,7 @@ public abstract class Attribute {
 	}
 
 	/**
-	 * Convert the attribute to a String
+	 * Convert the attribute to a String.
 	 * @return The textual rappresentation of the attribute
 	 */
 	public String toString() {

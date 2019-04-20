@@ -2,22 +2,22 @@
 import java.util.Arrays;
 
 /**
- * Integer array implementation as boolean array
+ * Integer array implementation as boolean array.
  */
 public class ArraySet {
 
 	/**
-	 * The size of the array set
+	 * The size of the array set.
 	 */
 	private int size;
 
 	/**
-	 * The array set
+	 * The array set.
 	 */
 	private boolean set[];
 
 	/**
-	 * Instantiate a new array set
+	 * Instantiate a new array set.
 	 */
 	public ArraySet() {
 		set = new boolean[64];
@@ -25,7 +25,7 @@ public class ArraySet {
 	}
 
 	/**
-	 * Add a new integer
+	 * Add a new integer.
 	 * @param i The integer to add
 	 * @return true if the integer wasn't present in the set, false otherwise
 	 */
@@ -49,7 +49,7 @@ public class ArraySet {
 	}
 
 	/**
-	 * Delete an integer
+	 * Delete an integer.
 	 * @param i The integer to delete
 	 * @return true if the integer has been removed, false otherwise
 	 */
@@ -69,7 +69,7 @@ public class ArraySet {
 	}
 
 	/**
-	 * Check if the set contains the integer
+	 * Check if the set contains the integer.
 	 * @param i The integer
 	 * @return true if the set contains the integer, false otherwise
 	 */
@@ -78,7 +78,7 @@ public class ArraySet {
 	}
 
 	/**
-	 * Get the size of the array set
+	 * Get the size of the array set.
 	 * @return The size of the array set
 	 */
 	public int size() {
@@ -86,7 +86,7 @@ public class ArraySet {
 	}
 
 	/**
-	 * Convert the array set (boolean array) to an array of integers
+	 * Convert the array set (boolean array) to an array of integers.
 	 * @return An array of integer
 	 */
 	public int[] toArray() {

@@ -1,11 +1,11 @@
 
 /**
- * Main Application
+ * Main Application.
  */
 public class AppMain {
 
 	/**
-	 * Program entry point
+	 * Program entry point.
 	 * @param args Program arguments
 	 */
 	public static void main(String[] args) {

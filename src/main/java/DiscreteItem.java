@@ -1,10 +1,10 @@
 
 /**
- * The discrete realization of Item
+ * The discrete realization of Item.
  */
 public class DiscreteItem extends Item {
 	/**
-	 * Instantiate a discrete item
+	 * Instantiate a discrete item.
 	 * @param attribute The attribute
 	 * @param value The discrete value
 	 */
@@ -13,7 +13,7 @@ public class DiscreteItem extends Item {
 	}
 
 	/**
-	 * Get the distance from a discrete item to a generic object
+	 * Get the distance from a discrete item to a generic object.
 	 * @param a The object from which calculate the distance
 	 * @return The actual distance
 	 */

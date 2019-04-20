@@ -1,21 +1,21 @@
 
 /**
- * The Quality Threshold miner class
+ * The Quality Threshold miner class.
  */
 public class QTMiner {
 
 	/**
-	 * The radius to use
+	 * The radius to use.
 	 */
 	private double radius;
 
 	/**
-	 * The set of clusters
+	 * The set of clusters.
 	 */
 	private ClusterSet clusterSet;
 
 	/**
-	 * Instantiate a Quality Threshold miner
+	 * Instantiate a Quality Threshold miner.
 	 * @param radius The radius to use
 	 */
 	public QTMiner(double radius) {
@@ -24,7 +24,7 @@ public class QTMiner {
 	}
 
 	/**
-	 * Get the cluster set
+	 * Get the cluster set.
 	 * @return The cluster set
 	 */
 	public ClusterSet getClusterSet() {
@@ -32,7 +32,7 @@ public class QTMiner {
 	}
 
 	/**
-	 * Execute the algorithm
+	 * Execute the algorithm.
 	 * @param data The source data
 	 * @return The number of clusters
 	 */
@@ -63,7 +63,7 @@ public class QTMiner {
 	}
 
 	/**
-	 * Build the candidate cluster
+	 * Build the candidate cluster.
 	 * @param data The source data
 	 * @param isClustered The lookup table of removed examples
 	 * @return The candidate cluster

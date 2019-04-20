@@ -1,20 +1,20 @@
 
 /**
- * Generic item
+ * Generic item.
  */
 public abstract class Item {
 	/**
-	 * The attribute
+	 * The attribute.
 	 */
 	private Attribute attribute;
 
 	/**
-	 * The actual value
+	 * The actual value.
 	 */
 	private Object value;
 
 	/**
-	 * Construct an Item
+	 * Construct an Item.
 	 * @param attribute The attribute
 	 * @param value The generic value
 	 */
@@ -24,7 +24,7 @@ public abstract class Item {
 	}
 
 	/**
-	 * Get the attribute
+	 * Get the attribute.
 	 * @return The attribute
 	 */
 	public Attribute getAttribute() {
@@ -32,7 +32,7 @@ public abstract class Item {
 	}
 
 	/**
-	 * Get the value
+	 * Get the value.
 	 * @return The value
 	 */
 	public Object getValue() {
@@ -40,7 +40,7 @@ public abstract class Item {
 	}
 
 	/**
-	 * Convert the item to a string
+	 * Convert the item to a string.
 	 * @return Get the textual rappresentation of the item
 	 */
 	public String toString() {
@@ -48,7 +48,7 @@ public abstract class Item {
 	}
 
 	/**
-	 * The abstract function to calculate the distance from a generic object
+	 * The abstract function to calculate the distance from a generic object.
 	 * @param o A generic object
 	 * @return The actual distance
 	 */

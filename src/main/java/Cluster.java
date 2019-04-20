@@ -1,21 +1,21 @@
 
 /**
- * The Cluster class
+ * The Cluster class.
  */
 class Cluster {
 
 	/**
-	 * The centroid tuple of the cluster
+	 * The centroid tuple of the cluster.
 	 */
 	private Tuple centroid;
 
 	/**
-	 * The ids of the other tuple in the cluster
+	 * The ids of the other tuple in the cluster.
 	 */
 	private ArraySet clusteredData;
 
 	/**
-	 * Instantiate a Cluster
+	 * Instantiate a Cluster.
 	 * @param centroid The centroid tuple
 	 */
 	public Cluster(Tuple centroid) {
@@ -24,7 +24,7 @@ class Cluster {
 	}
 
 	/**
-	 * Get the centroid tuple
+	 * Get the centroid tuple.
 	 * @return The centroid tuple
 	 */
 	public Tuple getCentroid() {
@@ -32,7 +32,7 @@ class Cluster {
 	}
 
 	/**
-	 * Add a tuple id to the cluster
+	 * Add a tuple id to the cluster.
 	 * @param id The tuple id
 	 * @return False if clustered data contains the id, otherwise true
 	 */
@@ -41,7 +41,7 @@ class Cluster {
 	}
 
 	/**
-	 * Check if the cluster contains a tuple id
+	 * Check if the cluster contains a tuple id.
 	 * @param id The tuple id
 	 * @return true if the cluster contains the tuple specified by the id
 	 */
@@ -50,7 +50,7 @@ class Cluster {
 	}
 
 	/**
-	 * Remove a tuple id from the cluster
+	 * Remove a tuple id from the cluster.
 	 * @param id The tuple id to remove
 	 */
 	public void removeTuple(int id) {
@@ -58,7 +58,7 @@ class Cluster {
 	}
 
 	/**
-	 * Get the size of the cluster
+	 * Get the size of the cluster.
 	 * @return The size of the cluster
 	 */
 	public int getSize() {
@@ -66,7 +66,7 @@ class Cluster {
 	}
 
 	/**
-	 * Get an array of clustered tuple ids
+	 * Get an array of clustered tuple ids.
 	 * @return An array that contains the clustered tuple ids
 	 */
 	public int[] iterator() {
@@ -74,7 +74,7 @@ class Cluster {
 	}
 
 	/**
-	 * Convert a Cluster to a String
+	 * Convert a Cluster to a String.
 	 * @return The textual rappresentation of the Cluster
 	 */
 	public String toString() {
@@ -90,7 +90,7 @@ class Cluster {
 	}
 
 	/**
-	 * Convert a Cluster to a String based on source data
+	 * Convert a Cluster to a String based on source data.
 	 * @param data The source data
 	 * @return The textual rappresentation of the Cluster
 	 */
