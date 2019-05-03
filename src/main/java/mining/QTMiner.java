@@ -35,8 +35,9 @@ public class QTMiner {
 	 * Execute the algorithm.
 	 * @param data The source data
 	 * @return The number of clusters
+	 * @throws ClusteringRadiusException When the result is a single cluster
 	 */
-	public int compute(Data data) {
+	public int compute(Data data) throws ClusteringRadiusException {
 		int numClusters = 0;
 		boolean isClustered[] = new boolean[data.getNumberOfExamples()];
 
@@ -58,6 +59,9 @@ public class QTMiner {
 
 			countClustered += cluster.getSize();
 		}
+
+		if(numClusters == 1)
+			throw new ClusteringRadiusException("radius is too small!");
 
 		return numClusters;
 	}

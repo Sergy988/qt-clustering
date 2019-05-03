@@ -24,9 +24,14 @@ public class AppMain {
 
 			QTMiner miner = new QTMiner(radius);
 
-			int numIter = miner.compute(data);
+			try {
+				int numIter = miner.compute(data);
+				System.out.println("Number of clusters: " + numIter);
+			} catch (ClusteringRadiusException e) {
+				System.out.println(e);
+				continue;
+			}
 
-			System.out.println("Number of clusters: " + numIter);
 			System.out.println(miner.getClusterSet().toString(data));
 
 			System.out.print("New execution? (y/n): ");
