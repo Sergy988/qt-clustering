@@ -1,4 +1,6 @@
 
+package data;
+
 /**
  * Attribute characterized by a discrete value.
  */

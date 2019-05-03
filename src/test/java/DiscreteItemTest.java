@@ -2,7 +2,10 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class ItemTest {
+import data.DiscreteItem;
+import data.DiscreteAttribute;
+
+public class DiscreteItemTest {
 	@Test
 	public  void testGetAttribute() {
 		DiscreteAttribute attribute = new DiscreteAttribute(

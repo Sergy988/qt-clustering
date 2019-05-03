@@ -4,6 +4,8 @@ import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 
+import data.DiscreteAttribute;
+
 public class DiscreteAttributeTest {
 
 	private static DiscreteAttribute attribute;

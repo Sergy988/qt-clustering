@@ -2,6 +2,11 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import data.Tuple;
+import data.Attribute;
+import data.DiscreteItem;
+import data.DiscreteAttribute;
+
 public class TupleTest {
 	@Test
 	public void testGetDistance() {

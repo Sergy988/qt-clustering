@@ -1,4 +1,6 @@
 
+package data;
+
 /**
  * Generic attribute.
  */

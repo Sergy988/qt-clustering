@@ -7,6 +7,9 @@ import org.junit.After;
 import java.util.Arrays;
 import static org.junit.Assert.*;
 
+import data.*;
+import mining.Cluster;
+
 public class ClusterTest {
 
 	private Cluster cluster;

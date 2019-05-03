@@ -1,8 +1,14 @@
 
+package mining;
+
+import utility.ArraySet;
+import data.Data;
+import data.Tuple;
+
 /**
  * The Cluster class.
  */
-class Cluster {
+public class Cluster {
 
 	/**
 	 * The centroid tuple of the cluster.

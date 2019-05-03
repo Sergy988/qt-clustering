@@ -2,6 +2,8 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import data.ContinuousAttribute;
+
 public class ContinuousAttributeTest {
 	@Test
 	public void testGetScaledValue() {

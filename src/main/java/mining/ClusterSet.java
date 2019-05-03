@@ -1,4 +1,8 @@
 
+package mining;
+
+import data.Data;
+
 /**
  * A set of clusters.
  */

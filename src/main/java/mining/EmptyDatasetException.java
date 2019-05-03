@@ -1,4 +1,6 @@
 
+package mining;
+
 /**
  * An exception that occurs when the dataset has no entries.
  */

@@ -1,4 +1,6 @@
 
+package data;
+
 /**
  * Source data class.
  */
@@ -127,7 +129,7 @@ public class Data {
 	 * @param index The index of the row
 	 * @return A new tuple
 	 */
-	Tuple getItemSet(int index) {
+	public Tuple getItemSet(int index) {
 		Tuple tuple = new Tuple(getNumberOfExplanatoryAttributes());
 
 		for (int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {

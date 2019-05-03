@@ -1,4 +1,6 @@
 
+package mining;
+
 /**
  * An exception that occurs when the result of the clustering
  * algorithm is one single cluster.

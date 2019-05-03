@@ -1,4 +1,6 @@
 
+package data;
+
 /**
  * Sequence of items.
  */

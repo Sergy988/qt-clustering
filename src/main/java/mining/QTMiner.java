@@ -1,4 +1,9 @@
 
+package mining;
+
+import data.Data;
+import data.Tuple;
+
 /**
  * The Quality Threshold miner class.
  */
