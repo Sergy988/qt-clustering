@@ -27,6 +27,9 @@ public class AppMain {
 			try {
 				int numIter = miner.compute(data);
 				System.out.println("Number of clusters: " + numIter);
+			} catch (EmptyDatasetException e) {
+				System.out.println(e);
+				break;
 			} catch (ClusteringRadiusException e) {
 				System.out.println(e);
 				continue;

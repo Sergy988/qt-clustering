@@ -36,8 +36,14 @@ public class QTMiner {
 	 * @param data The source data
 	 * @return The number of clusters
 	 * @throws ClusteringRadiusException When the result is a single cluster
+	 * @throws EmptyDatasetException When data has no entries
 	 */
-	public int compute(Data data) throws ClusteringRadiusException {
+	public int compute(Data data) throws
+		ClusteringRadiusException, EmptyDatasetException
+	{
+		if (data.getNumberOfExamples() == 0)
+			throw new EmptyDatasetException("dataset has not entries!");
+
 		int numClusters = 0;
 		boolean isClustered[] = new boolean[data.getNumberOfExamples()];
 
