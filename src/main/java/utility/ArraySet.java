@@ -30,7 +30,7 @@ public class ArraySet {
 	 * @return true if the integer wasn't present in the set, false otherwise
 	 */
 	public boolean add(int i) {
-		while(i >= set.length)
+		while (i >= set.length)
 		{
 			boolean tmp[] = new boolean[set.length * 2];
 			Arrays.fill(tmp, false);
@@ -38,7 +38,7 @@ public class ArraySet {
 			set = tmp;
 		}
 
-		if(set[i]) {
+		if (set[i]) {
 			return false;
 		}
 
@@ -53,9 +53,9 @@ public class ArraySet {
 	 * @param i The integer to delete
 	 * @return true if the integer has been removed, false otherwise
 	 */
-	public boolean delete(int i){
-		if(i < set.length) {
-			if(!set[i]) {
+	public boolean delete(int i) {
+		if (i < set.length) {
+			if (!set[i]) {
 				return false;
 			}
 
@@ -92,8 +92,8 @@ public class ArraySet {
 	public int[] toArray() {
 		int array[] = new int[0];
 
-		for(int i = 0; i < set.length; i++) {
-			if(get(i)) {
+		for (int i = 0; i < set.length; i++) {
+			if (get(i)) {
 				int tmp[] = new int[array.length + 1];
 				System.arraycopy(array, 0, tmp, 0, array.length);
 				array = tmp;

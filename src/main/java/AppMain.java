@@ -14,13 +14,13 @@ public class AppMain {
 		Data data = new Data();
 		System.out.println(data);
 
-		while(true) {
+		while (true) {
 			double radius = 0.0;
 
 			do {
 				System.out.print("Insert radius (>0): ");
 				radius = Keyboard.readDouble();
-			} while(radius < 1e-12);
+			} while (radius < 1e-12);
 
 			QTMiner miner = new QTMiner(radius);
 
@@ -39,7 +39,7 @@ public class AppMain {
 
 			System.out.print("New execution? (y/n): ");
 
-			if(Keyboard.readChar() != 'y')
+			if (Keyboard.readChar() != 'y')
 				break;
 		}
 	}

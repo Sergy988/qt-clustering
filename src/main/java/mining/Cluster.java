@@ -80,7 +80,7 @@ class Cluster {
 	public String toString() {
 		String str = "Centroid = ( ";
 
-		for(int i = 0; i < centroid.getLength(); i++) {
+		for (int i = 0; i < centroid.getLength(); i++) {
 			str += centroid.get(i) + " ";
 		}
 
@@ -95,9 +95,9 @@ class Cluster {
 	 * @return The textual rappresentation of the Cluster
 	 */
 	public String toString(Data data) {
-		String str= "Centroid = ( ";
+		String str = "Centroid = ( ";
 
-		for(int i = 0; i < centroid.getLength(); i++) {
+		for (int i = 0; i < centroid.getLength(); i++) {
 			str += centroid.get(i) + " ";
 		}
 
@@ -105,15 +105,16 @@ class Cluster {
 
 		int array[] = clusteredData.toArray();
 
-		for(int i = 0; i < array.length; i++) {
+		for (int i = 0; i < array.length; i++) {
 			str += "[";
-			for(int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++) {
+			for (int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++) {
 				str += data.getValue(array[i], j) + " ";
 			}
 
 			str += "] dist=";
 			str += getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
 		}
+
 		str += "AvgDistance=" + getCentroid().avgDistance(data, array) + "\n";
 
 		return str;

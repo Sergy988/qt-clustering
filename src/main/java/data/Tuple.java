@@ -50,7 +50,7 @@ public class Tuple {
 	public double getDistance(Tuple tuple) {
 		double distance = 0.0;
 
-		for(int i = 0; i < getLength(); i++) {
+		for (int i = 0; i < getLength(); i++) {
 			distance += get(i).distance(tuple.get(i).getValue());
 		}
 
@@ -66,7 +66,7 @@ public class Tuple {
 	public double avgDistance(Data data, int clusteredData[]) {
 		double sumDist = 0.0;
 
-		for(int i = 0; i < clusteredData.length; i++) {
+		for (int i = 0; i < clusteredData.length; i++) {
 			sumDist += getDistance(data.getItemSet(clusteredData[i]));
 		}
 
