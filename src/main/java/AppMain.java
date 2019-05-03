@@ -1,4 +1,6 @@
 
+import keyboardinput.Keyboard;
+
 /**
  * Main Application.
  */
@@ -12,12 +14,25 @@ public class AppMain {
 		Data data = new Data();
 		System.out.println(data);
 
-		double radius = 2.0;
-		QTMiner miner = new QTMiner(radius);
+		while(true) {
+			double radius = 0.0;
 
-		int numIter = miner.compute(data);
+			do {
+				System.out.print("Insert radius (>0): ");
+				radius = Keyboard.readDouble();
+			} while(radius < 1e-12);
 
-		System.out.println("Number of clusters: " + numIter);
-		System.out.println(miner.getClusterSet().toString(data));
+			QTMiner miner = new QTMiner(radius);
+
+			int numIter = miner.compute(data);
+
+			System.out.println("Number of clusters: " + numIter);
+			System.out.println(miner.getClusterSet().toString(data));
+
+			System.out.print("New execution? (y/n): ");
+
+			if(Keyboard.readChar() != 'y')
+				break;
+		}
 	}
 }
