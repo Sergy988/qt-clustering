@@ -4,7 +4,7 @@ package data;
 /**
  * Generic attribute.
  */
-public abstract class Attribute {
+abstract class Attribute {
 
 	/**
 	 * The name of the attribute.
@@ -21,7 +21,7 @@ public abstract class Attribute {
 	 * @param name The name of the attribute
 	 * @param index An unique identifier
 	 */
-	public Attribute(String name, int index) {
+	Attribute(String name, int index) {
 		this.name = name;
 		this.index = index;
 	}
@@ -30,7 +30,7 @@ public abstract class Attribute {
 	 * Get the name.
 	 * @return The name
 	 */
-	public String getName() {
+	String getName() {
 		return name;
 	}
 
@@ -38,7 +38,7 @@ public abstract class Attribute {
 	 * Get the index.
 	 * @return The unique identifier
 	 */
-	public int getIndex() {
+	int getIndex() {
 		return index;
 	}
 

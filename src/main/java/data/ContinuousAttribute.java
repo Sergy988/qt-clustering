@@ -4,7 +4,7 @@ package data;
 /**
  * Attribute characterized by a real value.
  */
-public class ContinuousAttribute extends Attribute {
+class ContinuousAttribute extends Attribute {
 
 	/**
 	 * The minimum value.
@@ -23,7 +23,7 @@ public class ContinuousAttribute extends Attribute {
 	 * @param min The minimum value
 	 * @param max The maximum value
 	 */
-	public ContinuousAttribute(String name, int index, int min, int max) {
+	ContinuousAttribute(String name, int index, int min, int max) {
 		super(name, index);
 		this.min = min;
 		this.max = max;
@@ -34,7 +34,7 @@ public class ContinuousAttribute extends Attribute {
 	 * @param v The value to scale
 	 * @return The scaled value
 	 */
-	public double getScaledValue(double v) {
+	double getScaledValue(double v) {
 		return (v - min) / (max - min);
 	}
 }

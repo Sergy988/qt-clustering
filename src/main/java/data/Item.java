@@ -4,7 +4,7 @@ package data;
 /**
  * Generic item.
  */
-public abstract class Item {
+abstract class Item {
 	/**
 	 * The attribute.
 	 */
@@ -20,7 +20,7 @@ public abstract class Item {
 	 * @param attribute The attribute
 	 * @param value The generic value
 	 */
-	public Item(Attribute attribute, Object value) {
+	Item(Attribute attribute, Object value) {
 		this.attribute = attribute;
 		this.value = value;
 	}
@@ -29,7 +29,7 @@ public abstract class Item {
 	 * Get the attribute.
 	 * @return The attribute
 	 */
-	public Attribute getAttribute() {
+	Attribute getAttribute() {
 		return attribute;
 	}
 
@@ -37,7 +37,7 @@ public abstract class Item {
 	 * Get the value.
 	 * @return The value
 	 */
-	public Object getValue() {
+	Object getValue() {
 		return value;
 	}
 
@@ -54,5 +54,5 @@ public abstract class Item {
 	 * @param o A generic object
 	 * @return The actual distance
 	 */
-	public abstract double distance(Object o);
+	abstract double distance(Object o);
 }

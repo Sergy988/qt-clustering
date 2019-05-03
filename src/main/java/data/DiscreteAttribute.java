@@ -4,7 +4,7 @@ package data;
 /**
  * Attribute characterized by a discrete value.
  */
-public class DiscreteAttribute extends Attribute {
+class DiscreteAttribute extends Attribute {
 
 	/**
 	 * The set of possible values that the attribute can be.
@@ -17,7 +17,7 @@ public class DiscreteAttribute extends Attribute {
 	 * @param index An unique identifier
 	 * @param values The possible values
 	 */
-	public DiscreteAttribute(String name, int index, String[] values) {
+	DiscreteAttribute(String name, int index, String[] values) {
 		super(name, index);
 		this.values = values;
 	}
@@ -26,7 +26,7 @@ public class DiscreteAttribute extends Attribute {
 	 * Get the number of distinct values.
 	 * @return The size of values
 	 */
-	public int getNumberOfDistinctValues() {
+	int getNumberOfDistinctValues() {
 		return values.length;
 	}
 
@@ -35,7 +35,7 @@ public class DiscreteAttribute extends Attribute {
 	 * @param i The index of the value
 	 * @return The value at i
 	 */
-	public String getValue(int i) {
+	String getValue(int i) {
 		return values[i];
 	}
 }

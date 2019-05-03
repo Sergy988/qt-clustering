@@ -4,13 +4,13 @@ package data;
 /**
  * The discrete realization of Item.
  */
-public class DiscreteItem extends Item {
+class DiscreteItem extends Item {
 	/**
 	 * Instantiate a discrete item.
 	 * @param attribute The attribute
 	 * @param value The discrete value
 	 */
-	public DiscreteItem(Attribute attribute, Object value) {
+	DiscreteItem(Attribute attribute, Object value) {
 		super(attribute, value);
 	}
 
@@ -19,7 +19,7 @@ public class DiscreteItem extends Item {
 	 * @param a The object from which calculate the distance
 	 * @return The actual distance
 	 */
-	public double distance(Object a) {
+	double distance(Object a) {
 		return getValue().equals(a) ? 0.0 : 1.0;
 	}
 }
