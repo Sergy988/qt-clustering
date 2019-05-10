@@ -1,6 +1,9 @@
 
 package data;
 
+import java.util.List;
+import java.util.LinkedList;
+
 /**
  * Source data class.
  */
@@ -19,7 +22,7 @@ public class Data {
 	/**
 	 * The attribute scheme which is based the data.
 	 */
-	private Attribute explanatorySet[];
+	private List<Attribute> explanatorySet = new LinkedList<Attribute>();
 
 	/**
 	 * Instantiate a source data.
@@ -72,13 +75,11 @@ public class Data {
 			"yes"
 		};
 
-		explanatorySet = new Attribute[5];
-
-		explanatorySet[0] = new DiscreteAttribute("Outlook", 0, outlookValues);
-		explanatorySet[1] = new DiscreteAttribute("Temperature", 1, temperatureValues);
-		explanatorySet[2] = new DiscreteAttribute("Humidity", 2, humidityValues);
-		explanatorySet[3] = new DiscreteAttribute("Wind", 3, windValues);
-		explanatorySet[4] = new DiscreteAttribute("PlayTennis", 4, playtennisValues);
+		explanatorySet.add(new DiscreteAttribute("Outlook", 0, outlookValues));
+		explanatorySet.add(new DiscreteAttribute("Temperature", 1, temperatureValues));
+		explanatorySet.add(new DiscreteAttribute("Humidity", 2, humidityValues));
+		explanatorySet.add(new DiscreteAttribute("Wind", 3, windValues));
+		explanatorySet.add(new DiscreteAttribute("PlayTennis", 4, playtennisValues));
 	}
 
 	/**
@@ -93,7 +94,7 @@ public class Data {
 	 * Get the scheme which is based the source data.
 	 * @return The attribute scheme
 	 */
-	public Attribute[] getExplanatorySet() {
+	public List<Attribute> getExplanatorySet() {
 		return explanatorySet;
 	}
 
@@ -102,7 +103,7 @@ public class Data {
 	 * @return The size of the attribute scheme
 	 */
 	public int getNumberOfExplanatoryAttributes() {
-		return explanatorySet.length;
+		return explanatorySet.size();
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class Data {
 	 * @return The attribute at position i in the attribute scheme
 	 */
 	public Attribute getAttribute(int i) {
-		return explanatorySet[i];
+		return explanatorySet.get(i);
 	}
 
 	/**
@@ -133,7 +134,7 @@ public class Data {
 		Tuple tuple = new Tuple(getNumberOfExplanatoryAttributes());
 
 		for (int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
-			tuple.add(new DiscreteItem(explanatorySet[i],
+			tuple.add(new DiscreteItem(explanatorySet.get(i),
 				(String) data[index][i]), i);
 		}
 
@@ -147,8 +148,8 @@ public class Data {
 	public String toString() {
 		String output = "";
 
-		for (int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
-			output += explanatorySet[i] + " ";
+		for (Attribute attr : explanatorySet) {
+			output += attr + " ";
 		}
 
 		for (int i = 0; i < getNumberOfExamples(); i++) {
