@@ -4,11 +4,12 @@ package mining;
 import data.Data;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Iterator;
 
 /**
  * A set of clusters.
  */
-public class ClusterSet {
+public class ClusterSet implements Iterable<Cluster> {
 
 	/**
 	 * The clusters.
@@ -21,6 +22,14 @@ public class ClusterSet {
 	 */
 	public void add(Cluster c) {
 		clusters.add(c);
+	}
+
+	/**
+	 * Get the iterator to the clusters.
+	 * @return An iterator to the clusters.
+	 */
+	public Iterator<Cluster> iterator() {
+		return clusters.iterator();
 	}
 
 	/**
