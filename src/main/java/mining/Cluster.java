@@ -1,14 +1,16 @@
 
 package mining;
 
-import utility.ArraySet;
 import data.Data;
 import data.Tuple;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * The Cluster class.
  */
-public class Cluster {
+public class Cluster implements Iterable<Integer>, Comparable<Cluster> {
 
 	/**
 	 * The centroid tuple of the cluster.
@@ -16,9 +18,9 @@ public class Cluster {
 	private Tuple centroid;
 
 	/**
-	 * The ids of the other tuple in the cluster.
+	 * The ids of the other tuples in the cluster.
 	 */
-	private ArraySet clusteredData;
+	private Set<Integer> clusteredData = new HashSet<Integer>();
 
 	/**
 	 * Instantiate a Cluster.
@@ -26,7 +28,6 @@ public class Cluster {
 	 */
 	public Cluster(Tuple centroid) {
 		this.centroid = centroid;
-		clusteredData = new ArraySet();
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class Cluster {
 	 * @return true if the cluster contains the tuple specified by the id
 	 */
 	public boolean contain(int id) {
-		return clusteredData.get(id);
+		return clusteredData.contains(id);
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class Cluster {
 	 * @param id The tuple id to remove
 	 */
 	public void removeTuple(int id) {
-		clusteredData.delete(id);
+		clusteredData.remove(id);
 	}
 
 	/**
@@ -72,11 +73,29 @@ public class Cluster {
 	}
 
 	/**
-	 * Get an array of clustered tuple ids.
-	 * @return An array that contains the clustered tuple ids
+	 * Get an iterator of clustered tuple ids.
+	 * @return An iterator over the clustered tuple ids
 	 */
-	public int[] iterator() {
-		return clusteredData.toArray();
+	public Iterator<Integer> iterator() {
+		return clusteredData.iterator();
+	}
+
+	/**
+	 * Compare to another cluster.
+	 * @param other The other cluster
+	 * @return 1 If this has more data, 0 if equal, -1 otherwise
+	 */
+	public int compareTo(final Cluster other) {
+		int thisSize = getSize();
+		int otherSize = other.getSize();
+
+		if (thisSize > otherSize) {
+			return 1;
+		} else if (thisSize < otherSize) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 	/**
@@ -109,19 +128,17 @@ public class Cluster {
 
 		str += ")\nExamples:\n";
 
-		int array[] = clusteredData.toArray();
-
-		for (int i = 0; i < array.length; i++) {
+		for (Integer i : clusteredData) {
 			str += "[";
 			for (int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++) {
-				str += data.getValue(array[i], j) + " ";
+				str += data.getValue(i, j) + " ";
 			}
 
 			str += "] dist=";
-			str += getCentroid().getDistance(data.getItemSet(array[i])) + "\n";
+			str += getCentroid().getDistance(data.getItemSet(i)) + "\n";
 		}
 
-		str += "AvgDistance=" + getCentroid().avgDistance(data, array) + "\n";
+		str += "AvgDistance=" + getCentroid().avgDistance(data, clusteredData) + "\n";
 
 		return str;
 	}

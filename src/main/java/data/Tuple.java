@@ -1,6 +1,8 @@
 
 package data;
 
+import java.util.Set;
+
 /**
  * Sequence of items.
  */
@@ -65,13 +67,13 @@ public class Tuple {
 	 * @param clusteredData The indices of the indices from which calculate the distance
 	 * @return The actual average distance
 	 */
-	public double avgDistance(Data data, int clusteredData[]) {
+	public double avgDistance(Data data, Set<Integer> clusteredData) {
 		double sumDist = 0.0;
 
-		for (int i = 0; i < clusteredData.length; i++) {
-			sumDist += getDistance(data.getItemSet(clusteredData[i]));
+		for (Integer i : clusteredData) {
+			sumDist += getDistance(data.getItemSet(i));
 		}
 
-		return sumDist / clusteredData.length;
+		return sumDist / clusteredData.size();
 	}
 }

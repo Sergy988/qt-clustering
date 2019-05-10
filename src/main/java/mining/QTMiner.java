@@ -3,6 +3,7 @@ package mining;
 
 import data.Data;
 import data.Tuple;
+import java.util.Arrays;
 
 /**
  * The Quality Threshold miner class.
@@ -52,8 +53,7 @@ public class QTMiner {
 		int numClusters = 0;
 		boolean isClustered[] = new boolean[data.getNumberOfExamples()];
 
-		for (int i = 0; i < isClustered.length; i++)
-			isClustered[i] = false;
+		Arrays.fill(isClustered, false);
 
 		int countClustered = 0;
 
@@ -62,10 +62,8 @@ public class QTMiner {
 			clusterSet.add(cluster);
 			numClusters++;
 
-			int clusteredTupleId[] = cluster.iterator();
-
-			for (int i = 0; i < clusteredTupleId.length; i++) {
-				isClustered[clusteredTupleId[i]] = true;
+			for (Integer i : cluster) {
+				isClustered[i] = true;
 			}
 
 			countClustered += cluster.getSize();
