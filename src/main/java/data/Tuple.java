@@ -64,7 +64,8 @@ public class Tuple {
 	/**
 	 * Get the average distance from the items of a source data.
 	 * @param data The source data
-	 * @param clusteredData The indices of the indices from which calculate the distance
+	 * @param clusteredData The indices of the indices
+	 * from which calculate the distance
 	 * @return The actual average distance
 	 */
 	public double avgDistance(Data data, Set<Integer> clusteredData) {

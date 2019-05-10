@@ -11,12 +11,13 @@
 		<property name="message" value="Line has trailing spaces." />
 	</module>
 	<module name="TreeWalker">
+		<property name="tabWidth" value="4"/>
 		<module name="JavadocMethod" />
 		<module name="JavadocType" />
 		<module name="JavadocVariable" />
 		<module name="JavadocStyle" />
 		<module name="LineLength">
-			<property name="max" value="100" />
+			<property name="max" value="80" />
 		</module>
 		<module name="MethodLength" />
 		<module name="ParameterNumber" />

@@ -122,7 +122,8 @@ public class Keyboard {
 			if (reader == null)
 				reader = new StringTokenizer(in.readLine(), delimiters, true);
 
-			while (token == null || ((delimiters.indexOf(token) >= 0) && skip)) {
+			while (token == null
+				|| ((delimiters.indexOf(token) >= 0) && skip)) {
 				while (!reader.hasMoreTokens())
 					reader = new StringTokenizer(in.readLine(), delimiters,
 							true);

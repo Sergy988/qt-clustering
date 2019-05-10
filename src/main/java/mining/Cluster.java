@@ -133,7 +133,8 @@ public class Cluster implements Iterable<Integer>, Comparable<Cluster> {
 			str += getCentroid().getDistance(data.getItemSet(i)) + "\n";
 		}
 
-		str += "AvgDistance=" + getCentroid().avgDistance(data, clusteredData) + "\n";
+		str += "AvgDistance=";
+		str += getCentroid().avgDistance(data, clusteredData) + "\n";
 
 		return str;
 	}

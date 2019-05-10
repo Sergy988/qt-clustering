@@ -75,11 +75,25 @@ public class Data {
 			"yes"
 		};
 
-		explanatorySet.add(new DiscreteAttribute("Outlook", 0, outlookValues));
-		explanatorySet.add(new DiscreteAttribute("Temperature", 1, temperatureValues));
-		explanatorySet.add(new DiscreteAttribute("Humidity", 2, humidityValues));
-		explanatorySet.add(new DiscreteAttribute("Wind", 3, windValues));
-		explanatorySet.add(new DiscreteAttribute("PlayTennis", 4, playtennisValues));
+		explanatorySet.add(
+			new DiscreteAttribute("Outlook", 0, outlookValues)
+		);
+
+		explanatorySet.add(
+			new DiscreteAttribute("Temperature", 1, temperatureValues)
+		);
+
+		explanatorySet.add(
+			new DiscreteAttribute("Humidity", 2, humidityValues)
+		);
+
+		explanatorySet.add(
+			new DiscreteAttribute("Wind", 3, windValues)
+		);
+
+		explanatorySet.add(
+			new DiscreteAttribute("PlayTennis", 4, playtennisValues)
+		);
 	}
 
 	/**
