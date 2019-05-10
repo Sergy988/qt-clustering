@@ -2,6 +2,8 @@
 package mining;
 
 import data.Data;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A set of clusters.
@@ -11,20 +13,14 @@ public class ClusterSet {
 	/**
 	 * The clusters.
 	 */
-	private Cluster clusters[] = new Cluster[0];
+	private Set<Cluster> clusters = new TreeSet<Cluster>();
 
 	/**
 	 * Add a new cluster to the cluster set.
 	 * @param c The cluster to add
 	 */
 	public void add(Cluster c) {
-		Cluster tmp[] = new Cluster[clusters.length + 1];
-
-		for (int i = 0; i < clusters.length; i++)
-			tmp[i] = clusters[i];
-
-		tmp[clusters.length] = c;
-		clusters = tmp;
+		clusters.add(c);
 	}
 
 	/**
@@ -34,9 +30,12 @@ public class ClusterSet {
 	public String toString() {
 		String str = "";
 
-		for (int i = 0; i < clusters.length; i++) {
-			if (clusters[i] != null) {
-				str += i + ": " + clusters[i].toString() + "\n";
+		int i = 0;
+
+		for (Cluster c : clusters) {
+			if (c != null) {
+				str += i + ": " + c.toString() + "\n";
+				i++;
 			}
 		}
 
@@ -51,9 +50,12 @@ public class ClusterSet {
 	public String toString(Data data) {
 		String str = "";
 
-		for (int i = 0; i < clusters.length; i++) {
-			if (clusters[i] != null) {
-				str += i + ": " + clusters[i].toString(data) + "\n";
+		int i = 0;
+
+		for (Cluster c : clusters) {
+			if (c != null) {
+				str += i + ": " + c.toString(data) + "\n";
+				i++;
 			}
 		}
 
