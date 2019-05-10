@@ -1,6 +1,7 @@
 
 package data;
 
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.Iterator;
 
@@ -12,7 +13,7 @@ class DiscreteAttribute extends Attribute {
 	/**
 	 * The set of possible values that the attribute can be.
 	 */
-	private TreeSet<String> values;
+	private Set<String> values = new TreeSet<String>();
 
 	/**
 	 * Instantiate a new discrete attribute.
