@@ -1,6 +1,9 @@
 
 package data;
 
+import java.util.TreeSet;
+import java.util.Iterator;
+
 /**
  * Attribute characterized by a discrete value.
  */
@@ -9,7 +12,7 @@ class DiscreteAttribute extends Attribute {
 	/**
 	 * The set of possible values that the attribute can be.
 	 */
-	private String[] values;
+	private TreeSet<String> values;
 
 	/**
 	 * Instantiate a new discrete attribute.
@@ -19,7 +22,10 @@ class DiscreteAttribute extends Attribute {
 	 */
 	DiscreteAttribute(String name, int index, String[] values) {
 		super(name, index);
-		this.values = values;
+
+		for (String val : values) {
+			this.values.add(val);
+		}
 	}
 
 	/**
@@ -27,15 +33,14 @@ class DiscreteAttribute extends Attribute {
 	 * @return The size of values
 	 */
 	int getNumberOfDistinctValues() {
-		return values.length;
+		return values.size();
 	}
 
 	/**
-	 * Get a value from the set of values.
-	 * @param i The index of the value
-	 * @return The value at i
+	 * Get the iterator to the possible values.
+	 * @return An iterator to the possible values.
 	 */
-	String getValue(int i) {
-		return values[i];
+	Iterator<String> iterator() {
+		return values.iterator();
 	}
 }
