@@ -86,15 +86,10 @@ public class Cluster implements Iterable<Integer>, Comparable<Cluster> {
 	 * @return 1 If this has more data, 0 if equal, -1 otherwise
 	 */
 	public int compareTo(final Cluster other) {
-		int thisSize = getSize();
-		int otherSize = other.getSize();
-
-		if (thisSize > otherSize) {
-			return 1;
-		} else if (thisSize < otherSize) {
+		if (getSize() <= other.getSize()) {
 			return -1;
 		} else {
-			return 0;
+			return 1;
 		}
 	}
 
