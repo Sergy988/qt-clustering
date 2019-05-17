@@ -117,6 +117,14 @@ public class QTMiner {
 	}
 
 	/**
+	 * Convert the miner to a stirng.
+	 * @return The string rappresentation
+	 */
+	public String toString() {
+		return clusterSet.toString();
+	}
+
+	/**
 	 * Build the candidate cluster.
 	 * @param data The source data
 	 * @param isClustered The lookup table of removed examples
