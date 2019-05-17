@@ -9,3 +9,6 @@
 build
 
 bin
+
+# Ignore Cluster Sets dump files
+*.dmp
