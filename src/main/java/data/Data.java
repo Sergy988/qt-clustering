@@ -30,20 +30,20 @@ public class Data {
 	public Data() {
 		data = new Object[14][5];
 
-		data[ 0] = new String[]{"sunny", "hot", "high", "weak", "no" };
-		data[ 1] = new String[]{"sunny", "hot", "high", "strong", "no" };
-		data[ 2] = new String[]{"overcast", "hot", "high", "weak", "yes" };
-		data[ 3] = new String[]{"rain", "mild", "high", "weak", "yes" };
-		data[ 4] = new String[]{"rain", "cool", "normal", "weak", "yes" };
-		data[ 5] = new String[]{"rain", "cool", "normal", "strong", "no" };
-		data[ 6] = new String[]{"overcast", "cool", "normal", "strong", "yes" };
-		data[ 7] = new String[]{"sunny", "mild", "high", "weak", "no" };
-		data[ 8] = new String[]{"sunny", "cool", "normal", "weak", "yes" };
-		data[ 9] = new String[]{"rain", "mild", "normal", "weak", "yes" };
-		data[10] = new String[]{"sunny", "mild", "normal", "strong", "yes" };
-		data[11] = new String[]{"overcast", "mild", "high", "strong", "yes" };
-		data[12] = new String[]{"overcast", "hot", "normal", "weak", "yes" };
-		data[13] = new String[]{"rain", "mild", "high", "strong", "no" };
+		data[ 0] = new Object[]{"sunny", 30.3, "high", "weak", "no" };
+		data[ 1] = new Object[]{"sunny", 30.3, "high", "strong", "no" };
+		data[ 2] = new Object[]{"overcast", 30.0, "high", "weak", "yes" };
+		data[ 3] = new Object[]{"rain", 13.0, "high", "weak", "yes" };
+		data[ 4] = new Object[]{"rain", 0.0, "normal", "weak", "yes" };
+		data[ 5] = new Object[]{"rain", 0.0, "normal", "strong", "no" };
+		data[ 6] = new Object[]{"overcast", 0.1, "normal", "strong", "yes" };
+		data[ 7] = new Object[]{"sunny", 13.0, "high", "weak", "no" };
+		data[ 8] = new Object[]{"sunny", 0.1, "normal", "weak", "yes" };
+		data[ 9] = new Object[]{"rain", 12.0, "normal", "weak", "yes" };
+		data[10] = new Object[]{"sunny", 12.5, "normal", "strong", "yes" };
+		data[11] = new Object[]{"overcast", 12.5, "high", "strong", "yes" };
+		data[12] = new Object[]{"overcast", 29.21, "normal", "weak", "yes" };
+		data[13] = new Object[]{"rain", 12.5, "high", "strong", "no" };
 
 		numberOfExamples = 14;
 
@@ -51,12 +51,6 @@ public class Data {
 			"overcast",
 			"rain",
 			"sunny"
-		};
-
-		String temperatureValues[] = {
-			"hot",
-			"mild",
-			"cold"
 		};
 
 		String humidityValues[] = {
@@ -80,7 +74,7 @@ public class Data {
 		);
 
 		explanatorySet.add(
-			new DiscreteAttribute("Temperature", 1, temperatureValues)
+			new ContinuousAttribute("Temperature", 1, 3.2, 38.7)
 		);
 
 		explanatorySet.add(
