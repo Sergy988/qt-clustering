@@ -6,11 +6,14 @@ import data.Tuple;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * The Cluster class.
  */
-public class Cluster implements Iterable<Integer>, Comparable<Cluster> {
+public class Cluster
+	implements Iterable<Integer>, Comparable<Cluster>, Serializable
+{
 
 	/**
 	 * The centroid tuple of the cluster.

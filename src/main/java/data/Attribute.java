@@ -1,10 +1,12 @@
 
 package data;
 
+import java.io.Serializable;
+
 /**
  * Generic attribute.
  */
-abstract class Attribute {
+abstract class Attribute implements Serializable {
 
 	/**
 	 * The name of the attribute.

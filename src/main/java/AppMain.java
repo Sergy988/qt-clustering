@@ -1,50 +1,142 @@
 
 import keyboardinput.Keyboard;
+import mining.ClusteringRadiusException;
+import mining.QTMiner;
 import data.Data;
 import data.EmptyDatasetException;
-import mining.QTMiner;
-import mining.ClusteringRadiusException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
- * Main Application.
+ * The main application class.
  */
 public class AppMain {
-
 	/**
-	 * Program entry point.
-	 * @param args Program arguments
+	 * The program entry point.
+	 * @param args The input arguments
 	 */
 	public static void main(String[] args) {
-		Data data = new Data();
-		System.out.println(data);
+		AppMain main = new AppMain();
 
 		while (true) {
-			double radius = 0.0;
+			int menuAnswer = main.menu();
 
-			do {
-				System.out.print("Insert radius (>0): ");
-				radius = Keyboard.readDouble();
-			} while (radius < 1e-12);
+			switch (menuAnswer) {
+				case 1:
+					try {
+						QTMiner qt = main.learningFromFile();
+						System.out.println(qt);
+					} catch (FileNotFoundException e) {
+						System.err.println(e.getMessage());
+					} catch (IOException e) {
+						System.err.println(e.getMessage());
+					} catch (ClassNotFoundException e) {
+						System.err.println(e.getMessage());
+					}
+					break;
+				case 2:
+					Data data = new Data();
+					System.out.println(data);
 
-			QTMiner miner = new QTMiner(radius);
+					char answer = 'y';
 
-			try {
-				int numIter = miner.compute(data);
-				System.out.println("Number of clusters: " + numIter);
-			} catch (EmptyDatasetException e) {
-				System.out.println(e);
-				break;
-			} catch (ClusteringRadiusException e) {
-				System.out.println(e);
-				continue;
+					while (Character.toUpperCase(answer) == 'Y') {
+						double radius = 0.0;
+
+						do {
+							System.out.print("Insert radius (> 0.0): ");
+							radius = Keyboard.readDouble();
+						} while (radius < 1e-12);
+
+						QTMiner qt = new QTMiner(radius);
+
+						try {
+							int numClusters = qt.compute(data);
+
+							System.out.println(
+								"Number of clusters: " + numClusters
+							);
+
+							System.out.println(
+								qt.getClusterSet().toString(data)
+							);
+
+							System.out.print("Backup file name: ");
+
+							String filename = Keyboard.readString() + ".dmp";
+
+							System.out.println(
+								"Saving clusters in " + filename
+							);
+
+							try {
+								qt.save(filename);
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							System.out.println("Saving transaction ended!");
+						}
+						catch (EmptyDatasetException
+							| ClusteringRadiusException e)
+						{
+							System.out.println(e.getMessage());
+						}
+
+						System.out.print("New execution? (y/n): ");
+						answer = Keyboard.readChar();
+					}
+					break;
+
+				default:
+					System.out.println("Invalid option!");
+					break;
 			}
 
-			System.out.println(miner.getClusterSet().toString(data));
+			System.out.print(
+				"Would you choose another option from the menu? (y/n): "
+			);
 
-			System.out.print("New execution? (y/n): ");
-
-			if (Keyboard.readChar() != 'y')
+			if (Character.toUpperCase(Keyboard.readChar()) != 'Y')
 				break;
 		}
+	}
+
+	/**
+	 * Print the menu and ask the user for a choice.
+	 * @return The choice (`1` for load clusters from file or
+	 *                     `2` for load data)
+	 */
+	private int menu() {
+		int answer;
+
+		do {
+			System.out.println("(1) Load Clusters from File");
+			System.out.println("(2) Load Data");
+			System.out.print("(1/2): ");
+
+			answer = Keyboard.readInt();
+		} while (answer < 1 || answer > 2);
+
+		return answer;
+	}
+
+	/**
+	 * Read a cluster set filename and constructs a QTMiner.
+	 * @return The constructed miner
+	 * @throws FileNotFoundException Thrown when an error occurred
+	 *                               opening the file
+	 * @throws IOException Thrown when an input/output error occurs
+	 * @throws ClassNotFoundException Thrown when the cast from
+	 *                                object to ClusterSet fails
+	 */
+	private QTMiner learningFromFile()
+		throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		System.out.print("File name: ");
+		String filename = Keyboard.readString();
+		return new QTMiner(filename + ".dmp");
 	}
 }

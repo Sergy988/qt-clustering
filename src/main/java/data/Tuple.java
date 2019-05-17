@@ -2,11 +2,12 @@
 package data;
 
 import java.util.Set;
+import java.io.Serializable;
 
 /**
  * Sequence of items.
  */
-public class Tuple {
+public class Tuple implements Serializable {
 	/**
 	 * The item array.
 	 */

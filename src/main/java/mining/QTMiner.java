@@ -5,6 +5,12 @@ import data.Data;
 import data.Tuple;
 import data.EmptyDatasetException;
 import java.util.Arrays;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * The Quality Threshold miner class.
@@ -23,11 +29,29 @@ public class QTMiner {
 
 	/**
 	 * Instantiate a Quality Threshold miner.
-	 * @param radius The radius to use
+	 * @param radius The radius
 	 */
 	public QTMiner(double radius) {
 		this.radius = radius;
-		this.clusterSet = new ClusterSet();
+		clusterSet = new ClusterSet();
+	}
+
+	/**
+	 * Instantiate a Quality Threshold miner.
+	 * @param filename The filename of the cluster set file
+	 * @throws FileNotFoundException Thrown when an error occurred
+	 *                               opening the file
+	 * @throws IOException Thrown when an input/output error occurs
+	 * @throws ClassNotFoundException Thrown when the cast from
+	 *                                object to ClusterSet fails
+	 */
+	public QTMiner(String filename)
+		throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		FileInputStream stream = new FileInputStream(filename);
+		ObjectInputStream objectStream = new ObjectInputStream(stream);
+
+		clusterSet = (ClusterSet) objectStream.readObject();
 	}
 
 	/**
@@ -36,6 +60,22 @@ public class QTMiner {
 	 */
 	public ClusterSet getClusterSet() {
 		return clusterSet;
+	}
+
+	/**
+	 * Save the cluster set data to file.
+	 * @param filename The filename of the cluster set file
+	 * @throws FileNotFoundException Thrown when an error occurred
+	 *                               opening the file
+	 * @throws IOException Thrown when an input/output error occurs
+	 */
+	public void save(String filename)
+		throws FileNotFoundException, IOException
+	{
+		FileOutputStream stream = new FileOutputStream(filename);
+		ObjectOutputStream objectStream = new ObjectOutputStream(stream);
+
+		objectStream.writeObject(clusterSet);
 	}
 
 	/**

@@ -5,11 +5,12 @@ import data.Data;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  * A set of clusters.
  */
-public class ClusterSet implements Iterable<Cluster> {
+public class ClusterSet implements Iterable<Cluster>, Serializable {
 
 	/**
 	 * The clusters.

@@ -1,10 +1,12 @@
 
 package data;
 
+import java.io.Serializable;
+
 /**
  * Generic item.
  */
-abstract class Item {
+abstract class Item implements Serializable {
 	/**
 	 * The attribute.
 	 */
