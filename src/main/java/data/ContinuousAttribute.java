@@ -23,7 +23,7 @@ class ContinuousAttribute extends Attribute {
 	 * @param min The minimum value
 	 * @param max The maximum value
 	 */
-	ContinuousAttribute(String name, int index, int min, int max) {
+	ContinuousAttribute(String name, int index, double min, double max) {
 		super(name, index);
 		this.min = min;
 		this.max = max;
