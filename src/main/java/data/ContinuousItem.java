@@ -2,11 +2,11 @@
 package data;
 
 /**
- * The discrete realization of Item.
+ * The continuous realization of Item.
  */
 class ContinuousItem extends Item {
 	/**
-	 * Instantiate a discrete item.
+	 * Instantiate a continuous item.
 	 * @param attribute The attribute
 	 * @param value The continuous value
 	 */
