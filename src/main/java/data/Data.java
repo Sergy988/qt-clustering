@@ -74,7 +74,7 @@ public class Data {
 		);
 
 		explanatorySet.add(
-			new ContinuousAttribute("Temperature", 1, 3.2, 38.7)
+			new ContinuousAttribute("Temperature", 1, 0.0, 30.3)
 		);
 
 		explanatorySet.add(
