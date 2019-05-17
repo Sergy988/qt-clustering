@@ -142,8 +142,15 @@ public class Data {
 		Tuple tuple = new Tuple(getNumberOfExplanatoryAttributes());
 
 		for (int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
-			tuple.add(new DiscreteItem(explanatorySet.get(i),
-				(String) data[index][i]), i);
+			Attribute attr = explanatorySet.get(i);
+
+			if (attr.getClass() == DiscreteAttribute.class) {
+				tuple.add(new DiscreteItem(attr,
+					(String) data[index][i]), i);
+			} else {
+				tuple.add(new ContinuousItem(attr,
+					(Double) data[index][i]), i);
+			}
 		}
 
 		return tuple;
