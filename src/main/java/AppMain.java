@@ -23,73 +23,11 @@ public class AppMain {
 
 			switch (menuAnswer) {
 				case 1:
-					try {
-						QTMiner qt = main.learningFromFile();
-						System.out.println(qt);
-					} catch (FileNotFoundException e) {
-						System.err.println(e.getMessage());
-					} catch (IOException e) {
-						System.err.println(e.getMessage());
-					} catch (ClassNotFoundException e) {
-						System.err.println(e.getMessage());
-					}
+					main.learningFromFile();
 					break;
 				case 2:
-					Data data = new Data();
-					System.out.println(data);
-
-					char answer = 'y';
-
-					while (Character.toUpperCase(answer) == 'Y') {
-						double radius = 0.0;
-
-						do {
-							System.out.print("Insert radius (> 0.0): ");
-							radius = Keyboard.readDouble();
-						} while (radius < 1e-12);
-
-						QTMiner qt = new QTMiner(radius);
-
-						try {
-							int numClusters = qt.compute(data);
-
-							System.out.println(
-								"Number of clusters: " + numClusters
-							);
-
-							System.out.println(
-								qt.getClusterSet().toString(data)
-							);
-
-							System.out.print("Backup file name: ");
-
-							String filename = Keyboard.readString() + ".dmp";
-
-							System.out.println(
-								"Saving clusters in " + filename
-							);
-
-							try {
-								qt.save(filename);
-							} catch (FileNotFoundException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-
-							System.out.println("Saving transaction ended!");
-						}
-						catch (EmptyDatasetException
-							| ClusteringRadiusException e)
-						{
-							System.out.println(e.getMessage());
-						}
-
-						System.out.print("New execution? (y/n): ");
-						answer = Keyboard.readChar();
-					}
+					main.learningFromData();
 					break;
-
 				default:
 					System.out.println("Invalid option!");
 					break;
@@ -124,19 +62,86 @@ public class AppMain {
 	}
 
 	/**
-	 * Read a cluster set filename and constructs a QTMiner.
-	 * @return The constructed miner
+	 * Load a cluster set from file.
 	 * @throws FileNotFoundException Thrown when an error occurred
 	 *                               opening the file
 	 * @throws IOException Thrown when an input/output error occurs
 	 * @throws ClassNotFoundException Thrown when the cast from
 	 *                                object to ClusterSet fails
 	 */
-	private QTMiner learningFromFile()
-		throws FileNotFoundException, IOException, ClassNotFoundException
-	{
+	private void learningFromFile() {
 		System.out.print("File name: ");
 		String filename = Keyboard.readString();
-		return new QTMiner(filename + ".dmp");
+
+		QTMiner qt = null;
+
+		try {
+			qt = new QTMiner(filename + ".dmp");
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
+
+		if (qt != null)
+			System.out.println(qt);
+	}
+
+	/**
+	 * Calculate a cluster set from data.
+	 */
+	private void learningFromData() {
+		Data data = new Data();
+		System.out.println(data);
+
+		char answer = 'y';
+
+		while (Character.toUpperCase(answer) == 'Y') {
+			double radius = 0.0;
+
+			do {
+				System.out.print("Insert radius (> 0.0): ");
+				radius = Keyboard.readDouble();
+			} while (radius < 1e-12);
+
+			QTMiner qt = new QTMiner(radius);
+
+			try {
+				int numClusters = qt.compute(data);
+
+				System.out.println(
+					"Number of clusters: " + numClusters
+				);
+
+				System.out.println(
+					qt.getClusterSet().toString(data)
+				);
+
+				System.out.print("Backup file name: ");
+
+				String filename = Keyboard.readString() + ".dmp";
+
+				System.out.println(
+					"Saving clusters in " + filename
+				);
+
+				try {
+					qt.save(filename);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				System.out.println("Saving transaction ended!");
+			} catch (EmptyDatasetException | ClusteringRadiusException e) {
+				System.err.println(e.getMessage());
+			}
+
+			System.out.print("New execution? (y/n): ");
+			answer = Keyboard.readChar();
+		}
 	}
 }
