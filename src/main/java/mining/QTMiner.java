@@ -46,8 +46,7 @@ public class QTMiner {
 	 *                                object to ClusterSet fails
 	 */
 	public QTMiner(String filename)
-		throws FileNotFoundException, IOException, ClassNotFoundException
-	{
+		throws FileNotFoundException, IOException, ClassNotFoundException {
 		FileInputStream stream = new FileInputStream(filename);
 		ObjectInputStream objectStream = new ObjectInputStream(stream);
 
@@ -70,8 +69,7 @@ public class QTMiner {
 	 * @throws IOException Thrown when an input/output error occurs
 	 */
 	public void save(String filename)
-		throws FileNotFoundException, IOException
-	{
+		throws FileNotFoundException, IOException {
 		FileOutputStream stream = new FileOutputStream(filename);
 		ObjectOutputStream objectStream = new ObjectOutputStream(stream);
 
@@ -86,10 +84,10 @@ public class QTMiner {
 	 * @throws EmptyDatasetException When data has no entries
 	 */
 	public int compute(Data data) throws
-		ClusteringRadiusException, EmptyDatasetException
-	{
-		if (data.getNumberOfExamples() == 0)
+		ClusteringRadiusException, EmptyDatasetException {
+		if (data.getNumberOfExamples() == 0) {
 			throw new EmptyDatasetException("dataset has not entries!");
+		}
 
 		int numClusters = 0;
 		boolean isClustered[] = new boolean[data.getNumberOfExamples()];
@@ -110,8 +108,9 @@ public class QTMiner {
 			countClustered += cluster.getSize();
 		}
 
-		if (numClusters == 1)
+		if (numClusters == 1) {
 			throw new ClusteringRadiusException("radius is too small!");
+		}
 
 		return numClusters;
 	}

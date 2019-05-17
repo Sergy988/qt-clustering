@@ -37,8 +37,9 @@ public class AppMain {
 				"Would you choose another option from the menu? (y/n): "
 			);
 
-			if (Character.toUpperCase(Keyboard.readChar()) != 'Y')
+			if (Character.toUpperCase(Keyboard.readChar()) != 'Y') {
 				break;
+			}
 		}
 	}
 
@@ -85,8 +86,9 @@ public class AppMain {
 			System.err.println(e.getMessage());
 		}
 
-		if (qt != null)
+		if (qt != null) {
 			System.out.println(qt);
+		}
 	}
 
 	/**

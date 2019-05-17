@@ -12,9 +12,7 @@ import java.io.Serializable;
  * The Cluster class.
  */
 public class Cluster
-	implements Iterable<Integer>, Comparable<Cluster>, Serializable
-{
-
+	implements Iterable<Integer>, Comparable<Cluster>, Serializable {
 	/**
 	 * The centroid tuple of the cluster.
 	 */

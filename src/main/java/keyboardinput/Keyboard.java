@@ -60,8 +60,10 @@ public class Keyboard {
 	 */
 	private static void error(String str) {
 		errorCount++;
-		if (printErrors)
+
+		if (printErrors) {
 			System.out.println(str);
+		}
 	}
 
 	/**
@@ -78,7 +80,8 @@ public class Keyboard {
 	 * The buffer reader.
 	 */
 	private static BufferedReader in = new BufferedReader(
-			new InputStreamReader(System.in));
+			new InputStreamReader(System.in)
+	);
 
 	/**
 	 * Gets the next input token assuming it may be on subsequent
@@ -97,9 +100,9 @@ public class Keyboard {
 	private static String getNextToken(boolean skip) {
 		String token;
 
-		if (currentToken == null)
+		if (currentToken == null) {
 			token = getNextInputToken(skip);
-		else {
+		} else {
 			token = currentToken;
 			currentToken = null;
 		}
@@ -119,14 +122,19 @@ public class Keyboard {
 		String token = null;
 
 		try {
-			if (reader == null)
+			if (reader == null) {
 				reader = new StringTokenizer(in.readLine(), delimiters, true);
+			}
 
 			while (token == null
 				|| ((delimiters.indexOf(token) >= 0) && skip)) {
-				while (!reader.hasMoreTokens())
-					reader = new StringTokenizer(in.readLine(), delimiters,
-							true);
+				while (!reader.hasMoreTokens()) {
+					reader = new StringTokenizer(
+						in.readLine(),
+						delimiters,
+						true
+					);
+				}
 
 				token = reader.nextToken();
 			}
@@ -155,6 +163,7 @@ public class Keyboard {
 
 		try {
 			str = getNextToken(false);
+
 			while (!endOfLine()) {
 				str = str + getNextToken(false);
 			}
@@ -189,11 +198,11 @@ public class Keyboard {
 		String token = getNextToken();
 		boolean bool;
 		try {
-			if (token.toLowerCase().equals("true"))
+			if (token.toLowerCase().equals("true")) {
 				bool = true;
-			else if (token.toLowerCase().equals("false"))
+			} else if (token.toLowerCase().equals("false")) {
 				bool = false;
-			else {
+			} else {
 				error("Error reading boolean data, false value returned.");
 				bool = false;
 			}
@@ -214,8 +223,10 @@ public class Keyboard {
 		try {
 			if (token.length() > 1) {
 				currentToken = token.substring(1, token.length());
-			} else
+			} else {
 				currentToken = null;
+			}
+
 			value = token.charAt(0);
 		} catch (Exception exception) {
 			error("Error reading char data, MIN_VALUE value returned.");
