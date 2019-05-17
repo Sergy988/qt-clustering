@@ -1,9 +1,9 @@
 
 import keyboardinput.Keyboard;
 import data.Data;
+import data.EmptyDatasetException;
 import mining.QTMiner;
 import mining.ClusteringRadiusException;
-import mining.EmptyDatasetException;
 
 /**
  * Main Application.
