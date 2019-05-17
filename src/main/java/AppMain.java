@@ -111,21 +111,13 @@ public class AppMain {
 			try {
 				int numClusters = qt.compute(data);
 
-				System.out.println(
-					"Number of clusters: " + numClusters
-				);
-
-				System.out.println(
-					qt.getClusterSet().toString(data)
-				);
-
+				System.out.println("Number of clusters: " + numClusters);
+				System.out.println(qt.getClusterSet().toString(data));
 				System.out.print("Backup file name: ");
 
 				String filename = Keyboard.readString() + ".dmp";
 
-				System.out.println(
-					"Saving clusters in " + filename
-				);
+				System.out.println("Saving clusters in " + filename);
 
 				try {
 					qt.save(filename);
