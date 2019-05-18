@@ -64,11 +64,6 @@ public class AppMain {
 
 	/**
 	 * Load a cluster set from file.
-	 * @throws FileNotFoundException Thrown when an error occurred
-	 *                               opening the file
-	 * @throws IOException Thrown when an input/output error occurs
-	 * @throws ClassNotFoundException Thrown when the cast from
-	 *                                object to ClusterSet fails
 	 */
 	private void learningFromFile() {
 		System.out.print("File name: ");
