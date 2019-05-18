@@ -109,7 +109,7 @@ public class QTMiner {
 		}
 
 		if (numClusters == 1) {
-			throw new ClusteringRadiusException("radius is too small!");
+			throw new ClusteringRadiusException("radius is too large!");
 		}
 
 		return numClusters;
