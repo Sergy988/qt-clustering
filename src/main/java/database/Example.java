@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The example tuple class.
  */
-public class Example implements Comparable<Example>{
+public class Example implements Comparable<Example> {
 
 	/**
 	 * The array list of objects.
@@ -21,7 +21,7 @@ public class Example implements Comparable<Example>{
 	public void add(Object o) {
 		example.add(o);
 	}
-	
+
 	/**
 	 * Get the object at index i.
 	 * @param i The index of the object
@@ -38,12 +38,12 @@ public class Example implements Comparable<Example>{
 	 *        -1 if this example is < than ex,
 	 *         0 otherwise
 	 */
-	public int compareTo(Example ex) {		
+	public int compareTo(Example ex) {
 		int i = 0;
 
-		for(Object o : ex.example) {
-			if(!o.equals(this.example.get(i))) {
-				return ((Comparable)o).compareTo(example.get(i));
+		for (Object o : ex.example) {
+			if (!o.equals(this.example.get(i))) {
+				return ((Comparable) o).compareTo(example.get(i));
 			}
 
 			i++;
@@ -59,7 +59,7 @@ public class Example implements Comparable<Example>{
 	public String toString() {
 		String str = "";
 
-		for(Object o : example) {
+		for (Object o : example) {
 			str += o.toString() + " ";
 		}
 

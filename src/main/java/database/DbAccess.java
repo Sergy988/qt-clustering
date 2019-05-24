@@ -53,7 +53,6 @@ public class DbAccess {
 	/**
 	 * Initialize the connection to the database.
 	 * @throws ClassNotFoundException Thrown when jdbc driver wasn't loaded
-	 * @throws SQLException Thrown when an SQLException occurs
 	 * @throws DatabaseConnectionException Thrown when the connection
 	 *                                     to the database failed
 	 */
@@ -82,7 +81,7 @@ public class DbAccess {
 
 	/**
 	 * Close the connection.
-	 * @throw SQLException Thrown when an sql error occurs
+	 * @throws SQLException Thrown when an sql error occurs
 	 */
 	public void closeConnection() throws SQLException {
 		connection.close();

@@ -58,7 +58,7 @@ public class TableSchema {
 		 * @return true if the column type is a number,
 		 *         false otherwise
 		 */
-		public boolean isNumber(){
+		public boolean isNumber() {
 			return type.equals("number");
 		}
 
@@ -75,10 +75,10 @@ public class TableSchema {
 	 * The table schema object (array of columns).
 	 */
 	List<Column> tableSchema = new ArrayList<Column>();
-	
+
 	/**
 	 * Instantiate a table schema.
-	 * @param The database access
+	 * @param db The database access
 	 * @param tableName The name of the table
 	 * @throws SQLException Thrown whene a sql exception occurs
 	 */
@@ -86,7 +86,7 @@ public class TableSchema {
 		this.db = db;
 
 		//http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
-		HashMap<String,String> sqlTypesMap = new HashMap<String, String>();
+		HashMap<String, String> sqlTypesMap = new HashMap<String, String>();
 		sqlTypesMap.put("CHAR", "string");
 		sqlTypesMap.put("VARCHAR", "string");
 		sqlTypesMap.put("LONGVARCHAR", "string");
@@ -102,31 +102,31 @@ public class TableSchema {
 		ResultSet res = meta.getColumns(null, null, tableName, null);
 
 		while (res.next()) {
-			if(sqlTypesMap.containsKey(res.getString("TYPE_NAME"))) {
-	        	tableSchema.add(new Column(
-	        		res.getString("COLUMN_NAME"),
-	        		sqlTypesMap.get(res.getString("TYPE_NAME")))
-	        	);
-	        }
+			if (sqlTypesMap.containsKey(res.getString("TYPE_NAME"))) {
+				tableSchema.add(new Column(
+					res.getString("COLUMN_NAME"),
+					sqlTypesMap.get(res.getString("TYPE_NAME")))
+				);
+			}
 		}
 
-		res.close();    
+		res.close();
 	}
-	  
+
 	/**
 	 * Get the number of attributes.
 	 * @return The number of attributes
-	 */	
-	public int getNumberOfAttributes(){
+	 */
+	public int getNumberOfAttributes() {
 		return tableSchema.size();
 	}
-	
+
 	/**
 	 * Get the column at index i.
 	 * @param i The index
 	 * @return The column at i
 	 */
-	public Column getColumn(int index){
-		return tableSchema.get(index);
-	}	
+	public Column getColumn(int i) {
+		return tableSchema.get(i);
+	}
 }
