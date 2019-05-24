@@ -16,11 +16,6 @@ import java.util.List;
 public class TableSchema {
 
 	/**
-	 * The database access object.
-	 */
-	DbAccess db;
-
-	/**
 	 * The column inner class.
 	 */
 	public class Column {
@@ -83,8 +78,6 @@ public class TableSchema {
 	 * @throws SQLException Thrown whene a sql exception occurs
 	 */
 	public TableSchema(DbAccess db, String tableName) throws SQLException {
-		this.db = db;
-
 		//http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
 		HashMap<String, String> sqlTypesMap = new HashMap<String, String>();
 		sqlTypesMap.put("CHAR", "string");
