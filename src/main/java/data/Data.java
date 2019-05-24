@@ -4,12 +4,14 @@ package data;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 import java.sql.SQLException;
 
 import database.DbAccess;
 import database.Example;
 import database.TableData;
+import database.TableSchema;
 import database.DatabaseConnectionException;
 
 /**
@@ -20,7 +22,7 @@ public class Data {
 	/**
 	 * The source data examples.
 	 */
-	private List<Example> data = new ArrayList<Example>();
+	private List<Example> data;
 
 	/**
 	 * The attribute scheme which is based the data.
@@ -40,7 +42,28 @@ public class Data {
 		       SQLException,
 		       DatabaseConnectionException {
 		DbAccess db = new DbAccess();
+
 		TableData tableData = new TableData(db);
+		TableSchema tableSchema = new TableSchema(db, table);
+
+		for (int i = 0; i < tableSchema.getNumberOfAttributes(); i++) {
+			Column col = tableSchema.getColumn(i);
+			String name = col.getName();
+
+			Attribute attribute = null;
+
+			if (name.isNumber()) {
+				// TODO: get min and max
+				attribute = new ContinuousAttribute(name, index, 0.0, 0.0);
+			} else {
+				// TODO: get the possible values
+				attribute = new DiscreteAttribute(name, index, new String[] { });
+			}
+
+			explanatorySet.add(attribute);
+		}
+
+		data = tableData.getDistrinctTransations(table);
 
 		db.closeConnection();
 	}
