@@ -49,7 +49,7 @@ public class TableSchema {
 		 * Get the column name.
 		 * @return The column name
 		 */
-		public String getColumnName() {
+		public String getName() {
 			return name;
 		}
 

@@ -55,7 +55,7 @@ public class TableData {
 				query += ", ";
 			}
 
-			query += c.getColumnName();
+			query += c.getName();
 		}
 
 		if (tSchema.getNumberOfAttributes() == 0) {
@@ -112,10 +112,10 @@ public class TableData {
 
 		String query = "select distinct ";
 
-		query += column.getColumnName();
+		query += column.getName();
 
 		query += " from " + table;
-		query += " order by " + column.getColumnName();
+		query += " order by " + column.getName();
 
 		statement = db.getConnection().createStatement();
 
@@ -160,7 +160,7 @@ public class TableData {
 			aggregateOp = "min";
 		}
 
-		query += aggregateOp + "(" + column.getColumnName() + ") from " + table;
+		query += aggregateOp + "(" + column.getName() + ") from " + table;
 
 		statement = db.getConnection().createStatement();
 
@@ -179,7 +179,7 @@ public class TableData {
 
 		if (value == null) {
 			throw new NoValueException(
-				"No " + aggregateOp + " on " + column.getColumnName()
+				"No " + aggregateOp + " on " + column.getName()
 			);
 		}
 
