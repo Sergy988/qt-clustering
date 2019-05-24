@@ -1,6 +1,7 @@
 
 package data;
 
+import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -79,8 +80,13 @@ public class Data {
 
 				attribute = new ContinuousAttribute(name, i, min, max);
 			} else {
-				// TODO: get the possible values
-				attribute = new DiscreteAttribute(name, i, new String[] {});
+				Set<Object> values = tableData.getDistinctColumnValues(
+					table, column
+				);
+
+				attribute = new DiscreteAttribute(
+					name, i, values.toArray(new String[] {})
+				);
 			}
 
 			explanatorySet.add(attribute);
