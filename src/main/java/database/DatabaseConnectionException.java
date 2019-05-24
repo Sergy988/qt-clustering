@@ -1,6 +1,9 @@
 
 package database;
 
+/**
+ * The database connection exception class.
+ */
 public class DatabaseConnectionException extends Exception {
 
 	/**

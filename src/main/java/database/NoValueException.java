@@ -1,6 +1,9 @@
 
 package database;
 
+/**
+ * The no value exception class.
+ */
 public class NoValueException extends Exception {
 
 	/**
