@@ -8,10 +8,12 @@ import java.util.Iterator;
 
 import java.sql.SQLException;
 
+import database.QueryType;
 import database.DbAccess;
 import database.Example;
 import database.TableData;
 import database.TableSchema;
+import database.NoValueException;
 import database.EmptySetException;
 import database.DatabaseConnectionException;
 
@@ -57,8 +59,25 @@ public class Data {
 			String name = column.getName();
 
 			if (column.isNumber()) {
-				// TODO: get min and max
-				attribute = new ContinuousAttribute(name, i, 0.0, 0.0);
+				double min;
+				try {
+					min = (float) tableData.getAggregateColumnValue(
+						table, column, QueryType.MIN
+					);
+				} catch (NoValueException e) {
+					min = 0.0;
+				}
+
+				double max;
+				try {
+					max = (float) tableData.getAggregateColumnValue(
+						table, column, QueryType.MAX
+					);
+				} catch (NoValueException e) {
+					max = 0.0;
+				}
+
+				attribute = new ContinuousAttribute(name, i, min, max);
 			} else {
 				// TODO: get the possible values
 				attribute = new DiscreteAttribute(name, i, new String[] {});

@@ -4,7 +4,7 @@ package database;
 /**
  * The aggregation type (MIN or MAX).
  */
-enum QueryType {
+public enum QueryType {
 	/**
 	 * Append 'min' after 'select' in the query.
 	 */
