@@ -2,7 +2,15 @@
 package data;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import java.sql.SQLException;
+
+import database.DbAccess;
+import database.Example;
+import database.TableData;
+import database.DatabaseConnectionException;
 
 /**
  * Source data class.
@@ -10,14 +18,9 @@ import java.util.LinkedList;
 public class Data {
 
 	/**
-	 * The source data samples.
+	 * The source data examples.
 	 */
-	private Object data[][];
-
-	/**
-	 * The number of examples.
-	 */
-	private int numberOfExamples;
+	private List<Example> data = new ArrayList<Example>();
 
 	/**
 	 * The attribute scheme which is based the data.
@@ -26,68 +29,20 @@ public class Data {
 
 	/**
 	 * Instantiate a source data.
+	 * @param table The name of the table of the database.
+	 * @throws ClassNotFoundException Thrown when jdbc driver wasn't loaded
+	 * @throws SQLException Thrown when an SQLException occurs
+	 * @throws DatabaseConnectionException Thrown when an error to
+	 *                                     connect to the database occurs
 	 */
-	public Data() {
-		data = new Object[14][5];
+	public Data(String table)
+		throws ClassNotFoundException,
+		       SQLException,
+		       DatabaseConnectionException {
+		DbAccess db = new DbAccess();
+		TableData tableData = new TableData(db);
 
-		data[ 0] = new Object[]{"sunny", 30.3, "high", "weak", "no" };
-		data[ 1] = new Object[]{"sunny", 30.3, "high", "strong", "no" };
-		data[ 2] = new Object[]{"overcast", 30.0, "high", "weak", "yes" };
-		data[ 3] = new Object[]{"rain", 13.0, "high", "weak", "yes" };
-		data[ 4] = new Object[]{"rain", 0.0, "normal", "weak", "yes" };
-		data[ 5] = new Object[]{"rain", 0.0, "normal", "strong", "no" };
-		data[ 6] = new Object[]{"overcast", 0.1, "normal", "strong", "yes" };
-		data[ 7] = new Object[]{"sunny", 13.0, "high", "weak", "no" };
-		data[ 8] = new Object[]{"sunny", 0.1, "normal", "weak", "yes" };
-		data[ 9] = new Object[]{"rain", 12.0, "normal", "weak", "yes" };
-		data[10] = new Object[]{"sunny", 12.5, "normal", "strong", "yes" };
-		data[11] = new Object[]{"overcast", 12.5, "high", "strong", "yes" };
-		data[12] = new Object[]{"overcast", 29.21, "normal", "weak", "yes" };
-		data[13] = new Object[]{"rain", 12.5, "high", "strong", "no" };
-
-		numberOfExamples = 14;
-
-		String outlookValues[] = {
-			"overcast",
-			"rain",
-			"sunny"
-		};
-
-		String humidityValues[] = {
-			"low",
-			"normal",
-			"high"
-		};
-
-		String windValues[] = {
-			"weak",
-			"strong"
-		};
-
-		String playtennisValues[] = {
-			"no",
-			"yes"
-		};
-
-		explanatorySet.add(
-			new DiscreteAttribute("Outlook", 0, outlookValues)
-		);
-
-		explanatorySet.add(
-			new ContinuousAttribute("Temperature", 1, 0.0, 30.3)
-		);
-
-		explanatorySet.add(
-			new DiscreteAttribute("Humidity", 2, humidityValues)
-		);
-
-		explanatorySet.add(
-			new DiscreteAttribute("Wind", 3, windValues)
-		);
-
-		explanatorySet.add(
-			new DiscreteAttribute("PlayTennis", 4, playtennisValues)
-		);
+		db.closeConnection();
 	}
 
 	/**
@@ -95,7 +50,7 @@ public class Data {
 	 * @return The number of examples
 	 */
 	public int getNumberOfExamples() {
-		return numberOfExamples;
+		return data.size();
 	}
 
 	/**
@@ -130,7 +85,7 @@ public class Data {
 	 * @return The attribute value from the source data
 	 */
 	public Object getValue(int sampleIndex, int attributeIndex) {
-		return data[sampleIndex][attributeIndex];
+		return data.get(sampleIndex).get(attributeIndex);
 	}
 
 	/**
@@ -146,10 +101,10 @@ public class Data {
 
 			if (attr.getClass() == DiscreteAttribute.class) {
 				tuple.add(new DiscreteItem(attr,
-					(String) data[index][i]), i);
+					(String) getValue(index, i)), i);
 			} else {
 				tuple.add(new ContinuousItem(attr,
-					(Double) data[index][i]), i);
+					(Double) getValue(index, i)), i);
 			}
 		}
 

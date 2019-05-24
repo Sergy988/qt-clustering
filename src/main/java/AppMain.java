@@ -1,11 +1,18 @@
 
-import keyboardinput.Keyboard;
-import mining.ClusteringRadiusException;
-import mining.QTMiner;
-import data.Data;
-import data.EmptyDatasetException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import java.sql.SQLException;
+
+import keyboardinput.Keyboard;
+
+import mining.ClusteringRadiusException;
+import mining.QTMiner;
+
+import data.Data;
+import data.EmptyDatasetException;
+
+import database.DatabaseConnectionException;
 
 /**
  * The main application class.
@@ -90,7 +97,25 @@ public class AppMain {
 	 * Calculate a cluster set from data.
 	 */
 	private void learningFromData() {
-		Data data = new Data();
+		System.out.println("Insert database table: ");
+		String table = Keyboard.readString();
+
+		Data data = null;
+
+		try {
+			data = new Data(table);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			return;
+		} catch (DatabaseConnectionException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
+
 		System.out.println(data);
 
 		char answer = 'y';
