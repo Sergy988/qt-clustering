@@ -1,20 +1,19 @@
 
 package database;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * The scheme of a table class.
  */
-public class TableSchema implements Iterable {
+public class TableSchema {
 
 	/**
 	 * The database access object.
@@ -129,13 +128,5 @@ public class TableSchema implements Iterable {
 	 */
 	public Column getColumn(int i) {
 		return tableSchema.get(i);
-	}
-
-	/**
-	 * Get an iterator to the table schema columns.
-	 * @return An iterator to the columns
-	 */
-	public Iterator<Column> iterator() {
-		return tableSchema.iterator();
 	}
 }
