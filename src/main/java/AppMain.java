@@ -106,11 +106,10 @@ public class AppMain {
 		try {
 			data = new Data(table);
 		} catch (ClassNotFoundException e) {
-			System.err.println(e.getMessage());
+			System.err.println("Class " + e.getMessage() + " not found");
 			return;
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
+			System.err.println("Invalid table: " + table);
 			return;
 		} catch (DatabaseConnectionException e) {
 			System.err.println(e.getMessage());

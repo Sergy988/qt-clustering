@@ -45,6 +45,7 @@ public class Data {
 		       DatabaseConnectionException,
 		       EmptySetException {
 		DbAccess db = new DbAccess();
+		db.initConnection();
 
 		TableData tableData = new TableData(db);
 		TableSchema tableSchema = new TableSchema(db, table);
