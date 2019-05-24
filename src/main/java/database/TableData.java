@@ -108,8 +108,6 @@ public class TableData {
 		Set<Object> valueSet = new TreeSet<Object>();
 
 		Statement statement;
-		TableSchema tSchema = new TableSchema(db, table);
-
 		String query = "select distinct ";
 
 		query += column.getName();
@@ -148,7 +146,6 @@ public class TableData {
 		String table, Column column, QueryType aggregate)
 		throws SQLException, NoValueException {
 		Statement statement;
-		TableSchema tSchema = new TableSchema(db, table);
 
 		Object value = null;
 		String query = "select ";
