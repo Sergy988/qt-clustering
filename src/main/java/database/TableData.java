@@ -145,7 +145,7 @@ public class TableData {
 	 * @throws NoValueException Thrown when no value was found
 	 */
 	public Object getAggregateColumnValue(
-		String table, Column column, QUERY_TYPE aggregate)
+		String table, Column column, QueryType aggregate)
 		throws SQLException, NoValueException {
 		Statement statement;
 		TableSchema tSchema = new TableSchema(db, table);
@@ -154,7 +154,7 @@ public class TableData {
 		String query = "select ";
 
 		String aggregateOp = null;
-		if (aggregate == QUERY_TYPE.MAX) {
+		if (aggregate == QueryType.MAX) {
 			aggregateOp = "max";
 		} else {
 			aggregateOp = "min";

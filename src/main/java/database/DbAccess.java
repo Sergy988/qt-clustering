@@ -13,37 +13,37 @@ public class DbAccess {
 	/**
 	 * The driver class name.
 	 */
-	private final String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
+	private static final String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
 
 	/**
 	 * The DBMS name.
 	 */
-	private final String DBMS = "jdbc:mysql";
+	private static final String DBMS = "jdbc:mysql";
 
 	/**
 	 * The server identifier.
 	 */
-	private final String SERVER = "localhost";
+	private static final String SERVER = "localhost";
 
 	/**
 	 * The name of the database.
 	 */
-	private final String DATABASE = "MapDB";
+	private static final String DATABASE = "MapDB";
 
 	/**
 	 * The port of the connection.
 	 */
-	private final String PORT = "3306";
+	private static final String PORT = "3306";
 
 	/**
 	 * The user id used by the connection to the database.
 	 */
-	private final String USER_ID = "MapUser";
+	private static final String USER_ID = "MapUser";
 
 	/**
 	 * The password used by the connection to the database.
 	 */
-	private final String PASSWORD = "map";
+	private static final String PASSWORD = "map";
 
 	/**
 	 * The connection object.
