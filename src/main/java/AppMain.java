@@ -98,7 +98,7 @@ public class AppMain {
 	 * Calculate a cluster set from data.
 	 */
 	private void learningFromData() {
-		System.out.println("Insert database table: ");
+		System.out.print("Insert database table: ");
 		String table = Keyboard.readString();
 
 		Data data = null;
