@@ -12,6 +12,7 @@ import mining.QTMiner;
 import data.Data;
 import data.EmptyDatasetException;
 
+import database.EmptySetException;
 import database.DatabaseConnectionException;
 
 /**
@@ -112,6 +113,9 @@ public class AppMain {
 			e.printStackTrace();
 			return;
 		} catch (DatabaseConnectionException e) {
+			System.err.println(e.getMessage());
+			return;
+		} catch (EmptySetException e) {
 			System.err.println(e.getMessage());
 			return;
 		}

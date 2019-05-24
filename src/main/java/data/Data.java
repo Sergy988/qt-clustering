@@ -12,6 +12,7 @@ import database.DbAccess;
 import database.Example;
 import database.TableData;
 import database.TableSchema;
+import database.EmptySetException;
 import database.DatabaseConnectionException;
 
 /**
@@ -36,34 +37,36 @@ public class Data {
 	 * @throws SQLException Thrown when an SQLException occurs
 	 * @throws DatabaseConnectionException Thrown when an error to
 	 *                                     connect to the database occurs
+	 * @throws EmptySetException Thrown when the dataset is empty
 	 */
 	public Data(String table)
 		throws ClassNotFoundException,
 		       SQLException,
-		       DatabaseConnectionException {
+		       DatabaseConnectionException,
+		       EmptySetException {
 		DbAccess db = new DbAccess();
 
 		TableData tableData = new TableData(db);
 		TableSchema tableSchema = new TableSchema(db, table);
 
 		for (int i = 0; i < tableSchema.getNumberOfAttributes(); i++) {
-			Column col = tableSchema.getColumn(i);
-			String name = col.getName();
+			TableSchema.Column column = tableSchema.getColumn(i);
 
 			Attribute attribute = null;
+			String name = column.getName();
 
-			if (name.isNumber()) {
+			if (column.isNumber()) {
 				// TODO: get min and max
-				attribute = new ContinuousAttribute(name, index, 0.0, 0.0);
+				attribute = new ContinuousAttribute(name, i, 0.0, 0.0);
 			} else {
 				// TODO: get the possible values
-				attribute = new DiscreteAttribute(name, index, new String[] { });
+				attribute = new DiscreteAttribute(name, i, new String[] {});
 			}
 
 			explanatorySet.add(attribute);
 		}
 
-		data = tableData.getDistrinctTransations(table);
+		data = tableData.getDistinctTransactions(table);
 
 		db.closeConnection();
 	}
