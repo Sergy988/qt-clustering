@@ -155,7 +155,7 @@ public class Data {
 	 * @param attributeIndex The index of the attribute
 	 * @return The attribute value from the source data
 	 */
-	public Object getValue(int sampleIndex, int attributeIndex) {
+	public Item getValue(int sampleIndex, int attributeIndex) {
 		return data.get(sampleIndex).get(attributeIndex);
 	}
 
