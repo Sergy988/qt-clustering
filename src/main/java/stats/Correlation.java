@@ -19,24 +19,12 @@ public class Correlation {
 	public static double correlation(
 		double[] firstSamples, double[] secondSamples)
 		throws StatisticException {
-		if (firstSamples.length != secondSamples.length) {
-			throw new StatisticException("samples length mismatch");
-		}
+		double covariance = Covariance.covariance(firstSamples, secondSamples);
 
-		int samplesCount = firstSamples.length;
+		double firstDeviation = Math.sqrt(Variance.variance(firstSamples));
+		double secondDeviation = Math.sqrt(Variance.variance(secondSamples));
 
-		double deviation = 0.0;
-		double firstMean = Mean.arithmeticMean(firstSamples);
-		double secondMean = Mean.arithmeticMean(secondSamples);
-
-		for (int i = 0; i < samplesCount; i++) {
-			double firstDiff = firstSamples[i] - firstMean;
-			double secondDiff = secondSamples[i] - secondMean;
-
-			deviation += firstDiff * secondDiff;
-		}
-
-		return deviation / samplesCount;
+		return covariance / (firstDeviation * secondDeviation);
 	}
 }
 
