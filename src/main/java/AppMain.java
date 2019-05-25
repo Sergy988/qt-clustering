@@ -10,7 +10,6 @@ import mining.ClusteringRadiusException;
 import mining.QTMiner;
 
 import data.Data;
-import data.Multivariation;
 import data.EmptyDatasetException;
 
 import database.EmptySetException;
@@ -121,7 +120,6 @@ public class AppMain {
 		}
 
 		System.out.println(data);
-		System.out.println(Multivariation.meanTuple(data));
 
 		char answer = 'y';
 

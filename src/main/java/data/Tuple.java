@@ -63,21 +63,6 @@ public class Tuple implements Serializable {
 	}
 
 	/**
-	 * Get the difference from another tuple.
-	 * @param tuple The tuple from calculate the difference
-	 * @return The actual difference
-	 */
-	public double getDifference(Tuple tuple) {
-		double difference = 0.0;
-
-		for (int i = 0; i < getLength(); i++) {
-			difference += get(i).difference(tuple.get(i).getValue());
-		}
-
-		return difference;
-	}
-
-	/**
 	 * Get the average distance from the items of a source data.
 	 * @param data The source data
 	 * @param clusteredData The indices of the indices
@@ -92,23 +77,5 @@ public class Tuple implements Serializable {
 		}
 
 		return sumDist / clusteredData.size();
-	}
-
-	/**
-	 * Convert the tuple to a string.
-	 * @return The string rappresentation of the tuple
-	 */
-	public String toString() {
-		String str = "[";
-
-		int i = 0;
-
-		for (; i < getLength() - 1; i++) {
-			str += tuple[i] + ", ";
-		}
-
-		str += tuple[i] + "]";
-
-		return str;
 	}
 }

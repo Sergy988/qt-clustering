@@ -57,11 +57,4 @@ abstract class Item implements Serializable {
 	 * @return The actual distance
 	 */
 	abstract double distance(Object o);
-
-	/**
-	 * The abstract function to calculate the difference from a generic object.
-	 * @param o A generic object
-	 * @return The actual difference
-	 */
-	abstract double difference(Object o);
 }
