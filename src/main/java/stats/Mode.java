@@ -8,14 +8,14 @@ import java.util.HashMap;
 /**
  * Mode processor class.
  */
-public class Mode {
+class Mode {
 
 	/**
 	 * Calculate the mode from samples.
 	 * @param samples The samples data
 	 * @return The mode
 	 */
-	public static Object mode(Object[] samples) {
+	static Object mode(Object[] samples) {
 		Map<Object, Integer> occurences = new HashMap<Object, Integer>();
 
 		for (Object o : samples) {

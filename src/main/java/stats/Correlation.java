@@ -4,7 +4,7 @@ package stats;
 /**
  * Correlation processor class.
  */
-public class Correlation {
+class Correlation {
 
 	/**
 	 * Calculate the correlation between two samples.
@@ -16,7 +16,7 @@ public class Correlation {
 	 *                            to the number of samples of the
 	 *                            second character
 	 */
-	public static double correlation(
+	static double correlation(
 		double[] firstSamples, double[] secondSamples)
 		throws StatisticException {
 		double covariance = Covariance.covariance(firstSamples, secondSamples);

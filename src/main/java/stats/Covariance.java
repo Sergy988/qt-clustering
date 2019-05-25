@@ -4,7 +4,7 @@ package stats;
 /**
  * Covariance processor class.
  */
-public class Covariance {
+class Covariance {
 
 	/**
 	 * Calculate the covariance between two samples.
@@ -16,7 +16,7 @@ public class Covariance {
 	 *                            to the number of samples of the
 	 *                            second character
 	 */
-	public static double covariance(
+	static double covariance(
 		double[] firstSamples, double[] secondSamples)
 		throws StatisticException {
 		if (firstSamples.length != secondSamples.length) {

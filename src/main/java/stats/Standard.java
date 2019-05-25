@@ -4,14 +4,14 @@ package stats;
 /**
  * Standardizer class.
  */
-public class Standard {
+class Standard {
 
 	/**
 	 * Calculate the standardized samples.
 	 * @param samples The samples data
 	 * @return The standardized samples
 	 */
-	public static double[] standardize(double[] samples) {
+	static double[] standardize(double[] samples) {
 		double mean = Mean.arithmeticMean(samples);
 		double deviation = Math.sqrt(Variance.variance(samples));
 
