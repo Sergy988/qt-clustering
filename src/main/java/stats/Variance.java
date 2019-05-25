@@ -4,14 +4,14 @@ package stats;
 /**
  * Variance processor class.
  */
-class Variance {
+public class Variance {
 
 	/**
 	 * Calculate the variance.
 	 * @param samples The samples data
 	 * @return The variance
 	 */
-	static double variance(double[] samples) {
+	public static double variance(double[] samples) {
 		double deviation = 0.0;
 		double mean = Mean.arithmeticMean(samples);
 

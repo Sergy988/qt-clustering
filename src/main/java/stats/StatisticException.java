@@ -4,13 +4,13 @@ package stats;
 /**
  * The statistic exception class.
  */
-class StatisticException extends Exception {
+public class StatisticException extends Exception {
 
 	/**
 	 * Construct a StatisticException.
 	 * @param msg The error message
 	 */
-	StatisticException(String msg) {
+	public StatisticException(String msg) {
 		super(msg);
 	}
 }

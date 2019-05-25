@@ -4,14 +4,14 @@ package stats;
 /**
  * Mean processor class.
  */
-class Mean {
+public class Mean {
 
 	/**
 	 * Calculate the arithmetic mean.
 	 * @param samples The samples data
 	 * @return The arithmetic mean
 	 */
-	static double arithmeticMean(double[] samples) {
+	public static double arithmeticMean(double[] samples) {
 		double sum = 0.0;
 
 		for (double x : samples) {
@@ -26,7 +26,7 @@ class Mean {
 	 * @param samples The samples data
 	 * @return The geometric mean
 	 */
-	static double geometricMean(double[] samples) {
+	public static double geometricMean(double[] samples) {
 		double prod = 1.0;
 
 		for (double x : samples) {
@@ -41,7 +41,7 @@ class Mean {
 	 * @param samples The samples data
 	 * @return The armonic mean
 	 */
-	static double armonicMean(double[] samples) {
+	public static double armonicMean(double[] samples) {
 		double invSum = 0.0;
 
 		for (double x : samples) {
@@ -56,7 +56,7 @@ class Mean {
 	 * @param samples The samples data
 	 * @return The quadratic mean
 	 */
-	static double quadraticMean(double[] samples) {
+	public static double quadraticMean(double[] samples) {
 		double quadSum = 0.0;
 
 		for (double x : samples) {
