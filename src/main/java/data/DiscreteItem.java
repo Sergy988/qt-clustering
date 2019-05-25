@@ -16,10 +16,19 @@ class DiscreteItem extends Item {
 
 	/**
 	 * Get the distance from a discrete item to a generic object.
-	 * @param a The object from which calculate the distance
+	 * @param o The object from which calculate the distance
 	 * @return The actual distance
 	 */
-	double distance(Object a) {
-		return getValue().equals(a) ? 0.0 : 1.0;
+	double distance(Object o) {
+		return getValue().equals(o) ? 0.0 : 1.0;
+	}
+
+	/**
+	 * Get the difference from a discrete item to a generic object.
+	 * @param o A generic object
+	 * @return The actual difference
+	 */
+	double difference(Object o) {
+		return distance(o);
 	}
 }
