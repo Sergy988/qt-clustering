@@ -43,6 +43,9 @@ sourceSets {
 dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // Use the la4j linear algebra library
+    implementation 'org.la4j:la4j:0.6.0'
 }
 
 javadoc {
