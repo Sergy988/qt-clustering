@@ -109,7 +109,7 @@ public class AppMain {
 			System.err.println("Class " + e.getMessage() + " not found");
 			return;
 		} catch (SQLException e) {
-			System.err.println("Invalid table: " + table);
+			System.err.println("Cannot retrieve table: " + table);
 			return;
 		} catch (DatabaseConnectionException e) {
 			System.err.println(e.getMessage());

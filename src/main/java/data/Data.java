@@ -24,14 +24,14 @@ import database.DatabaseConnectionException;
 public class Data {
 
 	/**
-	 * The source data examples.
+	 * The source data tuples.
 	 */
-	private List<Example> data;
+	private List<Tuple> data = new ArrayList<Tuple>();
 
 	/**
 	 * The attribute scheme which is based the data.
 	 */
-	private List<Attribute> explanatorySet = new LinkedList<Attribute>();
+	private List<Attribute> explanatorySet = new ArrayList<Attribute>();
 
 	/**
 	 * Instantiate a source data.
@@ -53,6 +53,7 @@ public class Data {
 		TableData tableData = new TableData(db);
 		TableSchema tableSchema = new TableSchema(db, table);
 
+		// Build the explanatory set
 		for (int i = 0; i < tableSchema.getNumberOfAttributes(); i++) {
 			TableSchema.Column column = tableSchema.getColumn(i);
 
@@ -92,7 +93,25 @@ public class Data {
 			explanatorySet.add(attribute);
 		}
 
-		data = tableData.getDistinctTransactions(table);
+		// Build the dataset as a list of tuples
+		List<Example> transactions = tableData.getDistinctTransactions(table);
+
+		for (Example ex : transactions) {
+			int size = ex.size();
+			Tuple tuple = new Tuple(size);
+
+			for (int i = 0; i < size; i++) {
+				Attribute attr = explanatorySet.get(i);
+
+				if (attr instanceof DiscreteAttribute) {
+					tuple.add(new DiscreteItem(attr, (String) ex.get(i)), i);
+				} else {
+					tuple.add(new ContinuousItem(attr, (Double) ex.get(i)), i);
+				}
+			}
+
+			data.add(tuple);
+		}
 
 		db.closeConnection();
 	}
@@ -146,21 +165,7 @@ public class Data {
 	 * @return A new tuple
 	 */
 	public Tuple getItemSet(int index) {
-		Tuple tuple = new Tuple(getNumberOfExplanatoryAttributes());
-
-		for (int i = 0; i < getNumberOfExplanatoryAttributes(); i++) {
-			Attribute attr = explanatorySet.get(i);
-
-			if (attr.getClass() == DiscreteAttribute.class) {
-				tuple.add(new DiscreteItem(attr,
-					(String) getValue(index, i)), i);
-			} else {
-				tuple.add(new ContinuousItem(attr,
-					(Double) getValue(index, i)), i);
-			}
-		}
-
-		return tuple;
+		return data.get(index);
 	}
 
 	/**

@@ -32,6 +32,14 @@ public class Example implements Comparable<Example> {
 	}
 
 	/**
+	 * Get the number of elements in the example.
+	 * @return The number of elements
+	 */
+	public int size() {
+		return example.size();
+	}
+
+	/**
 	 * Compare to another example.
 	 * @param ex The other example
 	 * @return 1 if this example is > than ex,
