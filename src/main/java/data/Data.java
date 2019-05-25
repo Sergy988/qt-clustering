@@ -38,6 +38,7 @@ public class Data {
 	 * @param table The name of the table of the database.
 	 * @throws ClassNotFoundException Thrown when jdbc driver wasn't loaded
 	 * @throws SQLException Thrown when an SQLException occurs
+	 * @throws NoValueException Thrown when no value was found
 	 * @throws DatabaseConnectionException Thrown when an error to
 	 *                                     connect to the database occurs
 	 * @throws EmptySetException Thrown when the dataset is empty
@@ -45,6 +46,7 @@ public class Data {
 	public Data(String table)
 		throws ClassNotFoundException,
 		       SQLException,
+		       NoValueException,
 		       DatabaseConnectionException,
 		       EmptySetException {
 		DbAccess db = new DbAccess();
@@ -61,23 +63,13 @@ public class Data {
 			String name = column.getName();
 
 			if (column.isNumber()) {
-				double min;
-				try {
-					min = (float) tableData.getAggregateColumnValue(
-						table, column, QueryType.MIN
-					);
-				} catch (NoValueException e) {
-					min = 0.0;
-				}
+				double min = (float) tableData.getAggregateColumnValue(
+					table, column, QueryType.MIN
+				);
 
-				double max;
-				try {
-					max = (float) tableData.getAggregateColumnValue(
-						table, column, QueryType.MAX
-					);
-				} catch (NoValueException e) {
-					max = 0.0;
-				}
+				double max = (float) tableData.getAggregateColumnValue(
+					table, column, QueryType.MAX
+				);
 
 				attribute = new ContinuousAttribute(name, i, min, max);
 			} else {

@@ -12,6 +12,7 @@ import mining.QTMiner;
 import data.Data;
 import data.EmptyDatasetException;
 
+import database.NoValueException;
 import database.EmptySetException;
 import database.DatabaseConnectionException;
 
@@ -110,6 +111,9 @@ public class AppMain {
 			return;
 		} catch (SQLException e) {
 			System.err.println("Cannot retrieve table: " + table);
+			return;
+		} catch (NoValueException e) {
+			System.err.println(e.getMessage());
 			return;
 		} catch (DatabaseConnectionException e) {
 			System.err.println(e.getMessage());
