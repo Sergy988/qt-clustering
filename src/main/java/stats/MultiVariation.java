@@ -28,38 +28,11 @@ public class MultiVariation {
 
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
 
-		// Get the autovectors
+		// Get the eigen decomposition
 		Matrix[] decomposition = eigen.decompose();
-		Matrix autovectors = decomposition[0];
-		Matrix autovalues = decomposition[1];
-
-		// Find the first maximum autovalue index
-		int firstIndex = 0;
-		double firstMax = Double.MIN_VALUE;
-		for (int i = 0; i < autovalues.columns(); i++) {
-			if (autovalues.get(i, i) > firstMax) {
-				firstMax = autovalues.get(i, i);
-				firstIndex = i;
-			}
-		}
-
-		// Find the second maximum autovalue index
-		int secondIndex = 0;
-		double secondMax = Double.MIN_VALUE;
-		for (int i = 0; i < autovalues.columns(); i++) {
-			if (i == firstIndex) {
-				continue;
-			}
-
-			if (autovalues.get(i, i) > secondMax) {
-				secondMax = autovalues.get(i, i);
-				secondIndex = i;
-			}
-		}
 
 		// Get the first and the second autovectors
-		Vector firstAutovector = autovectors.getColumn(firstIndex);
-		Vector secondAutovector = autovectors.getColumn(secondIndex);
+		Vector[] autovectors = majorAutovectors2D(decomposition);
 
 		List<Point2D> result = new LinkedList<Point2D>();
 
@@ -67,13 +40,50 @@ public class MultiVariation {
 		for (int i = 0; i < samples.rows(); i++) {
 			Vector samplePoint = samples.getRow(i);
 
-			double x = samplePoint.innerProduct(firstAutovector);
-			double y = samplePoint.innerProduct(secondAutovector);
+			double x = samplePoint.innerProduct(autovectors[0]);
+			double y = samplePoint.innerProduct(autovectors[1]);
 
 			result.add(new Point2D(x, y));
 		}
 
 		return result;
+	}
+
+	/**
+	 * Calculate the major two autovectors.
+	 * @param decomposition The Eigen decomposition
+	 * @return An array of two vectors
+	 */
+	static private Vector[] majorAutovectors2D(Matrix[] decomposition) {
+		Matrix autovectors = decomposition[0];
+		Matrix autovalues = decomposition[1];
+
+		double max = 0.0;
+
+		// Find the first maximum autovalue index
+		int firstIndex = 0;
+		for (int i = 0; i < autovalues.columns(); i++) {
+			if (autovalues.get(i, i) > max) {
+				max = autovalues.get(i, i);
+				firstIndex = i;
+			}
+		}
+
+		max = 0.0;
+
+		// Find the second maximum autovalue index
+		int secondIndex = 0;
+		for (int i = 0; i < autovalues.columns(); i++) {
+			if (i != firstIndex && autovalues.get(i, i) > max) {
+				max = autovalues.get(i, i);
+				secondIndex = i;
+			}
+		}
+
+		return new Vector[] {
+			autovectors.getColumn(firstIndex),
+			autovectors.getColumn(secondIndex)
+		};
 	}
 }
 
