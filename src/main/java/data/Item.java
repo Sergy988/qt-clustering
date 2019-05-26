@@ -57,4 +57,10 @@ abstract class Item implements Serializable {
 	 * @return The actual distance
 	 */
 	abstract double distance(Object o);
+
+	/**
+	 * The abstract function to get the numeric rappresentation of the item.
+	 * @return The numeric rappresentation of the item
+	 */
+	abstract double toNumeric();
 }

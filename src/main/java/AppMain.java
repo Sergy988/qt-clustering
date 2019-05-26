@@ -6,8 +6,10 @@ import java.sql.SQLException;
 
 import keyboardinput.Keyboard;
 
-import mining.ClusteringRadiusException;
 import mining.QTMiner;
+import mining.Cluster;
+import mining.ClusterSet;
+import mining.ClusteringRadiusException;
 
 import data.Data;
 import data.EmptyDatasetException;
@@ -15,6 +17,10 @@ import data.EmptyDatasetException;
 import database.NoValueException;
 import database.EmptySetException;
 import database.DatabaseConnectionException;
+
+import stats.StatisticException;
+
+import org.la4j.Matrix;
 
 /**
  * The main application class.
@@ -139,9 +145,29 @@ public class AppMain {
 
 			try {
 				int numClusters = qt.compute(data);
+				ClusterSet clusterSet = qt.getClusterSet();
 
 				System.out.println("Number of clusters: " + numClusters);
-				System.out.println(qt.getClusterSet().toString(data));
+				System.out.println(clusterSet.toString(data));
+
+				int i = 0;
+				for (Cluster cluster : clusterSet) {
+					System.out.println("Correlation matrix of cluster #" + i);
+
+					Matrix correlationMatrix = null;
+
+					try {
+						correlationMatrix = cluster.getCorrelationMatrix(data);
+					} catch (StatisticException e) {
+						System.out.println(e);
+						e.printStackTrace();
+						break;
+					}
+
+					System.out.println(correlationMatrix);
+					i++;
+				}
+
 				System.out.print("Backup file name: ");
 
 				String filename = Keyboard.readString() + ".dmp";

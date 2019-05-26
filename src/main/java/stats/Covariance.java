@@ -1,6 +1,8 @@
 
 package stats;
 
+import org.la4j.Vector;
+
 /**
  * Covariance processor class.
  */
@@ -17,13 +19,13 @@ public class Covariance {
 	 *                            second character
 	 */
 	public static double covariance(
-		double[] firstSamples, double[] secondSamples)
+		Vector firstSamples, Vector secondSamples)
 		throws StatisticException {
-		if (firstSamples.length != secondSamples.length) {
+		if (firstSamples.length() != secondSamples.length()) {
 			throw new StatisticException("samples length mismatch");
 		}
 
-		int samplesCount = firstSamples.length;
+		int samplesCount = firstSamples.length();
 
 		double deviation = 0.0;
 
@@ -31,8 +33,8 @@ public class Covariance {
 		double secondMean = Mean.arithmeticMean(secondSamples);
 
 		for (int i = 0; i < samplesCount; i++) {
-			double firstDiff = firstSamples[i] - firstMean;
-			double secondDiff = secondSamples[i] - secondMean;
+			double firstDiff = firstSamples.get(i) - firstMean;
+			double secondDiff = secondSamples.get(i) - secondMean;
 
 			deviation += firstDiff * secondDiff;
 		}

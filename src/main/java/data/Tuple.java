@@ -4,6 +4,9 @@ package data;
 import java.util.Set;
 import java.io.Serializable;
 
+import org.la4j.Vector;
+import org.la4j.vector.dense.BasicVector;
+
 /**
  * Sequence of items.
  */
@@ -77,5 +80,19 @@ public class Tuple implements Serializable {
 		}
 
 		return sumDist / clusteredData.size();
+	}
+
+	/**
+	 * Get a numeric vector that rappresents the tuple.
+	 * @return A vector of doubles
+	 */
+	public Vector toNumericVector() {
+		Vector result = new BasicVector(getLength());
+
+		for (int i = 0; i < getLength(); i++) {
+			result.set(i, get(i).toNumeric());
+		}
+
+		return result;
 	}
 }

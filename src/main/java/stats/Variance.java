@@ -1,6 +1,8 @@
 
 package stats;
 
+import org.la4j.Vector;
+
 /**
  * Variance processor class.
  */
@@ -11,16 +13,16 @@ public class Variance {
 	 * @param samples The samples data
 	 * @return The variance
 	 */
-	public static double variance(double[] samples) {
-		double deviation = 0.0;
+	public static double variance(Vector samples) {
+		double variance = 0.0;
 		double mean = Mean.arithmeticMean(samples);
 
 		for (double x : samples) {
 			double diff = x - mean;
-			deviation += diff * diff;
+			variance += diff * diff;
 		}
 
-		return deviation / samples.length;
+		return variance / samples.length();
 	}
 }
 

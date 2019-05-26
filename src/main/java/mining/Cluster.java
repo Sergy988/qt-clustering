@@ -8,11 +8,21 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.io.Serializable;
 
+import stats.Mean;
+import stats.Variance;
+import stats.Correlation;
+import stats.StatisticException;
+
+import org.la4j.Vector;
+import org.la4j.Matrix;
+import org.la4j.matrix.dense.Basic2DMatrix;
+
 /**
  * The Cluster class.
  */
 public class Cluster
 	implements Iterable<Integer>, Comparable<Cluster>, Serializable {
+
 	/**
 	 * The centroid tuple of the cluster.
 	 */
@@ -74,6 +84,56 @@ public class Cluster
 	}
 
 	/**
+	 * Convert the cluster to a numeric matrix.
+	 * @param data The source data
+	 * @return A numeric matrix
+	 */
+	public Matrix toNumericMatrix(final Data data) {
+		int attributesCount = data.getNumberOfExplanatoryAttributes();
+
+		Matrix samples = new Basic2DMatrix(getSize(), attributesCount);
+
+		// Build the samples matrix
+		int i = 0;
+		for (Integer id : clusteredData) {
+			samples.setRow(i, data.getItemSet(id).toNumericVector());
+			i++;
+		}
+
+		return samples;
+	}
+
+	/**
+	 * Build the correlation matrix of the cluster.
+	 * @param data The source data
+	 * @return The correlation matrix
+	 * @throws StatisticException Thrown when a statistic exception occurs
+	 */
+	public Matrix getCorrelationMatrix(final Data data)
+		throws StatisticException {
+		Matrix samples = toNumericMatrix(data);
+
+		Matrix result = new Basic2DMatrix(samples.columns(), samples.columns());
+
+		// Build the correlation matrix
+		for (int i = 0; i < samples.columns(); i++) {
+			for (int j = i + 1; j < samples.columns(); j++) {
+				double correlation = Correlation.correlation(
+					samples.getColumn(i),
+					samples.getColumn(j)
+				);
+
+				result.set(i, j, correlation);
+				result.set(j, i, correlation);
+			}
+
+			result.set(i, i, 1.0);
+		}
+
+		return result;
+	}
+
+	/**
 	 * Get an iterator of clustered tuple ids.
 	 * @return An iterator over the clustered tuple ids
 	 */
@@ -115,7 +175,7 @@ public class Cluster
 	 * @param data The source data
 	 * @return The textual rappresentation of the Cluster
 	 */
-	public String toString(Data data) {
+	public String toString(final Data data) {
 		String str = "Centroid = ( ";
 
 		for (int i = 0; i < centroid.getLength(); i++) {

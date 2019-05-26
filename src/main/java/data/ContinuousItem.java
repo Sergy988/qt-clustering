@@ -5,6 +5,7 @@ package data;
  * The continuous realization of Item.
  */
 class ContinuousItem extends Item {
+
 	/**
 	 * Instantiate a continuous item.
 	 * @param attribute The attribute
@@ -15,7 +16,7 @@ class ContinuousItem extends Item {
 	}
 
 	/**
-	 * Get the distance from a discrete item to a generic object.
+	 * Get the distance from a continuous item to a generic object.
 	 * @param o The object from which calculate the distance
 	 * @return The actual distance
 	 */
@@ -26,5 +27,13 @@ class ContinuousItem extends Item {
 		double b = attr.getScaledValue((double) this.getValue());
 
 		return Math.abs(a - b);
+	}
+
+	/**
+	 * Get the numeric rappresentation of the continuous item.
+	 * @return The value of the continuous item
+	 */
+	double toNumeric() {
+		return (double) getValue();
 	}
 }

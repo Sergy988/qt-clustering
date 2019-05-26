@@ -1,8 +1,8 @@
 
 package data;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Attribute characterized by a discrete value.
@@ -10,9 +10,9 @@ import java.util.TreeSet;
 class DiscreteAttribute extends Attribute {
 
 	/**
-	 * The set of possible values that the attribute can be.
+	 * The map of possible values that the attribute can be.
 	 */
-	private Set<String> values = new TreeSet<String>();
+	private Map<String, Integer> values = new HashMap<String, Integer>();
 
 	/**
 	 * Instantiate a new discrete attribute.
@@ -23,8 +23,8 @@ class DiscreteAttribute extends Attribute {
 	DiscreteAttribute(String name, int index, String[] values) {
 		super(name, index);
 
-		for (String val : values) {
-			this.values.add(val);
+		for (int i = 0; i < values.length; i++) {
+			this.values.put(values[i], i);
 		}
 	}
 
@@ -34,5 +34,14 @@ class DiscreteAttribute extends Attribute {
 	 */
 	int getNumberOfDistinctValues() {
 		return values.size();
+	}
+
+	/**
+	 * Get the id of the value.
+	 * @param val The value
+	 * @return The id of val
+	 */
+	Integer getValueID(String val) {
+		return values.get(val);
 	}
 }

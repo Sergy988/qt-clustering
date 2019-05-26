@@ -1,6 +1,8 @@
 
 package stats;
 
+import org.la4j.Vector;
+
 /**
  * Correlation processor class.
  */
@@ -17,14 +19,22 @@ public class Correlation {
 	 *                            second character
 	 */
 	public static double correlation(
-		double[] firstSamples, double[] secondSamples)
+		Vector firstSamples, Vector secondSamples)
 		throws StatisticException {
 		double covariance = Covariance.covariance(firstSamples, secondSamples);
 
-		double firstDeviation = Math.sqrt(Variance.variance(firstSamples));
-		double secondDeviation = Math.sqrt(Variance.variance(secondSamples));
+		double firstVariance = Variance.variance(firstSamples);
+		double secondVariance = Variance.variance(secondSamples);
 
-		return covariance / (firstDeviation * secondDeviation);
+		if (firstVariance < 1e-12) {
+			firstVariance = 1.0;
+		}
+
+		if (secondVariance < 1e-12) {
+			secondVariance = 1.0;
+		}
+
+		return covariance / Math.sqrt(firstVariance * secondVariance);
 	}
 }
 
