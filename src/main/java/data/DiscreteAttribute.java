@@ -3,7 +3,6 @@ package data;
 
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Iterator;
 
 /**
  * Attribute characterized by a discrete value.
@@ -35,13 +34,5 @@ class DiscreteAttribute extends Attribute {
 	 */
 	int getNumberOfDistinctValues() {
 		return values.size();
-	}
-
-	/**
-	 * Get the iterator to the possible values.
-	 * @return An iterator to the possible values.
-	 */
-	Iterator<String> iterator() {
-		return values.iterator();
 	}
 }
