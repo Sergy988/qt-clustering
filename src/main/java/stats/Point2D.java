@@ -4,7 +4,7 @@ package stats;
 /**
  * 2D space point class.
  */
-public class Point2D {
+public class Point2D implements Comparable<Point2D> {
 
 	/**
 	 * The X axis coordinate.
@@ -71,6 +71,23 @@ public class Point2D {
 	 */
 	public String toString() {
 		return "(" + x + ", " + y + ")";
+	}
+
+	/**
+	 * Compare to another point.
+	 * @param p The other point
+	 * @return 1 if this point X coordinate is greater than p's X coordinate,
+	 *        -1 if this point X coordinte is less than p's X coordinate
+	 *         0 otherwise
+	 */
+	public int compareTo(Point2D p) {
+		if (x > p.x) {
+			return 1;
+		} else if (x < p.x) {
+			return -1;
+		}
+
+		return 0;
 	}
 }
 

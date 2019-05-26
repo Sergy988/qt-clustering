@@ -24,6 +24,8 @@ import database.DatabaseConnectionException;
 import stats.Point2D;
 import stats.StatisticException;
 
+import plot.PlotApp;
+
 /**
  * The main application class.
  */
@@ -161,19 +163,7 @@ public class AppMain {
 				System.out.println("Number of clusters: " + numClusters);
 				System.out.println(clusterSet.toString(data));
 
-				int clusterId = 0;
-
-				for (Cluster cluster : clusterSet) {
-					System.out.println("Points of the cluster #" + clusterId);
-
-					for (Integer i : cluster) {
-						System.out.println(dataProj.getPoint2D(i));
-					}
-
-					System.out.println("");
-
-					clusterId++;
-				}
+				PlotApp.launch(clusterSet, dataProj);
 
 				System.out.print("Backup file name: ");
 
