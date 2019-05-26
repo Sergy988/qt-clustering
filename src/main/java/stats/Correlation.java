@@ -2,11 +2,43 @@
 package stats;
 
 import org.la4j.Vector;
+import org.la4j.Matrix;
+import org.la4j.matrix.dense.Basic2DMatrix;
 
 /**
  * Correlation processor class.
  */
 public class Correlation {
+
+	/**
+	 * Calculate the correlation matrix of a samples matrix.
+	 * @param samples The samples matrix
+	 * @return The correlation matrix
+	 * @throws StatisticException Thrown when a static error occurs
+	 */
+	public static Matrix correlation(Matrix samples)
+		throws StatisticException {
+		Matrix correlation = new Basic2DMatrix(
+			samples.columns(), samples.columns()
+		);
+
+		// Build the correlation matrix
+		for (int i = 0; i < samples.columns(); i++) {
+			for (int j = i + 1; j < samples.columns(); j++) {
+				double value = Correlation.correlation(
+					samples.getColumn(i),
+					samples.getColumn(j)
+				);
+
+				correlation.set(i, j, value);
+				correlation.set(j, i, value);
+			}
+
+			correlation.set(i, i, 1.0);
+		}
+
+		return correlation;
+	}
 
 	/**
 	 * Calculate the correlation between two samples.

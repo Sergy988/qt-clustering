@@ -23,34 +23,43 @@ public class MultiVariation {
 	 */
 	static public List<Point2D> projectPoints2D(Matrix samples)
 		throws StatisticException {
-		Matrix correlation = new Basic2DMatrix(
-			samples.columns(), samples.columns()
-		);
-
-		// Build the correlation matrix
-		for (int i = 0; i < samples.columns(); i++) {
-			for (int j = i + 1; j < samples.columns(); j++) {
-				double value = Correlation.correlation(
-					correlation.getColumn(i),
-					correlation.getColumn(j)
-				);
-
-				correlation.set(i, j, value);
-				correlation.set(j, i, value);
-			}
-
-			correlation.set(i, i, 1.0);
-		}
+		// Calculate the correlation matrix
+		Matrix correlation = Correlation.correlation(samples);
 
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
 
 		// Get the autovectors
 		Matrix[] decomposition = eigen.decompose();
 		Matrix autovectors = decomposition[0];
+		Matrix autovalues = decomposition[1];
+
+		// Find the first maximum autovalue index
+		int firstIndex = 0;
+		double firstMax = Double.MIN_VALUE;
+		for (int i = 0; i < autovalues.columns(); i++) {
+			if (autovalues.get(i, i) > firstMax) {
+				firstMax = autovalues.get(i, i);
+				firstIndex = i;
+			}
+		}
+
+		// Find the second maximum autovalue index
+		int secondIndex = 0;
+		double secondMax = Double.MIN_VALUE;
+		for (int i = 0; i < autovalues.columns(); i++) {
+			if (i == firstIndex) {
+				continue;
+			}
+
+			if (autovalues.get(i, i) > secondMax) {
+				secondMax = autovalues.get(i, i);
+				secondIndex = i;
+			}
+		}
 
 		// Get the first and the second autovectors
-		Vector firstAutovector = autovectors.getColumn(0);
-		Vector secondAutovector = autovectors.getColumn(1);
+		Vector firstAutovector = autovectors.getColumn(firstIndex);
+		Vector secondAutovector = autovectors.getColumn(secondIndex);
 
 		List<Point2D> result = new LinkedList<Point2D>();
 
