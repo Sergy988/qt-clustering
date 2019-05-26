@@ -16,47 +16,18 @@ import org.la4j.decomposition.EigenDecompositor;
 public class MultiVariation {
 
 	/**
-	 * Project a matrix of samples to a bidimensional plane.
-	 * @param samples The samples
-	 * @return A list of 2D projected points
-	 * @throws StatisticException Thrown when a statistic exception occurs
+	 * Calculate the major two autovectors of a correlation matrix.
+	 * @param correlation The correlation matrix
+	 * @return An array of two vectors
 	 */
-	static public List<Point2D> projectPoints2D(Matrix samples)
-		throws StatisticException {
-		// Calculate the correlation matrix
-		Matrix correlation = Correlation.correlation(samples);
-
+	static public Vector[] majorAutovectors2D(Matrix correlation) {
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
 
 		// Get the eigen decomposition
 		Matrix[] decomposition = eigen.decompose();
 
-		// Get the first and the second autovectors
-		Vector[] autovectors = majorAutovectors2D(decomposition);
-
-		List<Point2D> result = new LinkedList<Point2D>();
-
-		// Project the points
-		for (int i = 0; i < samples.rows(); i++) {
-			Vector samplePoint = samples.getRow(i);
-
-			double x = samplePoint.innerProduct(autovectors[0]);
-			double y = samplePoint.innerProduct(autovectors[1]);
-
-			result.add(new Point2D(x, y));
-		}
-
-		return result;
-	}
-
-	/**
-	 * Calculate the major two autovectors.
-	 * @param decomposition The Eigen decomposition
-	 * @return An array of two vectors
-	 */
-	static private Vector[] majorAutovectors2D(Matrix[] decomposition) {
 		Matrix autovectors = decomposition[0];
-		Matrix autovalues = decomposition[1];
+		Matrix autovalues  = decomposition[1];
 
 		double max = 0.0;
 

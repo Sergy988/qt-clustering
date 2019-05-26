@@ -137,7 +137,7 @@ public class QTMiner {
 				continue;
 			}
 
-			Tuple centroid = data.getItemSet(i);
+			Tuple centroid = data.getTuple(i);
 			Cluster cluster = new Cluster(centroid);
 
 			for (int j = 0; j < data.getNumberOfExamples(); j++) {
@@ -145,7 +145,7 @@ public class QTMiner {
 					continue;
 				}
 
-				Tuple other = data.getItemSet(j);
+				Tuple other = data.getTuple(j);
 
 				if (centroid.getDistance(other) <= radius) {
 					cluster.addData(j);

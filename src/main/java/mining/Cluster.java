@@ -13,10 +13,6 @@ import stats.Variance;
 import stats.Correlation;
 import stats.StatisticException;
 
-import org.la4j.Vector;
-import org.la4j.Matrix;
-import org.la4j.matrix.dense.Basic2DMatrix;
-
 /**
  * The Cluster class.
  */
@@ -84,26 +80,6 @@ public class Cluster
 	}
 
 	/**
-	 * Convert the cluster to a numeric matrix.
-	 * @param data The source data
-	 * @return A numeric matrix
-	 */
-	public Matrix toNumericSamples(final Data data) {
-		int attributesCount = data.getNumberOfExplanatoryAttributes();
-
-		Matrix samples = new Basic2DMatrix(getSize(), attributesCount);
-
-		// Build the samples matrix
-		int i = 0;
-		for (Integer id : clusteredData) {
-			samples.setRow(i, data.getItemSet(id).toNumericVector());
-			i++;
-		}
-
-		return samples;
-	}
-
-	/**
 	 * Get an iterator of clustered tuple ids.
 	 * @return An iterator over the clustered tuple ids
 	 */
@@ -161,7 +137,7 @@ public class Cluster
 			}
 
 			str += "] dist=";
-			str += getCentroid().getDistance(data.getItemSet(i)) + "\n";
+			str += getCentroid().getDistance(data.getTuple(i)) + "\n";
 		}
 
 		str += "AvgDistance=";

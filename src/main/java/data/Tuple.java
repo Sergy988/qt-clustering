@@ -76,7 +76,7 @@ public class Tuple implements Serializable {
 		double sumDist = 0.0;
 
 		for (Integer i : clusteredData) {
-			sumDist += getDistance(data.getItemSet(i));
+			sumDist += getDistance(data.getTuple(i));
 		}
 
 		return sumDist / clusteredData.size();

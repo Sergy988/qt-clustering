@@ -105,6 +105,7 @@ public class Data {
 			data.add(tuple);
 		}
 
+		// Close the connection to the database
 		db.closeConnection();
 	}
 
@@ -152,12 +153,12 @@ public class Data {
 	}
 
 	/**
-	 * Create a Tuple of a row in data.
-	 * @param index The index of the row
-	 * @return A new tuple
+	 * Get a tuple from the dataset.
+	 * @param i The index of the row
+	 * @return The tuple at index i
 	 */
-	public Tuple getItemSet(int index) {
-		return data.get(index);
+	public Tuple getTuple(int i) {
+		return data.get(i);
 	}
 
 	/**

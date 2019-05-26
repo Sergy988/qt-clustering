@@ -14,6 +14,7 @@ import mining.ClusterSet;
 import mining.ClusteringRadiusException;
 
 import data.Data;
+import data.DataProjector;
 import data.EmptyDatasetException;
 
 import database.NoValueException;
@@ -21,10 +22,7 @@ import database.EmptySetException;
 import database.DatabaseConnectionException;
 
 import stats.Point2D;
-import stats.MultiVariation;
 import stats.StatisticException;
-
-import org.la4j.Matrix;
 
 /**
  * The main application class.
@@ -133,6 +131,15 @@ public class AppMain {
 			return;
 		}
 
+		DataProjector dataProj = null;
+
+		try {
+			dataProj = new DataProjector(data);
+		} catch (StatisticException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
+
 		System.out.println(data);
 
 		char answer = 'y';
@@ -154,24 +161,18 @@ public class AppMain {
 				System.out.println("Number of clusters: " + numClusters);
 				System.out.println(clusterSet.toString(data));
 
-				int i = 0;
+				int clusterId = 0;
+
 				for (Cluster cluster : clusterSet) {
-					System.out.println("Result points of cluster #" + i);
+					System.out.println("Points of the cluster #" + clusterId);
 
-					Matrix samples = cluster.toNumericSamples(data);
-
-					List<Point2D> points = null;
-
-					try {
-						points = MultiVariation.projectPoints2D(samples);
-					} catch (StatisticException e) {
-						System.out.println(e);
-						e.printStackTrace();
-						break;
+					for (Integer i : cluster) {
+						System.out.println(dataProj.getPoint2D(i));
 					}
 
-					System.out.println(points);
-					i++;
+					System.out.println("");
+
+					clusterId++;
 				}
 
 				System.out.print("Backup file name: ");
