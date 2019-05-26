@@ -88,7 +88,7 @@ public class Cluster
 	 * @param data The source data
 	 * @return A numeric matrix
 	 */
-	public Matrix toNumericMatrix(final Data data) {
+	public Matrix toNumericSamples(final Data data) {
 		int attributesCount = data.getNumberOfExplanatoryAttributes();
 
 		Matrix samples = new Basic2DMatrix(getSize(), attributesCount);
@@ -101,36 +101,6 @@ public class Cluster
 		}
 
 		return samples;
-	}
-
-	/**
-	 * Build the correlation matrix of the cluster.
-	 * @param data The source data
-	 * @return The correlation matrix
-	 * @throws StatisticException Thrown when a statistic exception occurs
-	 */
-	public Matrix getCorrelationMatrix(final Data data)
-		throws StatisticException {
-		Matrix samples = toNumericMatrix(data);
-
-		Matrix result = new Basic2DMatrix(samples.columns(), samples.columns());
-
-		// Build the correlation matrix
-		for (int i = 0; i < samples.columns(); i++) {
-			for (int j = i + 1; j < samples.columns(); j++) {
-				double correlation = Correlation.correlation(
-					samples.getColumn(i),
-					samples.getColumn(j)
-				);
-
-				result.set(i, j, correlation);
-				result.set(j, i, correlation);
-			}
-
-			result.set(i, i, 1.0);
-		}
-
-		return result;
 	}
 
 	/**

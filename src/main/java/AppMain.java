@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 
+import java.util.List;
+
 import keyboardinput.Keyboard;
 
 import mining.QTMiner;
@@ -18,6 +20,8 @@ import database.NoValueException;
 import database.EmptySetException;
 import database.DatabaseConnectionException;
 
+import stats.Point2D;
+import stats.MultiVariation;
 import stats.StatisticException;
 
 import org.la4j.Matrix;
@@ -152,19 +156,21 @@ public class AppMain {
 
 				int i = 0;
 				for (Cluster cluster : clusterSet) {
-					System.out.println("Correlation matrix of cluster #" + i);
+					System.out.println("Result points of cluster #" + i);
 
-					Matrix correlationMatrix = null;
+					Matrix samples = cluster.toNumericSamples(data);
+
+					List<Point2D> points = null;
 
 					try {
-						correlationMatrix = cluster.getCorrelationMatrix(data);
+						points = MultiVariation.projectPoints2D(samples);
 					} catch (StatisticException e) {
 						System.out.println(e);
 						e.printStackTrace();
 						break;
 					}
 
-					System.out.println(correlationMatrix);
+					System.out.println(points);
 					i++;
 				}
 
