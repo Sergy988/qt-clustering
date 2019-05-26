@@ -23,6 +23,9 @@ import stats.Point2D;
 
 public class PlotApp extends Application {
 
+	private static final int windowWidth = 800;
+	private static final int windowHeight = 800;
+
 	private static List<Set<Point2D>> clustersPoints;
 
 	public static void launch(
@@ -46,8 +49,8 @@ public class PlotApp extends Application {
 	public void start(Stage stage) {
 		stage.setTitle("QTMiner scatter plot");
 
-		NumberAxis xAxis = new NumberAxis(-50, +50, +5);
-		NumberAxis yAxis = new NumberAxis(-50, +50, +5);
+		NumberAxis xAxis = new NumberAxis(-20, +20, +0.5);
+		NumberAxis yAxis = new NumberAxis(-20, +20, +0.5);
 
 		ScatterChart<Number, Number> chart = new ScatterChart<Number, Number>(
 			xAxis, yAxis
@@ -68,7 +71,7 @@ public class PlotApp extends Application {
 			clusterId++;
 		}
 
-		Scene scene = new Scene(chart, 800, 600);
+		Scene scene = new Scene(chart, windowWidth, windowHeight);
 
 		stage.setScene(scene);
 		stage.show();
