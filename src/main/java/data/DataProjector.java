@@ -48,6 +48,18 @@ public class DataProjector {
 
 		// Get the major autovectors
 		projectionAxes = MultiVariation.majorAutovectors2D(correlation);
+
+		System.out.println("Samples:");
+		System.out.println(samples);
+
+		System.out.println("Correlation matrix:");
+		System.out.println(correlation);
+
+		System.out.println("First axis:");
+		System.out.println(projectionAxes[0]);
+
+		System.out.println("Second axis:");
+		System.out.println(projectionAxes[1]);
 	}
 
 	/**

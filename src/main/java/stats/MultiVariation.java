@@ -28,6 +28,11 @@ public class MultiVariation {
 
 		Matrix autovectors = decomposition[0];
 		Matrix autovalues  = decomposition[1];
+		System.out.println("Autovectors:");
+		System.out.println(autovectors);
+
+		System.out.println("Autovalues:");
+		System.out.println(autovalues);
 
 		double max = 0.0;
 
