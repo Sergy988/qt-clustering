@@ -16,9 +16,9 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 public class DataProjector {
 
 	/**
-	 * The numeric samples matrix.
+	 * The dataset.
 	 */
-	private Matrix samples;
+	private Data data;
 
 	/**
 	 * The projection axes.
@@ -31,10 +31,12 @@ public class DataProjector {
 	 * @throws StatisticException Thrown when a statistic error occurs
 	 */
 	public DataProjector(final Data data) throws StatisticException {
+		this.data = data;
+
 		int samplesCount = data.getNumberOfExamples();
 		int attributesCount = data.getNumberOfExplanatoryAttributes();
 
-		samples = new Basic2DMatrix(samplesCount, attributesCount);
+		Matrix samples = new Basic2DMatrix(samplesCount, attributesCount);
 
 		// Build the numeric samples matrix
 		for (int i = 0; i < samplesCount; i++) {
@@ -54,7 +56,7 @@ public class DataProjector {
 	 * @return A plane-projected point that rappresents the tuple at position i
 	 */
 	public Point2D getPoint2D(int i) {
-		Vector samplePoint = samples.getRow(i);
+		Vector samplePoint = data.getTuple(i).toNumericVector();
 
 		// Project the n-dimensional point to the first projection axis
 		double x = samplePoint.innerProduct(projectionAxes[0]);
