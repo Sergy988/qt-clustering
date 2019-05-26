@@ -2,7 +2,8 @@
 package data;
 
 import stats.Point2D;
-import stats.Correlation;
+import stats.Standard;
+import stats.Covariance;
 import stats.MultiVariation;
 import stats.StatisticException;
 
@@ -16,9 +17,9 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 public class DataProjector {
 
 	/**
-	 * The dataset.
+	 * The samples matrix.
 	 */
-	private Data data;
+	private Matrix samples;
 
 	/**
 	 * The projection axes.
@@ -31,20 +32,23 @@ public class DataProjector {
 	 * @throws StatisticException Thrown when a statistic error occurs
 	 */
 	public DataProjector(final Data data) throws StatisticException {
-		this.data = data;
-
 		int samplesCount = data.getNumberOfExamples();
 		int attributesCount = data.getNumberOfExplanatoryAttributes();
 
-		Matrix samples = new Basic2DMatrix(samplesCount, attributesCount);
+		samples = new Basic2DMatrix(samplesCount, attributesCount);
 
-		// Build the numeric samples matrix
+		// Build the samples matrix
 		for (int i = 0; i < samplesCount; i++) {
 			samples.setRow(i, data.getTuple(i).toNumericVector());
 		}
 
+		// Standardize the samples
+		for (int i = 0; i < attributesCount; i++) {
+			samples.setColumn(i, Standard.standardize(samples.getColumn(i)));
+		}
+
 		// Build the correlation matrix
-		Matrix correlation = Correlation.correlation(samples);
+		Matrix correlation = Covariance.covariance(samples);
 
 		// Get the major autovectors
 		projectionAxes = MultiVariation.majorAutovectors2D(correlation);
@@ -68,7 +72,7 @@ public class DataProjector {
 	 * @return A plane-projected point that rappresents the tuple at position i
 	 */
 	public Point2D getPoint2D(int i) {
-		Vector samplePoint = data.getTuple(i).toNumericVector();
+		Vector samplePoint = samples.getRow(i);
 
 		// Project the n-dimensional point to the first projection axis
 		double x = samplePoint.innerProduct(projectionAxes[0]);

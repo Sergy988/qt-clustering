@@ -182,6 +182,8 @@ public class AppMain {
 				System.out.println("Saving transaction ended!");
 			} catch (EmptyDatasetException | ClusteringRadiusException e) {
 				System.err.println(e.getMessage());
+			} finally {
+				PlotApp.stop();
 			}
 
 			System.out.print("New execution? (y/n): ");

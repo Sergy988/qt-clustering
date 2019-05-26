@@ -21,13 +21,41 @@ import data.DataProjector;
 
 import stats.Point2D;
 
+/**
+ * The scatter-plot plotter application.
+ */
 public class PlotApp extends Application {
 
-	private static final int windowWidth = 800;
-	private static final int windowHeight = 800;
+	/**
+	 * The width of the window.
+	 */
+	private static final int WIN_WIDTH = 800;
 
+	/**
+	 * The height of the window.
+	 */
+	private static final int WIN_HEIGHT = 800;
+
+	/**
+	 * The length of the semiaxes.
+	 */
+	private static final int SAXIS_LENGTH = 4;
+
+	/**
+	 * The step of the semiaxes.
+	 */
+	private static final double SAXIS_STEP = 0.1;
+
+	/**
+	 * The points of each cluster.
+	 */
 	private static List<Set<Point2D>> clustersPoints;
 
+	/**
+	 * Launch the application.
+	 * @param clusterSet The cluster set
+	 * @param dataProj The data projector
+	 */
 	public static void launch(
 		final ClusterSet clusterSet, final DataProjector dataProj) {
 		clustersPoints = new LinkedList<Set<Point2D>>();
@@ -45,12 +73,26 @@ public class PlotApp extends Application {
 		PlotApp.launch(PlotApp.class);
 	}
 
+
+	/**
+	 * Start the application.
+	 * @param stage The JavaFX stage
+	 */
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("QTMiner scatter plot");
 
-		NumberAxis xAxis = new NumberAxis(-20, +20, +0.5);
-		NumberAxis yAxis = new NumberAxis(-20, +20, +0.5);
+		NumberAxis xAxis = new NumberAxis(
+			-SAXIS_LENGTH,
+			+SAXIS_LENGTH,
+			 SAXIS_STEP
+		);
+
+		NumberAxis yAxis = new NumberAxis(
+			-SAXIS_LENGTH,
+			+SAXIS_LENGTH,
+			 SAXIS_STEP
+		);
 
 		ScatterChart<Number, Number> chart = new ScatterChart<Number, Number>(
 			xAxis, yAxis
@@ -71,7 +113,7 @@ public class PlotApp extends Application {
 			clusterId++;
 		}
 
-		Scene scene = new Scene(chart, windowWidth, windowHeight);
+		Scene scene = new Scene(chart, WIN_WIDTH, WIN_HEIGHT);
 
 		stage.setScene(scene);
 		stage.show();
