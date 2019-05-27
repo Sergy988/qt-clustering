@@ -30,7 +30,7 @@ public class MultiVariation {
 			throw new StatisticException("correlation matrix is not square!");
 		}
 
-		if (correlation.columns() < 3) {
+		if (correlation.columns() < 4) {
 			throw new StatisticException("correlation matrix is too small!");
 		}
 
