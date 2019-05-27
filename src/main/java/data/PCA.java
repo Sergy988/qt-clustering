@@ -1,6 +1,9 @@
 
 package data;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import stats.Point3D;
 import stats.Standard;
 import stats.Covariance;
@@ -13,30 +16,25 @@ import org.la4j.vector.dense.BasicVector;
 import org.la4j.matrix.dense.Basic2DMatrix;
 
 /**
- * Data projector to a bidimensional plane.
+ * Principal Component analyser (PCA with 3-dimensional projection).
  */
-public class DataProjector {
+public class PCA {
 
 	/**
-	 * The samples matrix.
+	 * The 3D projection of the points of the dataset.
 	 */
-	private Matrix samples;
+	private List<Point3D> points = new LinkedList<Point3D>();
 
 	/**
-	 * The projection axes.
-	 */
-	private Vector[] projectionAxes;
-
-	/**
-	 * Construct a DataProjector.
+	 * Construct a PCA.
 	 * @param data The dataset to project
 	 * @throws StatisticException Thrown when a statistic error occurs
 	 */
-	public DataProjector(final Data data) throws StatisticException {
+	public PCA(final Data data) throws StatisticException {
 		int samplesCount = data.getNumberOfExamples();
 		int attributesCount = data.getNumberOfExplanatoryAttributes();
 
-		samples = new Basic2DMatrix(samplesCount, attributesCount);
+		Matrix samples = new Basic2DMatrix(samplesCount, attributesCount);
 
 		// Build the samples matrix
 		for (int i = 0; i < samplesCount; i++) {
@@ -50,6 +48,8 @@ public class DataProjector {
 
 		// Build the covariance matrix
 		Matrix covariance = Covariance.covariance(samples);
+
+		Vector[] projectionAxes = null;
 
 		try {
 			// Get the major eigenvectors
@@ -66,6 +66,11 @@ public class DataProjector {
 					projectionAxes[i].set(i, 1.0);
 				}
 			}
+		}
+
+		// Project the samples to the projection axes
+		for (int i = 0; i < samplesCount; i++) {
+			points.add(projectSample3D(samples.getRow(i), projectionAxes));
 		}
 
 		System.out.println("Samples:");
@@ -85,21 +90,29 @@ public class DataProjector {
 	}
 
 	/**
-	 * Get a cube-projected point of the dataset.
-	 * @param i The index of the tuple in the dataset
-	 * @return A cube-projected point that rappresents the tuple at position i
+	 * Get the point at index i.
+	 * @param i The index of the point in the projected dataset
+	 * @return The point at index i
 	 */
-	public Point3D getPoint3D(int i) {
-		Vector samplePoint = samples.getRow(i);
+	public Point3D get(int i) {
+		return points.get(i);
+	}
 
+	/**
+	 * Project the sample vector to the projection axes (must be of length 3).
+	 * @param sample The sample vector to project
+	 * @param axes The projection axes
+	 * @return A 3D projected point that rappresents the sample
+	 */
+	private static Point3D projectSample3D(Vector sample, Vector[] axes) {
 		// Project the n-dimensional point to the first projection axis
-		double x = samplePoint.innerProduct(projectionAxes[0]);
+		double x = sample.innerProduct(axes[0]);
 
 		// Project the n-dimensional point to the second projection axis
-		double y = samplePoint.innerProduct(projectionAxes[1]);
+		double y = sample.innerProduct(axes[1]);
 
 		// Project the n-dimensional point to the third projection axis
-		double z = samplePoint.innerProduct(projectionAxes[2]);
+		double z = sample.innerProduct(axes[2]);
 
 		return new Point3D(x, y, z);
 	}

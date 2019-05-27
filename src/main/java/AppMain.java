@@ -14,7 +14,6 @@ import mining.ClusterSet;
 import mining.ClusteringRadiusException;
 
 import data.Data;
-import data.DataProjector;
 import data.EmptyDatasetException;
 
 import database.NoValueException;

@@ -17,7 +17,7 @@ import javafx.application.Application;
 import mining.Cluster;
 import mining.ClusterSet;
 
-import data.DataProjector;
+import data.PCA;
 
 import stats.Point3D;
 
@@ -47,32 +47,26 @@ public class PlotApp extends Application {
 	private static final double SAXIS_STEP = 0.1;
 
 	/**
-	 * The points of each cluster.
+	 * The PCA reference.
 	 */
-	private static List<Set<Point3D>> clustersPoints;
+	private static PCA pca;
+
+	/**
+	 * The cluster set reference.
+	 */
+	private static ClusterSet clusterSet;
 
 	/**
 	 * Launch the application.
-	 * @param clusterSet The cluster set
-	 * @param dataProj The data projector
+	 * @param pca The pca reference
+	 * @param clusterSet The cluster set reference
 	 */
-	public static void launch(
-		final ClusterSet clusterSet, final DataProjector dataProj) {
-		clustersPoints = new LinkedList<Set<Point3D>>();
-
-		for (Cluster c : clusterSet) {
-			Set<Point3D> points = new TreeSet<Point3D>();
-
-			for (Integer i : c) {
-				points.add(dataProj.getPoint3D(i));
-			}
-
-			clustersPoints.add(points);
-		}
+	public static void launch(final PCA pca, final ClusterSet clusterSet) {
+		PlotApp.pca = pca;
+		PlotApp.clusterSet = clusterSet;
 
 		PlotApp.launch(PlotApp.class);
 	}
-
 
 	/**
 	 * Start the application.
@@ -100,11 +94,12 @@ public class PlotApp extends Application {
 
 		int clusterId = 0;
 
-		for (Set<Point3D> points : clustersPoints) {
+		for (Cluster cluster : clusterSet) {
 			XYChart.Series series = new XYChart.Series();
 			series.setName("Cluster #" + clusterId);
 
-			for (Point3D p : points) {
+			for (Integer i : cluster) {
+				Point3D p = pca.get(i);
 				series.getData().add(new XYChart.Data(p.getX(), p.getY()));
 			}
 
