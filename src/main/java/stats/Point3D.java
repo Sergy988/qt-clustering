@@ -2,9 +2,9 @@
 package stats;
 
 /**
- * 2D space point class.
+ * 3D space point class.
  */
-public class Point2D implements Comparable<Point2D> {
+public class Point3D implements Comparable<Point3D> {
 
 	/**
 	 * The X axis coordinate.
@@ -17,20 +17,27 @@ public class Point2D implements Comparable<Point2D> {
 	private double y;
 
 	/**
+	 * The Z axis coordinate.
+	 */
+	private double z;
+
+	/**
 	 * Default constructor.
 	 */
-	public Point2D() {
+	public Point3D() {
 		// nothing
 	}
 
 	/**
 	 * Construct a point.
 	 * @param x The X axis coordinate
-	 * @param y The Y axis coordiante
+	 * @param y The Y axis coordiate
+	 * @param z The Z axis coordinate
 	 */
-	public Point2D(double x, double y) {
+	public Point3D(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
+		this.z = z;
 	}
 
 	/**
@@ -50,6 +57,14 @@ public class Point2D implements Comparable<Point2D> {
 	}
 
 	/**
+	 * Get The Z coordinate.
+	 * @return The Z coordinate
+	 */
+	public double getZ() {
+		return z;
+	}
+
+	/**
 	 * Set the X coordinate.
 	 * @param x The X coordinate
 	 */
@@ -66,11 +81,19 @@ public class Point2D implements Comparable<Point2D> {
 	}
 
 	/**
+	 * Set the Z coordinate.
+	 * @param z The Z coordinate
+	 */
+	public void setZ(double z) {
+		this.z = z;
+	}
+
+	/**
 	 * Convert the point to a string rappresentation.
 	 * @return The string rappresentation
 	 */
 	public String toString() {
-		return "(" + x + ", " + y + ")";
+		return "(" + x + ", " + y + ", " + z + ")";
 	}
 
 	/**
@@ -80,7 +103,7 @@ public class Point2D implements Comparable<Point2D> {
 	 *        -1 if this point X coordinte is less than p's X coordinate
 	 *         0 otherwise
 	 */
-	public int compareTo(Point2D p) {
+	public int compareTo(Point3D p) {
 		if (x > p.x) {
 			return 1;
 		} else if (x < p.x) {

@@ -16,50 +16,70 @@ import org.la4j.decomposition.EigenDecompositor;
 public class MultiVariation {
 
 	/**
-	 * Calculate the major two autovectors of a correlation matrix.
+	 * Calculate the major three eigenvectors of a correlation matrix.
 	 * @param correlation The correlation matrix
-	 * @return An array of two vectors
+	 * @return An array of three eigenvectors
+	 * @throws StatisticException Thrown when the correlation matrix is
+	 *                            not quadratic or if its number of columns
+	 *                            is less than 3.
 	 */
-	static public Vector[] majorAutovectors2D(Matrix correlation) {
+	static public Vector[] majorEigenvectors3D(Matrix correlation)
+		throws StatisticException {
+		// Check if the correlation matrix is valid
+		if (correlation.rows() != correlation.columns()) {
+			throw new StatisticException("correlation matrix is not square!");
+		}
+
+		if (correlation.columns() < 3) {
+			throw new StatisticException("correlation matrix is too small!");
+		}
+
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
 
 		// Get the eigen decomposition
 		Matrix[] decomposition = eigen.decompose();
 
-		Matrix autovectors = decomposition[0];
-		Matrix autovalues  = decomposition[1];
-		System.out.println("Autovectors:");
-		System.out.println(autovectors);
+		Matrix eigenvectors = decomposition[0];
+		Matrix eigenvalues  = decomposition[1];
 
-		System.out.println("Autovalues:");
-		System.out.println(autovalues);
+		System.out.println("Eigenvectors:");
+		System.out.println(eigenvectors);
 
-		double max = 0.0;
+		System.out.println("Eigenvalues:");
+		System.out.println(eigenvalues);
 
-		// Find the first maximum autovalue index
-		int firstIndex = 0;
-		for (int i = 0; i < autovalues.columns(); i++) {
-			if (autovalues.get(i, i) > max) {
-				max = autovalues.get(i, i);
-				firstIndex = i;
-			}
-		}
+		int evFirstIndex = maximumEigevalue(eigenvalues);
+		eigenvalues.set(evFirstIndex, evFirstIndex, -0.0);
 
-		max = 0.0;
+		int evSecondIndex = maximumEigevalue(eigenvalues);
+		eigenvalues.set(evSecondIndex, evSecondIndex, -0.0);
 
-		// Find the second maximum autovalue index
-		int secondIndex = 0;
-		for (int i = 0; i < autovalues.columns(); i++) {
-			if (i != firstIndex && autovalues.get(i, i) > max) {
-				max = autovalues.get(i, i);
-				secondIndex = i;
-			}
-		}
+		int evThirdIndex = maximumEigevalue(eigenvalues);
 
 		return new Vector[] {
-			autovectors.getColumn(firstIndex),
-			autovectors.getColumn(secondIndex)
+			eigenvectors.getColumn(evFirstIndex),
+			eigenvectors.getColumn(evSecondIndex),
+			eigenvectors.getColumn(evThirdIndex)
 		};
+	}
+
+	/**
+	 * Get the position of the maximum eigenvalue.
+	 * @param eigenvalues The eigenvalues matrix
+	 * @return The position of the maximum eigenvalue
+	 */
+	static private int maximumEigevalue(Matrix eigenvalues) {
+		int index = 0;
+		double max = eigenvalues.get(0, 0);
+
+		for (int i = 1; i < eigenvalues.columns(); i++) {
+			if (eigenvalues.get(i, i) > max) {
+				max = eigenvalues.get(i, i);
+				index = i;
+			}
+		}
+
+		return index;
 	}
 }
 

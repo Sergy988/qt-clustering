@@ -19,7 +19,7 @@ import mining.ClusterSet;
 
 import data.DataProjector;
 
-import stats.Point2D;
+import stats.Point3D;
 
 /**
  * The scatter-plot plotter application.
@@ -49,7 +49,7 @@ public class PlotApp extends Application {
 	/**
 	 * The points of each cluster.
 	 */
-	private static List<Set<Point2D>> clustersPoints;
+	private static List<Set<Point3D>> clustersPoints;
 
 	/**
 	 * Launch the application.
@@ -58,13 +58,13 @@ public class PlotApp extends Application {
 	 */
 	public static void launch(
 		final ClusterSet clusterSet, final DataProjector dataProj) {
-		clustersPoints = new LinkedList<Set<Point2D>>();
+		clustersPoints = new LinkedList<Set<Point3D>>();
 
 		for (Cluster c : clusterSet) {
-			Set<Point2D> points = new TreeSet<Point2D>();
+			Set<Point3D> points = new TreeSet<Point3D>();
 
 			for (Integer i : c) {
-				points.add(dataProj.getPoint2D(i));
+				points.add(dataProj.getPoint3D(i));
 			}
 
 			clustersPoints.add(points);
@@ -100,11 +100,11 @@ public class PlotApp extends Application {
 
 		int clusterId = 0;
 
-		for (Set<Point2D> points : clustersPoints) {
+		for (Set<Point3D> points : clustersPoints) {
 			XYChart.Series series = new XYChart.Series();
 			series.setName("Cluster #" + clusterId);
 
-			for (Point2D p : points) {
+			for (Point3D p : points) {
 				series.getData().add(new XYChart.Data(p.getX(), p.getY()));
 			}
 

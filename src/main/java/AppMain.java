@@ -21,11 +21,6 @@ import database.NoValueException;
 import database.EmptySetException;
 import database.DatabaseConnectionException;
 
-import stats.Point2D;
-import stats.StatisticException;
-
-import plot.PlotApp;
-
 /**
  * The main application class.
  */
