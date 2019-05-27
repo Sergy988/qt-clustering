@@ -133,15 +133,6 @@ public class AppMain {
 			return;
 		}
 
-		DataProjector dataProj = null;
-
-		try {
-			dataProj = new DataProjector(data);
-		} catch (StatisticException e) {
-			System.err.println(e.getMessage());
-			return;
-		}
-
 		System.out.println(data);
 
 		char answer = 'y';
@@ -162,8 +153,6 @@ public class AppMain {
 
 				System.out.println("Number of clusters: " + numClusters);
 				System.out.println(clusterSet.toString(data));
-
-				PlotApp.launch(clusterSet, dataProj);
 
 				System.out.print("Backup file name: ");
 
