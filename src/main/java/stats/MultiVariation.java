@@ -16,22 +16,23 @@ import org.la4j.decomposition.EigenDecompositor;
 public class MultiVariation {
 
 	/**
-	 * Calculate the major three eigenvectors of a correlation matrix.
+	 * Calculate the major eigenvectors of a correlation matrix.
+	 * @param dim The number of major eigenvectors.
 	 * @param correlation The correlation matrix
-	 * @return An array of three eigenvectors
+	 * @return An array of eigenvectors
 	 * @throws StatisticException Thrown when the correlation matrix is
 	 *                            not quadratic or if its number of columns
-	 *                            is less than 3.
+	 *                            is less than dimension.
 	 */
-	static public Vector[] majorEigenvectors3D(Matrix correlation)
+	static public Vector[] majorEigenvectors(int dim, Matrix correlation)
 		throws StatisticException {
 		// Check if the correlation matrix is valid
 		if (correlation.rows() != correlation.columns()) {
-			throw new StatisticException("correlation matrix is not square!");
+			throw new StatisticException("correlation matrix is not square");
 		}
 
-		if (correlation.columns() < 3) {
-			throw new StatisticException("correlation matrix is too small!");
+		if (correlation.columns() < dim) {
+			throw new StatisticException("correlation matrix is too small");
 		}
 
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
@@ -42,25 +43,17 @@ public class MultiVariation {
 		Matrix eigenvectors = decomposition[0];
 		Matrix eigenvalues  = decomposition[1];
 
-		System.out.println("Eigenvectors:");
-		System.out.println(eigenvectors);
+		Vector[] majorEigenvectors = new Vector[dim];
 
-		System.out.println("Eigenvalues:");
-		System.out.println(eigenvalues);
+		// Build the major eigevectors array
+		for (int i = 0; i < dim; i++) {
+			int evIndex = maximumEigevalue(eigenvalues);
+			eigenvalues.set(evIndex, evIndex, -0.0);
 
-		int evFirstIndex = maximumEigevalue(eigenvalues);
-		eigenvalues.set(evFirstIndex, evFirstIndex, -0.0);
+			majorEigenvectors[evIndex] = eigenvectors.getColumn(evIndex);
+		}
 
-		int evSecondIndex = maximumEigevalue(eigenvalues);
-		eigenvalues.set(evSecondIndex, evSecondIndex, -0.0);
-
-		int evThirdIndex = maximumEigevalue(eigenvalues);
-
-		return new Vector[] {
-			eigenvectors.getColumn(evFirstIndex),
-			eigenvectors.getColumn(evSecondIndex),
-			eigenvectors.getColumn(evThirdIndex)
-		};
+		return majorEigenvectors;
 	}
 
 	/**

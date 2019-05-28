@@ -14,12 +14,12 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.application.Application;
 
+import org.la4j.Vector;
+
 import mining.Cluster;
 import mining.ClusterSet;
 
-import data.PCA;
-
-import stats.Point3D;
+import data.PCAnalyser;
 
 /**
  * The scatter-plot plotter application.
@@ -49,7 +49,7 @@ public class PlotApp extends Application {
 	/**
 	 * The PCA reference.
 	 */
-	private static PCA pca;
+	private static PCAnalyser pca;
 
 	/**
 	 * The cluster set reference.
@@ -58,10 +58,11 @@ public class PlotApp extends Application {
 
 	/**
 	 * Launch the application.
-	 * @param pca The pca reference
+	 * @param pca The PCA reference
 	 * @param clusterSet The cluster set reference
 	 */
-	public static void launch(final PCA pca, final ClusterSet clusterSet) {
+	public static void launch(
+		final PCAnalyser pca, final ClusterSet clusterSet) {
 		PlotApp.pca = pca;
 		PlotApp.clusterSet = clusterSet;
 
@@ -99,8 +100,9 @@ public class PlotApp extends Application {
 			series.setName("Cluster #" + clusterId);
 
 			for (Integer i : cluster) {
-				Point3D p = pca.get(i);
-				series.getData().add(new XYChart.Data(p.getX(), p.getY()));
+				double x = pca.get(i, 0);
+				double y = pca.get(i, 1);
+				series.getData().add(new XYChart.Data(x, y));
 			}
 
 			chart.getData().add(series);
