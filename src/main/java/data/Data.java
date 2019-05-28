@@ -26,12 +26,12 @@ public class Data {
 	/**
 	 * The source data tuples.
 	 */
-	private List<Tuple> data = new ArrayList<Tuple>();
+	private List<Tuple> data = new LinkedList<Tuple>();
 
 	/**
 	 * The attribute scheme which is based the data.
 	 */
-	private List<Attribute> explanatorySet = new ArrayList<Attribute>();
+	private List<Attribute> explanatorySet = new LinkedList<Attribute>();
 
 	/**
 	 * Instantiate a source data.
