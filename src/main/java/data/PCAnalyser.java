@@ -111,7 +111,7 @@ public class PCAnalyser {
 	 * @return A projected point that rappresents the sample
 	 */
 	private static Vector projectSample(Vector sample, Vector[] axes) {
-		Vector point = BasicVector.zero(axes.length);
+		Vector point = new BasicVector(axes.length);
 
 		for (int i = 0; i < point.length(); i++) {
 			point.set(i, sample.innerProduct(axes[i]));
