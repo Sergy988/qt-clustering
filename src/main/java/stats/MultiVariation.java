@@ -51,7 +51,7 @@ public class MultiVariation {
 			eigenvalues.set(evIndex, evIndex, -0.0);
 
 			majorEigenvectors.setColumn(
-				evIndex, eigenvectors.getColumn(evIndex)
+				i, eigenvectors.getColumn(evIndex)
 			);
 		}
 
