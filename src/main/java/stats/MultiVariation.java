@@ -50,7 +50,7 @@ public class MultiVariation {
 			int evIndex = maximumEigevalue(eigenvalues);
 			eigenvalues.set(evIndex, evIndex, -0.0);
 
-			majorEigenvectors[evIndex] = eigenvectors.getColumn(evIndex);
+			majorEigenvectors[i] = eigenvectors.getColumn(evIndex);
 		}
 
 		return majorEigenvectors;
