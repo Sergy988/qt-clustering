@@ -19,12 +19,12 @@ public class MultiVariation {
 	 * Calculate the major eigenvectors of a correlation matrix.
 	 * @param dim The number of major eigenvectors.
 	 * @param correlation The correlation matrix
-	 * @return An array of eigenvectors
+	 * @return A matrix of sorted eigenvectors
 	 * @throws StatisticException Thrown when the correlation matrix is
 	 *                            not quadratic or if its number of columns
 	 *                            is less than dimension.
 	 */
-	static public Vector[] majorEigenvectors(int dim, Matrix correlation)
+	static public Matrix majorEigenvectors(int dim, Matrix correlation)
 		throws StatisticException {
 		// Check if the correlation matrix is valid
 		if (correlation.rows() != correlation.columns()) {
@@ -43,14 +43,16 @@ public class MultiVariation {
 		Matrix eigenvectors = decomposition[0];
 		Matrix eigenvalues  = decomposition[1];
 
-		Vector[] majorEigenvectors = new Vector[dim];
+		Matrix majorEigenvectors = new Basic2DMatrix(eigenvectors.rows(), dim);
 
-		// Build the major eigevectors array
+		// Build the major eigevectors matrix
 		for (int i = 0; i < dim; i++) {
 			int evIndex = maximumEigevalue(eigenvalues);
 			eigenvalues.set(evIndex, evIndex, -0.0);
 
-			majorEigenvectors[i] = eigenvectors.getColumn(evIndex);
+			majorEigenvectors.setColumn(
+				evIndex, eigenvectors.getColumn(evIndex)
+			);
 		}
 
 		return majorEigenvectors;

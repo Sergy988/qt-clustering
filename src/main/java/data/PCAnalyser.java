@@ -63,34 +63,31 @@ public class PCAnalyser {
 		// Build the covariance matrix
 		Matrix covariance = Covariance.covariance(samples);
 
-		Vector[] projectionAxes = null;
+		Matrix projectionMatrix = null;
 
 		try {
 			// Get the major eigenvectors
-			projectionAxes = MultiVariation.majorEigenvectors(
+			projectionMatrix = MultiVariation.majorEigenvectors(
 				dimensions, covariance
 			);
 		} catch (StatisticException e) {
 			// Build versor eigenvectors
-			projectionAxes = new BasicVector[dimensions];
+			projectionMatrix = Basic2DMatrix.zero(attributesCount, dimensions);
 
-			for (int i = 0; i < dimensions; i++) {
-				projectionAxes[i] = BasicVector.zero(attributesCount);
-			}
-
-			for (int i = 0; i < dimensions; i++) {
-				if (i < attributesCount) {
-					projectionAxes[i].set(i, 1.0);
-				}
+			for (int i = 0; i < attributesCount; i++) {
+				projectionMatrix.set(i, i, 1.0);
 			}
 		}
+
+		// Transpose the projection matrix
+		projectionMatrix.transpose();
 
 		// Instantiate the projected points matrix
 		points = new Basic2DMatrix(samplesCount, dimensions);
 
 		// Project the samples to the projection axes
 		for (int i = 0; i < samplesCount; i++) {
-			points.setRow(i, projectSample(samples.getRow(i), projectionAxes));
+			points.setRow(i, projectionMatrix.multiply(samples.getRow(i)));
 		}
 	}
 
@@ -102,21 +99,5 @@ public class PCAnalyser {
 	 */
 	public double get(int i, int j) {
 		return points.get(i, j);
-	}
-
-	/**
-	 * Project the sample vector to the projection axes.
-	 * @param sample The sample vector to project
-	 * @param axes The projection axes
-	 * @return A projected point that rappresents the sample
-	 */
-	private static Vector projectSample(Vector sample, Vector[] axes) {
-		Vector point = new BasicVector(axes.length);
-
-		for (int i = 0; i < point.length(); i++) {
-			point.set(i, sample.innerProduct(axes[i]));
-		}
-
-		return point;
 	}
 }
