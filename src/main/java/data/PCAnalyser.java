@@ -80,7 +80,7 @@ public class PCAnalyser {
 		}
 
 		// Transpose the projection matrix
-		projectionMatrix.transpose();
+		projectionMatrix = projectionMatrix.transpose();
 
 		// Instantiate the projected points matrix
 		points = new Basic2DMatrix(samplesCount, dimensions);
