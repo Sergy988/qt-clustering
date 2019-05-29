@@ -29,12 +29,12 @@ public class PlotApp extends Application {
 	/**
 	 * The width of the window.
 	 */
-	private static final int WIN_WIDTH = 800;
+	private static final int WIN_WIDTH = 640;
 
 	/**
 	 * The height of the window.
 	 */
-	private static final int WIN_HEIGHT = 800;
+	private static final int WIN_HEIGHT = 640;
 
 	/**
 	 * The length of the semiaxes.
