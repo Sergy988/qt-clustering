@@ -26,22 +26,6 @@ public class ClientMain {
 	private ObjectOutputStream outStream;
 
 	/**
-	 * Construct a ClientMain.
-	 * @param ip The ip address
-	 * @param port The port number
-	 * @throws IOException Thrown when the connection failed
-	 */
-	public ClientMain(String ip, int port) throws IOException {
-		InetAddress addr = InetAddress.getByName(ip);
-		System.out.println("Connecting to " + addr + " ...");
-
-		Socket socket = new Socket(addr, port);
-
-		inStream = new ObjectInputStream(socket.getInputStream());
-		outStream = new ObjectOutputStream(socket.getOutputStream());
-	}
-
-	/**
 	 * The entry point.
 	 * @param args The arguments of the program
 	 */
@@ -86,6 +70,22 @@ public class ClientMain {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Construct a ClientMain.
+	 * @param ip The ip address
+	 * @param port The port number
+	 * @throws IOException Thrown when the connection failed
+	 */
+	public ClientMain(String ip, int port) throws IOException {
+		InetAddress addr = InetAddress.getByName(ip);
+		System.out.println("Connecting to " + addr + " ...");
+
+		Socket socket = new Socket(addr, port);
+
+		inStream = new ObjectInputStream(socket.getInputStream());
+		outStream = new ObjectOutputStream(socket.getOutputStream());
 	}
 
 	/**
