@@ -54,13 +54,30 @@ public class MultiServer {
 	 * Run the server.
 	 */
 	public void run() {
-		while (true) {
-			try {
+		try {
+			while (true) {
 				Socket clientSocket = socket.accept();
-				new ServerOneClient(clientSocket).start();
-			} catch (IOException e) {
-				System.err.println(e);
+				try {
+					new ServerOneClient(clientSocket);
+				} catch (IOException e) {
+					System.err.println(e);
+				}
 			}
+		} catch (IOException e) {
+			System.err.println(e);
+		} finally {
+			close();
+		}
+	}
+
+	/**
+	 * Close the server.
+	 */
+	private void close() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+			System.err.println(e);
 		}
 	}
 }

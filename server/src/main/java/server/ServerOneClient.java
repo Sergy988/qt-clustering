@@ -45,6 +45,8 @@ public class ServerOneClient extends Thread {
 
 		inStream = new ObjectInputStream(socket.getInputStream());
 		outStream = new ObjectOutputStream(socket.getOutputStream());
+
+		start();
 	}
 
 	/**
@@ -52,7 +54,43 @@ public class ServerOneClient extends Thread {
 	 */
 	@Override
 	public void run() {
-		// TODO
+		try {
+			Integer operation = (Integer) inStream.readObject();
+
+			switch (operation) {
+				case 0:
+					// storeTableFromDB()
+					break;
+				case 1:
+					// learningFromDBTable()
+					break;
+				case 2:
+					// storeClusterInFile()
+					break;
+				case 3:
+					// learningFromServerFile()
+					break;
+				default:
+					break;
+			}
+		} catch (IOException e) {
+			System.err.println(e);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e);
+		} finally {
+			close();
+		}
+	}
+
+	/**
+	 * Close the server one client thread.
+	 */
+	private void close() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 }
 
