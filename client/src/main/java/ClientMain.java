@@ -135,44 +135,6 @@ public class ClientMain {
 	}
 
 	/**
-	 * Retrieve the server file.
-	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
-	 * @throws ServerException Thrown when the server result is invalid
-	 * @return The content of the server file
-	 */
-	private String learningFromServerFile()
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
-		System.out.print("File name: ");
-		String filename = Keyboard.readString();
-
-		outStream.writeObject(3);
-
-		System.out.print("Table name: ");
-		String tableName = Keyboard.readString();
-		outStream.writeObject(tableName);
-
-		double radius = 1.0;
-
-		do {
-			System.out.print("Enter radius: ");
-			radius = Keyboard.readDouble();
-		} while (radius < 1e-12);
-
-		outStream.writeObject(radius);
-
-		String result = (String) inStream.readObject();
-
-		if (!result.equals("OK")) {
-			throw new ServerException(result);
-		}
-
-		return (String) inStream.readObject();
-	}
-
-	/**
 	 * Learning from data.
 	 */
 	private void learningFromData() {
@@ -285,6 +247,44 @@ public class ClientMain {
 		if (!result.equals("OK")) {
 			throw new ServerException(result);
 		}
+	}
+
+	/**
+	 * Retrieve the server file.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ServerException Thrown when the server result is invalid
+	 * @return The content of the server file
+	 */
+	private String learningFromServerFile()
+		throws IOException,
+		       ClassNotFoundException,
+		       ServerException {
+		System.out.print("File name: ");
+		String filename = Keyboard.readString();
+
+		outStream.writeObject(3);
+
+		System.out.print("Table name: ");
+		String tableName = Keyboard.readString();
+		outStream.writeObject(tableName);
+
+		double radius = 1.0;
+
+		do {
+			System.out.print("Enter radius: ");
+			radius = Keyboard.readDouble();
+		} while (radius < 1e-12);
+
+		outStream.writeObject(radius);
+
+		String result = (String) inStream.readObject();
+
+		if (!result.equals("OK")) {
+			throw new ServerException(result);
+		}
+
+		return (String) inStream.readObject();
 	}
 }
 
