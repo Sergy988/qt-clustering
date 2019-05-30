@@ -16,6 +16,11 @@ import keyboardinput.Keyboard;
 public class ClientMain {
 
 	/**
+	 * The connection socket.
+	 */
+	private Socket socket;
+
+	/**
 	 * The input object stream to the client.
 	 */
 	private ObjectInputStream inStream;
@@ -24,6 +29,11 @@ public class ClientMain {
 	 * The output object stream to the server.
 	 */
 	private ObjectOutputStream outStream;
+
+	/**
+	 * The maximum number of write operations trying.
+	 */
+	private static final int MAX_TRYINGS = 5;
 
 	/**
 	 * The entry point.
@@ -43,7 +53,7 @@ public class ClientMain {
 		try {
 			main = new ClientMain(ip, port);
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 			return;
 		}
 
@@ -70,6 +80,8 @@ public class ClientMain {
 				break;
 			}
 		}
+
+		main.close();
 	}
 
 	/**
@@ -82,10 +94,10 @@ public class ClientMain {
 		InetAddress addr = InetAddress.getByName(ip);
 		System.out.println("Connecting to " + addr + " ...");
 
-		Socket socket = new Socket(addr, port);
+		socket = new Socket(addr, port);
 
-		inStream = new ObjectInputStream(socket.getInputStream());
 		outStream = new ObjectOutputStream(socket.getOutputStream());
+		inStream = new ObjectInputStream(socket.getInputStream());
 	}
 
 	/**
@@ -94,6 +106,17 @@ public class ClientMain {
 	public static void help() {
 		System.out.println("usage:");
 		System.out.println("qt-client {ip} {port}");
+	}
+
+	/**
+	 * Close the connection.
+	 */
+	private void close() {
+		try {
+			socket.close();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -124,11 +147,11 @@ public class ClientMain {
 		try {
 			kmeans = learningFromServerFile();
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		} catch (ServerException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 
 		System.out.println(kmeans);
@@ -138,17 +161,24 @@ public class ClientMain {
 	 * Learning from data.
 	 */
 	private void learningFromData() {
-		while (true) {
+		int tryings = 0;
+		while (tryings < MAX_TRYINGS) {
 			try {
 				storeTableFromDB();
 				break;
 			} catch (IOException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			} catch (ServerException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
+
+			tryings++;
+		}
+
+		if (tryings == MAX_TRYINGS) {
+			return;
 		}
 
 		char answer = 'y';
@@ -160,11 +190,15 @@ public class ClientMain {
 				clusterSet = learningFromDBTable();
 				storeClusterInFile();
 			} catch (IOException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			} catch (ClassNotFoundException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			} catch (ServerException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
+			}
+
+			if (clusterSet !=  null) {
+				System.out.println(clusterSet);
 			}
 
 			System.out.print("Would you repeat? (y/n): ");
@@ -186,7 +220,7 @@ public class ClientMain {
 		       ServerException {
 		outStream.writeObject(0);
 
-		System.out.println("Table name: ");
+		System.out.print("Table name: ");
 		String tableName = Keyboard.readString();
 		outStream.writeObject(tableName);
 

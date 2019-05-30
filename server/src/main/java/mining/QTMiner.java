@@ -54,6 +54,14 @@ public class QTMiner {
 	}
 
 	/**
+	 * Get the radius.
+	 * @return The radius
+	 */
+	public double getRadius() {
+		return radius;
+	}
+
+	/**
 	 * Get the cluster set.
 	 * @return The cluster set
 	 */

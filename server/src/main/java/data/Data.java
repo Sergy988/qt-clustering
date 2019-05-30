@@ -24,6 +24,11 @@ import database.DatabaseConnectionException;
 public class Data {
 
 	/**
+	 * The source database table name.
+	 */
+	private String tableName;
+
+	/**
 	 * The source data tuples.
 	 */
 	private List<Tuple> data = new LinkedList<Tuple>();
@@ -49,6 +54,8 @@ public class Data {
 		       NoValueException,
 		       DatabaseConnectionException,
 		       EmptySetException {
+		this.tableName = table;
+
 		DbAccess db = new DbAccess();
 		db.initConnection();
 
@@ -107,6 +114,14 @@ public class Data {
 
 		// Close the connection to the database
 		db.closeConnection();
+	}
+
+	/**
+	 * Get the source database table name.
+	 * @return A database table name
+	 */
+	public String getTableName() {
+		return tableName;
 	}
 
 	/**

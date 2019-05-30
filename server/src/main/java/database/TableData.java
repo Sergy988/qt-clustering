@@ -46,6 +46,10 @@ public class TableData {
 		Statement statement;
 		TableSchema tSchema = new TableSchema(db, table);
 
+		if (tSchema.getNumberOfAttributes() == 0) {
+			throw new SQLException("Database table not found");
+		}
+
 		String query = "select distinct ";
 
 		for (int i = 0; i < tSchema.getNumberOfAttributes(); i++) {
@@ -56,10 +60,6 @@ public class TableData {
 			}
 
 			query += c.getName();
-		}
-
-		if (tSchema.getNumberOfAttributes() == 0) {
-			throw new SQLException();
 		}
 
 		query += " from " + table;
@@ -90,7 +90,7 @@ public class TableData {
 		statement.close();
 
 		if (empty) {
-			throw new EmptySetException();
+			throw new EmptySetException("Database table set is empty");
 		}
 
 		return transSet;

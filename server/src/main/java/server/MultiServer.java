@@ -34,7 +34,7 @@ public class MultiServer {
 		try {
 			server = new MultiServer(PORT);
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 			return;
 		}
 
@@ -57,14 +57,16 @@ public class MultiServer {
 		try {
 			while (true) {
 				Socket clientSocket = socket.accept();
+				System.out.println("accepting " + clientSocket);
+
 				try {
 					new ServerOneClient(clientSocket);
 				} catch (IOException e) {
-					System.err.println(e);
+					System.err.println(e.getMessage());
 				}
 			}
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		} finally {
 			close();
 		}
@@ -77,7 +79,7 @@ public class MultiServer {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.getMessage());
 		}
 	}
 }
