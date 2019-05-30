@@ -94,7 +94,7 @@ public class QTMiner {
 	public int compute(Data data) throws
 		ClusteringRadiusException, EmptyDatasetException {
 		if (data.getNumberOfExamples() == 0) {
-			throw new EmptyDatasetException("dataset has not entries!");
+			throw new EmptyDatasetException("Dataset has not entries");
 		}
 
 		int numClusters = 0;
@@ -117,7 +117,7 @@ public class QTMiner {
 		}
 
 		if (numClusters == 1) {
-			throw new ClusteringRadiusException("radius is too large!");
+			throw new ClusteringRadiusException("Radius is too large");
 		}
 
 		return numClusters;

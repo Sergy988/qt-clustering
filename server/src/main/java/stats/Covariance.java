@@ -54,7 +54,7 @@ public class Covariance {
 		Vector firstSamples, Vector secondSamples)
 		throws StatisticException {
 		if (firstSamples.length() != secondSamples.length()) {
-			throw new StatisticException("samples length mismatch");
+			throw new StatisticException("Samples length mismatch");
 		}
 
 		int samplesCount = firstSamples.length();

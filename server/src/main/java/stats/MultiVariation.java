@@ -28,11 +28,11 @@ public class MultiVariation {
 		throws StatisticException {
 		// Check if the correlation matrix is valid
 		if (correlation.rows() != correlation.columns()) {
-			throw new StatisticException("correlation matrix is not square");
+			throw new StatisticException("Correlation matrix is not square");
 		}
 
 		if (correlation.columns() < dim) {
-			throw new StatisticException("correlation matrix is too small");
+			throw new StatisticException("Correlation matrix is too small");
 		}
 
 		EigenDecompositor eigen = new EigenDecompositor(correlation);
