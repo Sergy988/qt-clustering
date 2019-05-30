@@ -93,7 +93,7 @@ public class ServerOneClient extends Thread {
 		} catch (IOException e) {
 			System.err.println(socket + " disconnected");
 		} catch (ClassNotFoundException e) {
-			System.err.println(e);
+			System.err.println(socket + ": " + e);
 		} finally {
 			close();
 		}
@@ -124,19 +124,14 @@ public class ServerOneClient extends Thread {
 			data = new Data(tableName);
 		} catch (ClassNotFoundException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		} catch (NoValueException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		} catch (DatabaseConnectionException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		} catch (EmptySetException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		}
 
 		if (result != null) {
@@ -159,21 +154,28 @@ public class ServerOneClient extends Thread {
 		qt = new QTMiner(radius);
 
 		int numClusters = 0;
+		boolean isOk = true;
 
 		try {
 			numClusters = qt.compute(data);
 		} catch (ClusteringRadiusException e) {
+			isOk = false;
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		} catch (EmptyDatasetException e) {
+			isOk = false;
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		}
 
-		outStream.writeObject(result);
+		if (result != null) {
+			outStream.writeObject(result);
+		} else {
+			outStream.writeObject("Generic error");
+		}
 
-		outStream.writeObject(numClusters);
-		outStream.writeObject(qt.getClusterSet().toString(data));
+		if (isOk) {
+			outStream.writeObject(numClusters);
+			outStream.writeObject(qt.getClusterSet().toString(data));
+		}
 	}
 
 	/**
@@ -186,13 +188,17 @@ public class ServerOneClient extends Thread {
 		String result = "OK";
 
 		try {
-			qt.save(data.getTableName() + "_" + qt.getRadius() + ".dmp");
+			qt.save(clusterSetFileName(data.getTableName(), qt.getRadius()));
 		} catch (IOException e) {
 			result = e.getMessage();
-			System.err.println(e.getMessage());
 		}
 
-		outStream.writeObject(result);
+		if (result != null) {
+			outStream.writeObject(result);
+		} else {
+			outStream.writeObject("Generic error");
+		}
+
 	}
 
 	/**
@@ -200,8 +206,43 @@ public class ServerOneClient extends Thread {
 	 * @throws IOException Thrown when an I/O error occurs
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 */
-	private void learningFromServerFile() {
-		// TODO
+	private void learningFromServerFile()
+		throws IOException, ClassNotFoundException {
+		String result = "OK";
+		String tableName = (String) inStream.readObject();
+		double radius = (double) inStream.readObject();
+
+		boolean isOk = true;
+
+		try {
+			qt = new QTMiner(clusterSetFileName(tableName, radius));
+		} catch (IOException e) {
+			isOk = false;
+			result = e.getMessage();
+		} catch (ClassNotFoundException e) {
+			isOk = false;
+			result = e.getMessage();
+		}
+
+		if (result != null) {
+			outStream.writeObject(result);
+		} else {
+			outStream.writeObject("Generic error");
+		}
+
+		if (isOk) {
+			outStream.writeObject(qt.getClusterSet().toString());
+		}
+	}
+
+	/**
+	 * Convert a table name and a radius to a filename.
+	 * @param tableName The name of the table
+	 * @param radius The radius
+	 * @return The filename of the cluster set dump
+	 */
+	private static String clusterSetFileName(String tableName, double radius) {
+		return tableName + "_" + radius + ".dmp";
 	}
 }
 

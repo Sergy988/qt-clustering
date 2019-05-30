@@ -149,7 +149,9 @@ public class ClientMain {
 			System.err.println(e.getMessage());
 		}
 
-		System.out.println(kmeans);
+		if (kmeans != null) {
+			System.out.println(kmeans);
+		}
 	}
 
 	/**
@@ -282,9 +284,6 @@ public class ClientMain {
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
-		System.out.print("File name: ");
-		String filename = Keyboard.readString();
-
 		outStream.writeObject(3);
 
 		System.out.print("Table name: ");
