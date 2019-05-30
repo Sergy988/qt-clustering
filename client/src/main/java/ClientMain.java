@@ -31,11 +31,6 @@ public class ClientMain {
 	private ObjectOutputStream outStream;
 
 	/**
-	 * The maximum number of write operations trying.
-	 */
-	private static final int MAX_TRYINGS = 5;
-
-	/**
 	 * The entry point.
 	 * @param args The arguments of the program
 	 */
@@ -161,23 +156,16 @@ public class ClientMain {
 	 * Learning from data.
 	 */
 	private void learningFromData() {
-		int tryings = 0;
-		while (tryings < MAX_TRYINGS) {
-			try {
-				storeTableFromDB();
-				break;
-			} catch (IOException e) {
-				System.err.println(e.getMessage());
-			} catch (ClassNotFoundException e) {
-				System.err.println(e.getMessage());
-			} catch (ServerException e) {
-				System.err.println(e.getMessage());
-			}
-
-			tryings++;
-		}
-
-		if (tryings == MAX_TRYINGS) {
+		try {
+			storeTableFromDB();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+			return;
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		} catch (ServerException e) {
+			System.err.println(e.getMessage());
 			return;
 		}
 
