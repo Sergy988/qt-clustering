@@ -123,22 +123,18 @@ public class ServerOneClient extends Thread {
 		try {
 			data = new Data(tableName);
 		} catch (ClassNotFoundException e) {
-			result = e.getMessage();
+			result = e.toString();
 		} catch (SQLException e) {
-			result = e.getMessage();
+			result = e.toString();
 		} catch (NoValueException e) {
-			result = e.getMessage();
+			result = e.toString();
 		} catch (DatabaseConnectionException e) {
-			result = e.getMessage();
+			result = e.toString();
 		} catch (EmptySetException e) {
-			result = e.getMessage();
+			result = e.toString();
 		}
 
-		if (result != null) {
-			outStream.writeObject(result);
-		} else {
-			outStream.writeObject("Generic error");
-		}
+		outStream.writeObject(result);
 	}
 
 	/**
@@ -154,25 +150,18 @@ public class ServerOneClient extends Thread {
 		qt = new QTMiner(radius);
 
 		int numClusters = 0;
-		boolean isOk = true;
 
 		try {
 			numClusters = qt.compute(data);
 		} catch (ClusteringRadiusException e) {
-			isOk = false;
-			result = e.getMessage();
+			result = e.toString();
 		} catch (EmptyDatasetException e) {
-			isOk = false;
-			result = e.getMessage();
+			result = e.toString();
 		}
 
-		if (result != null) {
-			outStream.writeObject(result);
-		} else {
-			outStream.writeObject("Generic error");
-		}
+		outStream.writeObject(result);
 
-		if (isOk) {
+		if (result == "OK") {
 			outStream.writeObject(numClusters);
 			outStream.writeObject(qt.getClusterSet().toString(data));
 		}
@@ -190,15 +179,10 @@ public class ServerOneClient extends Thread {
 		try {
 			qt.save(clusterSetFileName(data.getTableName(), qt.getRadius()));
 		} catch (IOException e) {
-			result = e.getMessage();
+			result = e.toString();
 		}
 
-		if (result != null) {
-			outStream.writeObject(result);
-		} else {
-			outStream.writeObject("Generic error");
-		}
-
+		outStream.writeObject(result);
 	}
 
 	/**
@@ -212,25 +196,17 @@ public class ServerOneClient extends Thread {
 		String tableName = (String) inStream.readObject();
 		double radius = (double) inStream.readObject();
 
-		boolean isOk = true;
-
 		try {
 			qt = new QTMiner(clusterSetFileName(tableName, radius));
 		} catch (IOException e) {
-			isOk = false;
-			result = e.getMessage();
+			result = e.toString();
 		} catch (ClassNotFoundException e) {
-			isOk = false;
-			result = e.getMessage();
+			result = e.toString();
 		}
 
-		if (result != null) {
-			outStream.writeObject(result);
-		} else {
-			outStream.writeObject("Generic error");
-		}
+		outStream.writeObject(result);
 
-		if (isOk) {
+		if (result == "OK") {
 			outStream.writeObject(qt.getClusterSet().toString());
 		}
 	}

@@ -66,7 +66,7 @@ public class DbAccess {
 			connection = DriverManager.getConnection(url, USER_ID, PASSWORD);
 		} catch (SQLException e) {
 			throw new DatabaseConnectionException(
-				"failed to connect to the database!"
+				"Failed to connect to the database"
 			);
 		}
 	}
