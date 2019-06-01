@@ -80,6 +80,14 @@ public class ClientMain {
 	}
 
 	/**
+	 * Print the helpful message.
+	 */
+	private static void help() {
+		System.out.println("usage:");
+		System.out.println("qt-client {ip} {port}");
+	}
+
+	/**
 	 * Construct a ClientMain.
 	 * @param ip The ip address
 	 * @param port The port number
@@ -93,14 +101,6 @@ public class ClientMain {
 
 		outStream = new ObjectOutputStream(socket.getOutputStream());
 		inStream = new ObjectInputStream(socket.getInputStream());
-	}
-
-	/**
-	 * Print the helpful message.
-	 */
-	public static void help() {
-		System.out.println("usage:");
-		System.out.println("qt-client {ip} {port}");
 	}
 
 	/**
