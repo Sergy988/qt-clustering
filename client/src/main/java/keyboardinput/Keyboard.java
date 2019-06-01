@@ -62,7 +62,7 @@ public class Keyboard {
 		errorCount++;
 
 		if (printErrors) {
-			System.out.println(str);
+			System.err.println(str);
 		}
 	}
 
