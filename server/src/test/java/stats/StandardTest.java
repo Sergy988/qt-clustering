@@ -5,11 +5,7 @@ import static org.junit.Assert.assertEquals;
 import stats.Standard;
 
 import org.la4j.Vector;
-import org.la4j.Vectors;
 import org.la4j.vector.dense.BasicVector;
-
-import stats.Mean;
-import stats.Variance;
 
 /**
  * Standard class tester.
