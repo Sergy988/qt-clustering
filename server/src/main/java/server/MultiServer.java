@@ -29,16 +29,11 @@ public class MultiServer {
 	 * @param args The arguments of the program
 	 */
 	public static void main(String[] args) {
-		MultiServer server = null;
-
 		try {
-			server = new MultiServer(PORT);
+			new MultiServer(PORT).run();
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
-			return;
 		}
-
-		server.run();
 	}
 
 	/**

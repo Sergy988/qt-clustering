@@ -137,20 +137,15 @@ public class ClientMain {
 	 * Load a cluster set from file.
 	 */
 	private void learningFromFile() {
-		String kmeans = null;
-
 		try {
-			kmeans = learningFromServerFile();
+			String centroids = learningFromServerFile();
+			System.out.println(centroids);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			System.err.println(e.getMessage());
 		} catch (ServerException e) {
 			System.err.println(e.getMessage());
-		}
-
-		if (kmeans != null) {
-			System.out.println(kmeans);
 		}
 	}
 
@@ -174,10 +169,10 @@ public class ClientMain {
 		char answer = 'y';
 
 		while (Character.toLowerCase(answer) == 'y') {
-			String clusterSet = null;
-
 			try {
-				clusterSet = learningFromDBTable();
+				String clusterSet = learningFromDBTable();
+				System.out.println(clusterSet);
+
 				storeClusterInFile();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
@@ -185,10 +180,6 @@ public class ClientMain {
 				System.err.println(e.getMessage());
 			} catch (ServerException e) {
 				System.err.println(e.getMessage());
-			}
-
-			if (clusterSet !=  null) {
-				System.out.println(clusterSet);
 			}
 
 			System.out.print("Would you repeat? (y/n): ");
