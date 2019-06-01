@@ -10,6 +10,13 @@ import org.la4j.vector.dense.BasicVector;
 public class Standard {
 
 	/**
+	 * Disable the constructor.
+	 */
+	private Standard() {
+		// nothing
+	}
+
+	/**
 	 * Calculate the standardized samples.
 	 * @param samples The samples data
 	 * @return The standardized samples

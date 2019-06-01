@@ -11,6 +11,13 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 public class Correlation {
 
 	/**
+	 * Disable the constructor.
+	 */
+	private Correlation() {
+		// nothing
+	}
+
+	/**
 	 * Calculate the correlation matrix of a samples matrix.
 	 * @param samples The samples matrix
 	 * @return The correlation matrix

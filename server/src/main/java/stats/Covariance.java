@@ -11,6 +11,13 @@ import org.la4j.matrix.dense.Basic2DMatrix;
 public class Covariance {
 
 	/**
+	 * Disable the constructor.
+	 */
+	private Covariance() {
+		// nothing
+	}
+
+	/**
 	 * Calculate the covariance matrix of a samples matrix.
 	 * @param samples The samples matrix
 	 * @return The covariance matrix

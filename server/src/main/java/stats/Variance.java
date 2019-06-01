@@ -9,6 +9,13 @@ import org.la4j.Vector;
 public class Variance {
 
 	/**
+	 * Disable the constructor.
+	 */
+	private Variance() {
+		// nothing
+	}
+
+	/**
 	 * Calculate the variance.
 	 * @param samples The samples data
 	 * @return The variance

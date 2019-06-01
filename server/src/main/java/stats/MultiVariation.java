@@ -16,6 +16,13 @@ import org.la4j.decomposition.EigenDecompositor;
 public class MultiVariation {
 
 	/**
+	 * Disable the constructor.
+	 */
+	private MultiVariation() {
+		// nothing
+	}
+
+	/**
 	 * Calculate the major eigenvectors of a correlation matrix.
 	 * @param dim The number of major eigenvectors.
 	 * @param correlation The correlation matrix
@@ -24,7 +31,7 @@ public class MultiVariation {
 	 *                            not quadratic or if its number of columns
 	 *                            is less than dimension.
 	 */
-	static public Matrix majorEigenvectors(int dim, Matrix correlation)
+	public static Matrix majorEigenvectors(int dim, Matrix correlation)
 		throws StatisticException {
 		// Check if the correlation matrix is valid
 		if (correlation.rows() != correlation.columns()) {
@@ -63,7 +70,7 @@ public class MultiVariation {
 	 * @param eigenvalues The eigenvalues matrix
 	 * @return The position of the maximum eigenvalue
 	 */
-	static private int maximumEigevalue(Matrix eigenvalues) {
+	private static int maximumEigevalue(Matrix eigenvalues) {
 		int index = 0;
 		double max = eigenvalues.get(0, 0);
 
