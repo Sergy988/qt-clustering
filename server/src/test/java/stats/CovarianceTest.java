@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
 import stats.Covariance;
+import stats.StatisticException;
 
 import org.la4j.Vector;
 import org.la4j.Matrix;
@@ -39,6 +40,17 @@ public class CovarianceTest {
 		} catch (Exception e) {
 			fail(e.toString());
 		}
+	}
+
+	/**
+	 * Covariance.covariance() test (samples length mismatch).
+	 */
+	@Test(expected = StatisticException.class)
+	public void testCovarianceLengthMismatch() throws StatisticException {
+		Vector firstSamples = new BasicVector(2);
+		Vector secondSamplse = new BasicVector(3);
+
+		Covariance.covariance(firstSamples, secondSamplse);
 	}
 }
 
