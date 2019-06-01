@@ -33,10 +33,10 @@ public class CovarianceTest {
 		
 		try {
 			Matrix covariance = Covariance.covariance(samples);
-			assertEquals(covariance.get(0, 0),  1.000000000, EPS);
+			assertEquals(covariance.get(0, 0),  0.666666667, EPS);
 			assertEquals(covariance.get(0, 1), -0.166666667, EPS);
 			assertEquals(covariance.get(1, 0), -0.166666667, EPS);
-			assertEquals(covariance.get(1, 1),  1.000000000, EPS);
+			assertEquals(covariance.get(1, 1),  2.388888889, EPS);
 		} catch (Exception e) {
 			fail(e.toString());
 		}

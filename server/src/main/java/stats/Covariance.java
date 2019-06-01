@@ -41,7 +41,7 @@ public class Covariance {
 				covariance.set(j, i, value);
 			}
 
-			covariance.set(i, i, 1.0);
+			covariance.set(i, i, Variance.variance(samples.getColumn(i)));
 		}
 
 		return covariance;
