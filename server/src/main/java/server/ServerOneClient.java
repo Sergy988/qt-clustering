@@ -23,7 +23,7 @@ import database.DatabaseConnectionException;
 /**
  * Server one client thread class.
  */
-public class ServerOneClient extends Thread {
+class ServerOneClient extends Thread {
 
 	/**
 	 * The QT miner object.
@@ -55,7 +55,7 @@ public class ServerOneClient extends Thread {
 	 * @param socket The client socket
 	 * @throws IOException Thrown when a I/O exception occurs
 	 */
-	public ServerOneClient(Socket socket) throws IOException {
+	ServerOneClient(Socket socket) throws IOException {
 		this.socket = socket;
 
 		inStream = new ObjectInputStream(socket.getInputStream());
