@@ -30,7 +30,7 @@ public class CovarianceTest {
 		samples.set(0, 0,  1.0); samples.set(0, 1, -0.5);
 		samples.set(1, 0,  2.0); samples.set(1, 1,  2.5);
 		samples.set(2, 0,  0.0); samples.set(2, 1,  3.0);
-		
+
 		try {
 			Matrix covariance = Covariance.covariance(samples);
 			assertEquals(covariance.get(0, 0),  0.666666667, EPS);
@@ -44,6 +44,7 @@ public class CovarianceTest {
 
 	/**
 	 * Covariance.covariance() test (samples length mismatch).
+	 * @throws StatisticException Thrown when a statistic exception occurs
 	 */
 	@Test(expected = StatisticException.class)
 	public void testCovarianceLengthMismatch() throws StatisticException {
@@ -53,4 +54,3 @@ public class CovarianceTest {
 		Covariance.covariance(firstSamples, secondSamplse);
 	}
 }
-

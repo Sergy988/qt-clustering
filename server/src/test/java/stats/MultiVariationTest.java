@@ -29,7 +29,7 @@ public class MultiVariationTest {
 		Matrix correlation = new Basic2DMatrix(2, 2);
 		correlation.set(0, 0, 1.0); correlation.set(0, 1, 0.5);
 		correlation.set(1, 0, 0.2); correlation.set(1, 1, 1.0);
-		
+
 		try {
 			Matrix eigenvectors = MultiVariation.majorEigenvectors(
 				1, correlation
@@ -44,6 +44,7 @@ public class MultiVariationTest {
 
 	/**
 	 * MultiVariation.majorEigenvectors() test (columns and rows mismatch).
+	 * @throws StatisticException Thrown when a statistic exception occurs
 	 */
 	@Test(expected = StatisticException.class)
 	public void testMajorEigenvectorsDimMismatch() throws StatisticException {
@@ -55,6 +56,7 @@ public class MultiVariationTest {
 	/**
 	 * MultiVariation.majorEigenvectors() test
 	 * (correlation dimention less than dim).
+	 * @throws StatisticException Thrown when a statistic exception occurs
 	 */
 	@Test(expected = StatisticException.class)
 	public void testMajorEigenvectorsInvalidDim() throws StatisticException {
@@ -63,4 +65,3 @@ public class MultiVariationTest {
 		MultiVariation.majorEigenvectors(4, matrix);
 	}
 }
-

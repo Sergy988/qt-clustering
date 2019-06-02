@@ -30,7 +30,7 @@ public class CorrelationTest {
 		samples.set(0, 0,  1.0); samples.set(0, 1, -0.5);
 		samples.set(1, 0,  2.0); samples.set(1, 1,  2.5);
 		samples.set(2, 0,  0.0); samples.set(2, 1,  3.0);
-		
+
 		try {
 			Matrix correlation = Correlation.correlation(samples);
 			assertEquals(correlation.get(0, 0),  1.000000000, EPS);
@@ -44,6 +44,7 @@ public class CorrelationTest {
 
 	/**
 	 * Correlation.correlation() test (samples length mismatch).
+	 * @throws StatisticException Thrown when a statistic exception occurs
 	 */
 	@Test(expected = StatisticException.class)
 	public void testCorrelationLengthMismatch() throws StatisticException {
@@ -53,4 +54,3 @@ public class CorrelationTest {
 		Correlation.correlation(firstSamples, secondSamplse);
 	}
 }
-
