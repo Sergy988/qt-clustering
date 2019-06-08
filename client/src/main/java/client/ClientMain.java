@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
-import javafx.event.EventHandler;
-import javafx.stage.WindowEvent;
-
 import javafx.application.Application;
 
 /**
@@ -86,14 +83,11 @@ public class ClientMain extends Application {
 
 		Scene scene = new Scene(grid, WIN_WIDTH, WIN_HEIGHT);
 
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent we) {
-				try {
-					disconnect();
-				} catch (IOException e) {
-					System.err.println(e.getMessage());
-				}
+		stage.setOnCloseRequest(event -> {
+			try {
+				disconnect();
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
 			}
 		});
 

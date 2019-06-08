@@ -6,9 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 /**
  * The client connection UI.
  */
@@ -64,70 +61,64 @@ class ConnectionUI extends ClientUI {
 		add(portField, 1, 2);
 
 		connectButton = new Button("Connect");
-		connectButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (client.isConnected()) {
-					ClientUI.showInformation(
-						"You are already connected to the server"
-					);
-					return;
-				}
-
-				int port = 0;
-				String ip = ipField.getText();
-
-				try {
-					port = Integer.parseInt(portField.getText());
-
-					if (port < 0 || port > 65545) {
-						throw new NumberFormatException("Invalid port");
-					}
-				} catch (NumberFormatException e) {
-					ClientUI.showError(
-						"Invalid port format", e.getMessage()
-					);
-					return;
-				}
-
-				try {
-					client.connect(ip, port);
-				} catch (IOException e) {
-					ClientUI.showError(
-						"Connection to the server failed", e.getMessage()
-					);
-					return;
-				}
-
-				status.setText("connected");
-				status.setTextFill(Color.web("#20F020"));
+		connectButton.setOnAction(event -> {
+			if (client.isConnected()) {
+				ClientUI.showInformation(
+					"You are already connected to the server"
+				);
+				return;
 			}
+
+			int port = 0;
+			String ip = ipField.getText();
+
+			try {
+				port = Integer.parseInt(portField.getText());
+
+				if (port < 0 || port > 65545) {
+					throw new NumberFormatException("Invalid port");
+				}
+			} catch (NumberFormatException e) {
+				ClientUI.showError(
+					"Invalid port format", e.getMessage()
+				);
+				return;
+			}
+
+			try {
+				client.connect(ip, port);
+			} catch (IOException e) {
+				ClientUI.showError(
+					"Connection to the server failed", e.getMessage()
+				);
+				return;
+			}
+
+			status.setText("connected");
+			status.setTextFill(Color.web("#20F020"));
 		});
 		add(connectButton, 0, 3);
 
 		disconnectButton = new Button("Disconnect");
-		disconnectButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (!client.isConnected()) {
-					ClientUI.showInformation(
-						"You are already disconnected"
-					);
-					return;
-				}
-
-				try {
-					client.disconnect();
-				} catch (IOException e) {
-					ClientUI.showError(
-						"Failed to disconnect from the server", e.getMessage()
-					);
-					return;
-				}
-
-				status.setText("disconnected");
-				status.setTextFill(Color.web("#F02020"));
+		disconnectButton.setOnAction(event -> {
+			if (!client.isConnected()) {
+				ClientUI.showInformation(
+					"You are already disconnected"
+				);
+				return;
 			}
+
+			try {
+				client.disconnect();
+			} catch (IOException e) {
+				ClientUI.showError(
+					"Failed to disconnect from the server", e.getMessage()
+				);
+				return;
+			}
+
+			status.setText("disconnected");
+			status.setTextFill(Color.web("#F02020"));
 		});
 		add(disconnectButton, 1, 3);
 	}
