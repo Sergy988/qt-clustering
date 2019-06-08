@@ -4,17 +4,18 @@ import java.io.IOException;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-
 import javafx.scene.layout.GridPane;
+
+import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +24,11 @@ import javafx.event.EventHandler;
  * The client connection UI.
  */
 class ConnectionUI extends ClientUI {
+
+	/**
+	 * The connection status label.
+	 */
+	private Label status;
 
 	/**
 	 * The server ip text field.
@@ -52,6 +58,10 @@ class ConnectionUI extends ClientUI {
 		super(client);
 
 		add(new Label("Server Connection:"), 0, 0);
+
+		status = new Label("disconnected");
+		status.setTextFill(Color.web("#F02020"));
+		add(status, 1, 0);
 
 		add(new Label("Server ip:"), 0, 1);
 
@@ -100,9 +110,8 @@ class ConnectionUI extends ClientUI {
 					return;
 				}
 
-				ClientUI.showInformation(
-					"Connection to the server enstablished"
-				);
+				status.setText("connected");
+				status.setTextFill(Color.web("#20F020"));
 			}
 		});
 		add(connectButton, 0, 3);
@@ -127,9 +136,8 @@ class ConnectionUI extends ClientUI {
 					return;
 				}
 
-				ClientUI.showInformation(
-					"Successfully disconnected from the server"
-				);
+				status.setText("disconnected");
+				status.setTextFill(Color.web("#F02020"));
 			}
 		});
 		add(disconnectButton, 1, 3);
