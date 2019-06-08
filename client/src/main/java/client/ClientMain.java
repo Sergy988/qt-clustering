@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
 import javafx.application.Application;
 
@@ -79,197 +80,43 @@ public class ClientMain extends Application {
 	public void start(Stage stage) {
 		stage.setTitle("QT client");
 
-		GridPane connectionGrid = new GridPane();
-		connectionGrid.setHgap(8);
-		connectionGrid.setVgap(8);
-
-		connectionGrid.add(new Label("Server Connection"), 0, 0);
-
-		connectionGrid.add(new Label("Server ip:"), 0, 1);
-		TextField ipTextField = new TextField("localhost");
-		ipTextField.setPrefWidth(144);
-		connectionGrid.add(ipTextField, 1, 1);
-
-		connectionGrid.add(new Label("Server port:"), 0, 2);
-		TextField portTextField = new TextField("8080");
-		connectionGrid.add(portTextField, 1, 2);
-
-		Button connectButton = new Button("Connect");
-		connectButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				int port = 0;
-				String ip = ipTextField.getText();
-
-				try {
-					port = Integer.parseInt(portTextField.getText());
-
-					if (port < 0 || port > 65545) {
-						throw new NumberFormatException("Invalid port");
-					}
-				} catch (NumberFormatException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Invalid port format");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				try {
-					connect(ip, port);
-				} catch (IOException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Connection to the server failed");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Information");
-				alert.setHeaderText("Connection to the server enstablished");
-				alert.showAndWait();
-			}
-		});
-		connectionGrid.add(connectButton, 0, 3);
-
-		GridPane learningGrid = new GridPane();
-		learningGrid.setHgap(8);
-		learningGrid.setVgap(8);
-
-		learningGrid.add(new Label("Data mining"), 0, 0);
-
-		learningGrid.add(new Label("Table name:"), 0, 1);
-		TextField tableNameTextField = new TextField("table");
-		learningGrid.add(tableNameTextField, 1, 1);
-
-		learningGrid.add(new Label("Radius:"), 0, 2);
-		TextField radiusTextField = new TextField("1.0");
-		learningGrid.add(radiusTextField, 1, 2);
-
-		GridPane resultGrid = new GridPane();
-		resultGrid.setHgap(8);
-		resultGrid.setVgap(8);
-
-		resultGrid.add(new Label("Result:"), 0, 0);
-		TextArea resultTextArea = new TextArea();
-		resultTextArea.setPrefColumnCount(48);
-		resultTextArea.setPrefRowCount(32);
-		resultGrid.add(resultTextArea, 0, 1);
-
-		Button learnFromDataButton = new Button("Learn from database");
-		learnFromDataButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (!connected) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("You're not connected to the server");
-					alert.showAndWait();
-					return;
-				}
-
-				double radius = 0.0;
-				String tableName = tableNameTextField.getText();
-
-				try {
-					radius = Double.parseDouble(radiusTextField.getText());
-				} catch(NumberFormatException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Invalid radius format");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				String clusterSet = "";
-
-				try {
-					clusterSet = learnFromData(tableName, radius);
-				} catch(IOException
-					| ClassNotFoundException 
-					| ServerException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Learn from data failed");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				resultTextArea.setText(clusterSet);
-			}
-		});
-		learningGrid.add(learnFromDataButton, 0, 3);
-
-		Button learningFromFileButton = new Button("Learn from file");
-		learningFromFileButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (!connected) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("You're not connected to the server");
-					alert.showAndWait();
-					return;
-				}
-
-				double radius = 0.0;
-				String tableName = tableNameTextField.getText();
-
-				try {
-					radius = Double.parseDouble(radiusTextField.getText());
-				} catch(NumberFormatException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Invalid radius format");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				String centroids = "";
-
-				try {
-					centroids = learnFromFile(tableName, radius);
-				} catch(IOException
-					| ClassNotFoundException 
-					| ServerException e) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Learn from data failed");
-					alert.setContentText(e.getMessage());
-					alert.setResizable(true);
-					alert.showAndWait();
-					return;
-				}
-
-				resultTextArea.setText(centroids);
-			}
-		});
-		learningGrid.add(learningFromFileButton, 1, 3);
-
 		GridPane grid = new GridPane();
 		grid.setHgap(32);
 		grid.setVgap(32);
 		grid.setPadding(new Insets(24));
-		grid.add(connectionGrid, 0, 0);
-		grid.add(learningGrid, 1, 0);
-		grid.add(resultGrid, 0, 1);
+
+		ResultUI resultUI = new ResultUI(this);
+		ConnectionUI connectionUI = new ConnectionUI(this);
+		LearningUI learningUI = new LearningUI(this, resultUI);
+
+		grid.add(connectionUI, 0, 0);
+		grid.add(learningUI, 1, 0);
+		grid.add(resultUI, 0, 1);
 
 		Scene scene = new Scene(grid, WIN_WIDTH, WIN_HEIGHT);
+
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+				try {
+					disconnect();
+				} catch (IOException e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		});
 
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	/**
+	 * Get the connection status of the client.
+	 * @return true if the connection is enstablished, false otherwise
+	 */
+	boolean isConnected() {
+		return connected;
 	}
 
 	/**
@@ -278,7 +125,7 @@ public class ClientMain extends Application {
 	 * @param port The connection port
 	 * @throws IOException Thrown when the connection failed
 	 */
-	private void connect(String ip, int port) throws IOException {
+	void connect(String ip, int port) throws IOException {
 		disconnect();
 
 		InetAddress addr = InetAddress.getByName(ip);
@@ -295,7 +142,7 @@ public class ClientMain extends Application {
 	 * Disconnect from the server.
 	 * @throws IOException Thrown when an error occured closing the socket
 	 */
-	private void disconnect() throws IOException {
+	void disconnect() throws IOException {
 		if (socket != null) {
 			socket.close();
 			socket = null;
@@ -308,8 +155,11 @@ public class ClientMain extends Application {
 	 * @param tableName The name of the table
 	 * @param radius The radius of the mining
 	 * @return The cluster set string
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ServerException Thrown when the server result is invalid
 	 */
-	private String learnFromData(String tableName, double radius)
+	String learnFromData(String tableName, double radius)
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
@@ -325,11 +175,10 @@ public class ClientMain extends Application {
 	 * Store the table from database.
 	 * @param tableName The name of the table
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws SocketException Thrown when a socket error occurs
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
-	private void storeTableFromDB(String tableName)
+	void storeTableFromDB(String tableName)
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
@@ -352,7 +201,7 @@ public class ClientMain extends Application {
 	 * @throws ServerException Thrown when the server result is invalid
 	 * @return The cluster set string
 	 */
-	private String learnFromDBTable(double radius)
+	String learnFromDBTable(double radius)
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
@@ -375,7 +224,7 @@ public class ClientMain extends Application {
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
-	private void storeClusterInFile()
+	void storeClusterInFile()
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
@@ -397,7 +246,7 @@ public class ClientMain extends Application {
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
-	private String learnFromFile(String tableName, double radius)
+	String learnFromFile(String tableName, double radius)
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
