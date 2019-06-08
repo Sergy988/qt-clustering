@@ -149,10 +149,8 @@ class ServerOneClient extends Thread {
 
 		qt = new QTMiner(radius);
 
-		int numClusters = 0;
-
 		try {
-			numClusters = qt.compute(data);
+			qt.compute(data);
 		} catch (ClusteringRadiusException e) {
 			result = e.toString();
 		} catch (EmptyDatasetException e) {
@@ -162,7 +160,6 @@ class ServerOneClient extends Thread {
 		outStream.writeObject(result);
 
 		if (result == "OK") {
-			outStream.writeObject(numClusters);
 			outStream.writeObject(qt.getClusterSet().toString(data));
 		}
 	}

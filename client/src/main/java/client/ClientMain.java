@@ -366,9 +366,6 @@ public class ClientMain extends Application {
 			throw new ServerException(result);
 		}
 
-		// Just for server sync
-		inStream.readObject();
-
 		return (String) inStream.readObject();
 	}
 
