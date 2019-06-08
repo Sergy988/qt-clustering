@@ -37,7 +37,12 @@ class ConnectionUI extends ClientUI {
 	/**
 	 * The connect button.
 	 */
-	private Button button;
+	private Button connectButton;
+
+	/**
+	 * The disconnect button.
+	 */
+	private Button disconnectButton;
 
 	/**
 	 * Construct a client connection ui.
@@ -46,7 +51,7 @@ class ConnectionUI extends ClientUI {
 	ConnectionUI(ClientMain client) {
 		super(client);
 
-		add(new Label("Server Connection"), 0, 0);
+		add(new Label("Server Connection:"), 0, 0);
 
 		add(new Label("Server ip:"), 0, 1);
 
@@ -59,10 +64,17 @@ class ConnectionUI extends ClientUI {
 		portField = new TextField("8080");
 		add(portField, 1, 2);
 
-		button = new Button("Connect");
-		button.setOnAction(new EventHandler<ActionEvent>() {
+		connectButton = new Button("Connect");
+		connectButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				if (client.isConnected()) {
+					ClientUI.showInformation(
+						"You are already connected to the server"
+					);
+					return;
+				}
+
 				int port = 0;
 				String ip = ipField.getText();
 
@@ -93,7 +105,33 @@ class ConnectionUI extends ClientUI {
 				);
 			}
 		});
-		add(button, 0, 3);
-	}
+		add(connectButton, 0, 3);
 
+		disconnectButton = new Button("Disconnect");
+		disconnectButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (!client.isConnected()) {
+					ClientUI.showInformation(
+						"You are already disconnected"
+					);
+					return;
+				}
+
+				try {
+					client.disconnect();
+				} catch (IOException e) {
+					ClientUI.showError(
+						"Failed to disconnect from the server", e.getMessage()
+					);
+					return;
+				}
+
+				ClientUI.showInformation(
+					"Successfully disconnected from the server"
+				);
+			}
+		});
+		add(disconnectButton, 1, 3);
+	}
 }
