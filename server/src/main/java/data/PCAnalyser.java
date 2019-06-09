@@ -100,4 +100,28 @@ public class PCAnalyser {
 	public double get(int i, int j) {
 		return points.get(i, j);
 	}
+
+	/**
+	 * Get the projection dimensions number.
+	 * @return The dimensions number
+	 */
+	public int getDimensions() {
+		return dimensions;
+	}
+
+	/**
+	 * Get the number of samples of the projected data.
+	 * @return The number of samples
+	 */
+	public int getSamplesCount() {
+		return points.rows();
+	}
+
+	/**
+	 * Get the projected points matrix.
+	 * @return The projected points matrix
+	 */
+	public Matrix getSamples() {
+		return points;
+	}
 }

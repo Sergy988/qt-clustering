@@ -1,4 +1,7 @@
 
+import java.util.List;
+import java.util.LinkedList;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -10,10 +13,15 @@ import java.net.SocketException;
 
 import java.sql.SQLException;
 
+import stats.StatisticException;
+
 import data.Data;
+import data.PCAnalyser;
 import data.EmptyDatasetException;
 
 import mining.QTMiner;
+import mining.Cluster;
+import mining.ClusterSet;
 import mining.ClusteringRadiusException;
 
 import database.NoValueException;
@@ -34,6 +42,11 @@ class ServerOneClient extends Thread {
 	 * The data read from a database table.
 	 */
 	private Data data;
+
+	/**
+	 * The principal component analyser.
+	 */
+	private PCAnalyser pca;
 
 	/**
 	 * The connection socket.
@@ -61,6 +74,8 @@ class ServerOneClient extends Thread {
 		inStream = new ObjectInputStream(socket.getInputStream());
 		outStream = new ObjectOutputStream(socket.getOutputStream());
 
+		pca = new PCAnalyser(3);
+
 		start();
 	}
 
@@ -86,6 +101,8 @@ class ServerOneClient extends Thread {
 					case 3:
 						learningFromServerFile();
 						break;
+					case 4:
+						sendProjectedPoints();
 					default:
 						break;
 				}
@@ -206,6 +223,48 @@ class ServerOneClient extends Thread {
 		if (result == "OK") {
 			outStream.writeObject(qt.getClusterSet().toString());
 		}
+	}
+
+	/**
+	 * Send the projected points to the client.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void sendProjectedPoints()
+		throws IOException, ClassNotFoundException {
+		String result = "OK";
+
+		try {
+			pca.project(data);
+		} catch (StatisticException e) {
+			result = e.toString();
+		}
+
+		outStream.writeObject(result);
+
+		if (result != "OK") {
+			return;
+		}
+
+		ClusterSet clusterSet = qt.getClusterSet();
+
+		for (Cluster cluster : clusterSet) {
+			List<double[]> samples = new LinkedList<double[]>();
+
+			for (Integer index : cluster) {
+				samples.add(
+					new double[]{
+						pca.get(index, 0),
+						pca.get(index, 1),
+						pca.get(index, 2)
+					}
+				);
+			}
+
+			outStream.writeObject(samples);
+		}
+
+		outStream.writeObject(null);
 	}
 
 	/**

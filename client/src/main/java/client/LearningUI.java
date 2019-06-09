@@ -1,4 +1,6 @@
 
+import java.util.List;
+
 import java.io.IOException;
 
 import javafx.scene.control.Label;
@@ -36,13 +38,20 @@ class LearningUI extends ClientUI {
 	private ResultUI resultUI;
 
 	/**
+	 * The scatter plot UI.
+	 */
+	private PlotUI plotUI;
+
+	/**
 	 * Construct a client connection UI.
 	 * @param client A reference to the client
 	 * @param resultUI The result UI where to write the learning result.
+	 * @param plotUI the result plot UI.
 	 */
-	LearningUI(ClientMain client, ResultUI resultUI) {
+	LearningUI(ClientMain client, ResultUI resultUI, PlotUI plotUI) {
 		super(client);
 		this.resultUI = resultUI;
+		this.plotUI = plotUI;
 
 		add(new Label("Data mining"), 0, 0);
 
@@ -92,6 +101,21 @@ class LearningUI extends ClientUI {
 			}
 
 			resultUI.setContent(clusterSet);
+
+			List<PlotData> plotData = null;
+
+			try {
+				plotData = client.receivePlotData();
+			} catch (IOException
+				| ClassNotFoundException
+				| ServerException e) {
+				ClientUI.showError(
+					"Receive data to plot failed", e.getMessage()
+				);
+				return;
+			}
+
+			plotUI.setData(plotData);
 		});
 		add(learnDataButton, 0, 3);
 
@@ -131,8 +155,9 @@ class LearningUI extends ClientUI {
 			}
 
 			resultUI.setContent(centroids);
+
+			plotUI.clearData();
 		});
 		add(learnFileButton, 1, 3);
 	}
-
 }

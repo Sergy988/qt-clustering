@@ -1,4 +1,7 @@
 
+import java.util.List;
+import java.util.LinkedList;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -53,6 +56,26 @@ public class ClientMain extends Application {
 	private ObjectOutputStream outStream;
 
 	/**
+	 * The result user interface.
+	 */
+	ResultUI resultUI;
+
+	/**
+	 * The connection user interface.
+	 */
+	ConnectionUI connectionUI;
+
+	/**
+	 * The learning stuff user interface.
+	 */
+	LearningUI learningUI;
+
+	/**
+	 * The result scatter plot user interface.
+	 */
+	PlotUI plotUI;
+
+	/**
 	 * The entry point.
 	 * @param args The arguments of the program
 	 */
@@ -73,13 +96,15 @@ public class ClientMain extends Application {
 		grid.setVgap(32);
 		grid.setPadding(new Insets(24));
 
-		ResultUI resultUI = new ResultUI(this);
-		ConnectionUI connectionUI = new ConnectionUI(this);
-		LearningUI learningUI = new LearningUI(this, resultUI);
+		resultUI = new ResultUI(this);
+		plotUI = new PlotUI(this);
+		connectionUI = new ConnectionUI(this);
+		learningUI = new LearningUI(this, resultUI, plotUI);
 
 		grid.add(connectionUI, 0, 0);
 		grid.add(learningUI, 1, 0);
 		grid.add(resultUI, 0, 1);
+		grid.add(plotUI, 1, 1);
 
 		Scene scene = new Scene(grid, WIN_WIDTH, WIN_HEIGHT);
 
@@ -235,8 +260,6 @@ public class ClientMain extends Application {
 		throws IOException,
 		       ClassNotFoundException,
 		       ServerException {
-		String centroids = "";
-
 		outStream.writeObject(3);
 
 		outStream.writeObject(tableName);
@@ -249,9 +272,40 @@ public class ClientMain extends Application {
 			throw new ServerException(result);
 		}
 
-		centroids = (String) inStream.readObject();
+		String centroids = (String) inStream.readObject();
 
 		return centroids;
+	}
+
+	/**
+	 * Receive the projected points matrix.
+	 * @return Al list of plotting data.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ServerException Thrown when the server result is invalid
+	 */
+	List<PlotData> receivePlotData()
+		throws IOException,
+			ClassNotFoundException,
+			ServerException {
+		outStream.writeObject(4);
+
+		String result = (String) inStream.readObject();
+
+		if (!result.equals("OK")) {
+			throw new ServerException(result);
+		}
+
+		List<PlotData> samplesList = new LinkedList<PlotData>();
+
+		List<double[]> samples = (List<double[]>) inStream.readObject();
+
+		while (samples != null) {
+			samplesList.add(new PlotData(samples));
+			samples = (List<double[]>) inStream.readObject();
+		}
+
+		return samplesList;
 	}
 }
 
