@@ -126,6 +126,8 @@ class PlotUI extends ClientUI {
 			xySeries.add(xySerie);
 			yzSeries.add(yzSerie);
 			xzSeries.add(xzSerie);
+
+			id++;
 		}
 
 		resetButtons();
