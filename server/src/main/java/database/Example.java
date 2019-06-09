@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The example tuple class.
  */
-public class Example implements Comparable<Example> {
+public class Example {
 
 	/**
 	 * The array list of objects.
@@ -37,27 +37,6 @@ public class Example implements Comparable<Example> {
 	 */
 	public int size() {
 		return example.size();
-	}
-
-	/**
-	 * Compare to another example.
-	 * @param ex The other example
-	 * @return 1 if this example is greater than ex,
-	 *        -1 if this example is less than ex,
-	 *         0 otherwise
-	 */
-	public int compareTo(Example ex) {
-		int i = 0;
-
-		for (Object o : ex.example) {
-			if (!o.equals(this.example.get(i))) {
-				return ((Comparable) o).compareTo(example.get(i));
-			}
-
-			i++;
-		}
-
-		return 0;
 	}
 
 	/**
