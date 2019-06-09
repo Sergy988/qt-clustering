@@ -11,6 +11,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
+import javafx.scene.paint.Color;
+import javafx.scene.effect.DropShadow;
+
 import javafx.collections.ObservableList;
 
 /**
@@ -94,6 +97,13 @@ class PlotUI extends ClientUI {
 		chart.setTitle("Scatter plot:");
 		chart.setPrefWidth(PLOT_SIZE);
 		chart.setPrefHeight(PLOT_SIZE);
+
+		DropShadow shadow = new DropShadow();
+		shadow.setOffsetX(4);
+		shadow.setOffsetY(4);
+		shadow.setColor(Color.GREY);
+		chart.setEffect(shadow);
+
 		add(chart, 0, 1);
 	}
 
