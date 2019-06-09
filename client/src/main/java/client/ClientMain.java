@@ -105,6 +105,7 @@ public class ClientMain extends Application {
 		grid.add(learningUI, 1, 0);
 		grid.add(resultUI, 0, 1);
 		grid.add(plotUI, 1, 1);
+		plotUI.setOff();
 
 		Scene scene = new Scene(grid, WIN_WIDTH, WIN_HEIGHT);
 

@@ -133,16 +133,23 @@ class PlotUI extends ClientUI {
 	}
 
 	/**
-	 * Clear the data.
+	 * Set the visibility of the plot to ON.
 	 */
-	void clearData() {
-		chart.getData().clear();
+	void setOn() {
+		setVisible(true);
+	}
+
+	/**
+	 * Set the visibility of the plot to OFF.
+	 */
+	void setOff() {
+		setVisible(false);
 	}
 
 	/**
 	 * Reset the buttons state.
 	 */
-	void resetButtons() {
+	private void resetButtons() {
 		xyButton.setSelected(true);
 	}
 }

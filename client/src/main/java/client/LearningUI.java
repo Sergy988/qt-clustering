@@ -152,6 +152,7 @@ class LearningUI extends ClientUI {
 			}
 
 			plotUI.setData(plotData);
+			plotUI.setOn();
 
 			status = LearningStatus.LEARN_FROM_DATA;
 		});
@@ -198,7 +199,7 @@ class LearningUI extends ClientUI {
 
 			resultUI.setContent(centroids);
 
-			plotUI.clearData();
+			plotUI.setOff();
 
 			status = LearningStatus.LEARN_FROM_FILE;
 		});
