@@ -115,7 +115,6 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			plotUI.resetButtons();
 			plotUI.setData(plotData);
 		});
 		add(learnDataButton, 0, 3);
@@ -157,7 +156,6 @@ class LearningUI extends ClientUI {
 
 			resultUI.setContent(centroids);
 
-			plotUI.resetButtons();
 			plotUI.clearData();
 		});
 		add(learnFileButton, 1, 3);

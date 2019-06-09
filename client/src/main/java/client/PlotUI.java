@@ -93,6 +93,7 @@ class PlotUI extends ClientUI {
 		this.samplesList = samplesList;
 
 		updateXY();
+		resetButtons();
 	}
 
 	/**
