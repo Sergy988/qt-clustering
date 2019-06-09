@@ -7,6 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+enum LearningStatus {
+	SETTINGS_CHANGED,
+	LEARN_FROM_DATA,
+	LEARN_FROM_FILE
+}
+
 /**
  * The client learning UI.
  */
@@ -43,6 +49,11 @@ class LearningUI extends ClientUI {
 	private PlotUI plotUI;
 
 	/**
+	 * The learning UI status.
+	 */
+	private LearningStatus status;
+
+	/**
 	 * Construct a client connection UI.
 	 * @param client A reference to the client
 	 * @param resultUI The result UI where to write the learning result.
@@ -52,17 +63,24 @@ class LearningUI extends ClientUI {
 		super(client);
 		this.resultUI = resultUI;
 		this.plotUI = plotUI;
+		status = LearningStatus.SETTINGS_CHANGED;
 
 		add(new Label("Data mining"), 0, 0);
 
 		add(new Label("Table name:"), 0, 1);
 
 		tableNameField = new TextField("table");
+		tableNameField.textProperty().addListener(
+			(o, old, val) -> status = LearningStatus.SETTINGS_CHANGED
+		);
 		add(tableNameField, 1, 1);
 
 		add(new Label("Radius:"), 0, 2);
 
-		radiusField = new TextField("1.0");
+		radiusField = new TextField("2.0");
+		radiusField.textProperty().addListener(
+			(o, old, val) -> status = LearningStatus.SETTINGS_CHANGED
+		);
 		add(radiusField, 1, 2);
 
 		learnDataButton = new Button("Learn from database");
@@ -71,6 +89,10 @@ class LearningUI extends ClientUI {
 				ClientUI.showError(
 					"Your are not connected to the server", ""
 				);
+				return;
+			}
+
+			if (status == LearningStatus.LEARN_FROM_DATA) {
 				return;
 			}
 
@@ -116,6 +138,8 @@ class LearningUI extends ClientUI {
 			}
 
 			plotUI.setData(plotData);
+
+			status = LearningStatus.LEARN_FROM_DATA;
 		});
 		add(learnDataButton, 0, 3);
 
@@ -125,6 +149,10 @@ class LearningUI extends ClientUI {
 				ClientUI.showError(
 					"Your are not connected to the server", ""
 				);
+				return;
+			}
+
+			if (status == LearningStatus.LEARN_FROM_FILE) {
 				return;
 			}
 
@@ -157,6 +185,8 @@ class LearningUI extends ClientUI {
 			resultUI.setContent(centroids);
 
 			plotUI.clearData();
+
+			status = LearningStatus.LEARN_FROM_FILE;
 		});
 		add(learnFileButton, 1, 3);
 	}
