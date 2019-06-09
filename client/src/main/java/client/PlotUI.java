@@ -103,12 +103,19 @@ class PlotUI extends ClientUI {
 	}
 
 	/**
+	 * Reset the buttons state.
+	 */
+	void resetButtons() {
+		xyButton.setSelected(true);
+	}
+
+	/**
 	 * Update the plot (XY axes).
 	 */
 	private void updateXY() {
 		clearData();
 
-		int id = 1;
+		int id = 0;
 
 		for (PlotData data : samplesList) {
 			XYChart.Series series = new XYChart.Series();
@@ -130,7 +137,7 @@ class PlotUI extends ClientUI {
 	private void updateYZ() {
 		clearData();
 
-		int id = 1;
+		int id = 0;
 
 		for (PlotData data : samplesList) {
 			XYChart.Series series = new XYChart.Series();
@@ -152,7 +159,7 @@ class PlotUI extends ClientUI {
 	private void updateXZ() {
 		clearData();
 
-		int id = 1;
+		int id = 0;
 
 		for (PlotData data : samplesList) {
 			XYChart.Series series = new XYChart.Series();
