@@ -5,11 +5,20 @@ import java.util.ArrayList;
 import javafx.scene.chart.XYChart;
 import javafx.collections.ModifiableObservableListBase;
 
+/**
+ * The plot series data.
+ */
 class SeriesData
 	extends ModifiableObservableListBase<XYChart.Series<Number, Number>> {
 
+	/**
+	 * The actual data structure.
+	 */
 	private List<XYChart.Series<Number, Number>> delegate;
 
+	/**
+	 * Construct a SeriesData.
+	 */
 	SeriesData() {
 		delegate = new ArrayList<XYChart.Series<Number, Number>>();
 	}
