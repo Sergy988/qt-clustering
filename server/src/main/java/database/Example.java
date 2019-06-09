@@ -42,8 +42,8 @@ public class Example implements Comparable<Example> {
 	/**
 	 * Compare to another example.
 	 * @param ex The other example
-	 * @return 1 if this example is > than ex,
-	 *        -1 if this example is < than ex,
+	 * @return 1 if this example is greater than ex,
+	 *        -1 if this example is less than ex,
 	 *         0 otherwise
 	 */
 	public int compareTo(Example ex) {
