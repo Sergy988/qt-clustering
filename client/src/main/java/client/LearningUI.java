@@ -7,9 +7,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * The status of the learning UI.
+ */
 enum LearningStatus {
+	/**
+	 * Settings are changed.
+	 */
 	SETTINGS_CHANGED,
+
+	/**
+	 * Just learned from data.
+	 */
 	LEARN_FROM_DATA,
+
+	/**
+	 * just learned from file.
+	 */
 	LEARN_FROM_FILE
 }
 
