@@ -8,26 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
- * The status of the learning UI.
- */
-enum LearningStatus {
-	/**
-	 * Settings are changed.
-	 */
-	SETTINGS_CHANGED,
-
-	/**
-	 * Just learned from data.
-	 */
-	LEARN_FROM_DATA,
-
-	/**
-	 * just learned from file.
-	 */
-	LEARN_FROM_FILE
-}
-
-/**
  * The client learning UI.
  */
 class LearningUI extends ClientUI {
@@ -63,9 +43,19 @@ class LearningUI extends ClientUI {
 	private PlotUI plotUI;
 
 	/**
-	 * The learning UI status.
+	 * The flag that rappresents if the settings are changed.
 	 */
-	private LearningStatus status;
+	private boolean settingsChanged;
+
+	/**
+	 * The cluster set string.
+	 */
+	private String clusterSet;
+
+	/**
+	 * The centroids string.
+	 */
+	private String centroids;
 
 	/**
 	 * Construct a client connection UI.
@@ -77,7 +67,7 @@ class LearningUI extends ClientUI {
 		super(client);
 		this.resultUI = resultUI;
 		this.plotUI = plotUI;
-		status = LearningStatus.SETTINGS_CHANGED;
+		settingsChanged = true;
 
 		add(new Label("Data mining"), 0, 0);
 
@@ -85,7 +75,7 @@ class LearningUI extends ClientUI {
 
 		tableNameField = new TextField("table");
 		tableNameField.textProperty().addListener(
-			(o, old, val) -> status = LearningStatus.SETTINGS_CHANGED
+			(o, old, val) -> settingsChanged = true
 		);
 		add(tableNameField, 1, 1);
 
@@ -93,7 +83,7 @@ class LearningUI extends ClientUI {
 
 		radiusField = new TextField("2.0");
 		radiusField.textProperty().addListener(
-			(o, old, val) -> status = LearningStatus.SETTINGS_CHANGED
+			(o, old, val) -> settingsChanged = true
 		);
 		add(radiusField, 1, 2);
 
@@ -106,7 +96,9 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			if (status == LearningStatus.LEARN_FROM_DATA) {
+			if (!settingsChanged && clusterSet != null) {
+				plotUI.setOn();
+				resultUI.setContent(clusterSet);
 				return;
 			}
 
@@ -122,8 +114,6 @@ class LearningUI extends ClientUI {
 			}
 
 			String tableName = tableNameField.getText();
-
-			String clusterSet = "";
 
 			try {
 				clusterSet = client.learnFromData(tableName, radius);
@@ -154,7 +144,7 @@ class LearningUI extends ClientUI {
 			plotUI.setData(plotData);
 			plotUI.setOn();
 
-			status = LearningStatus.LEARN_FROM_DATA;
+			settingsChanged = false;
 		});
 		add(learnDataButton, 0, 3);
 
@@ -167,7 +157,9 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			if (status == LearningStatus.LEARN_FROM_FILE) {
+			if (!settingsChanged && centroids != null) {
+				plotUI.setOff();
+				resultUI.setContent(centroids);
 				return;
 			}
 
@@ -184,8 +176,6 @@ class LearningUI extends ClientUI {
 
 			String tableName = tableNameField.getText();
 
-			String centroids = "";
-
 			try {
 				centroids = client.learnFromFile(tableName, radius);
 			} catch (IOException
@@ -201,7 +191,7 @@ class LearningUI extends ClientUI {
 
 			plotUI.setOff();
 
-			status = LearningStatus.LEARN_FROM_FILE;
+			settingsChanged = false;
 		});
 		add(learnFileButton, 1, 3);
 	}
