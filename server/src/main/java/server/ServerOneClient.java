@@ -102,7 +102,11 @@ class ServerOneClient extends Thread {
 						learningFromServerFile();
 						break;
 					case 4:
-						sendProjectedPoints();
+						sendProjectedClusters();
+						break;
+					case 5:
+						sendProjectedCentroids();
+						break;
 					default:
 						break;
 				}
@@ -226,11 +230,11 @@ class ServerOneClient extends Thread {
 	}
 
 	/**
-	 * Send the projected points to the client.
+	 * Send the projected clusters set samples to the client.
 	 * @throws IOException Thrown when an I/O error occurs
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 */
-	private void sendProjectedPoints()
+	private void sendProjectedClusters()
 		throws IOException, ClassNotFoundException {
 		String result = "OK";
 
@@ -262,6 +266,30 @@ class ServerOneClient extends Thread {
 			}
 
 			outStream.writeObject(samples);
+		}
+
+		outStream.writeObject(null);
+	}
+
+	/**
+	 * Send the projected centroids samples to the client.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void sendProjectedCentroids()
+		throws IOException, ClassNotFoundException {
+		ClusterSet clusterSet = qt.getClusterSet();
+
+		for (Cluster cluster : clusterSet) {
+			int index = cluster.getId();
+
+			double[] sample = new double[] {
+				pca.get(index, 0),
+				pca.get(index, 1),
+				pca.get(index, 2)
+			};
+
+			outStream.writeObject(sample);
 		}
 
 		outStream.writeObject(null);

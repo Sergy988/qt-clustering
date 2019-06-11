@@ -110,8 +110,9 @@ class PlotUI extends ClientUI {
 	/**
 	 * Set the data samples to plot.
 	 * @param samplesList The samples list
+	 * @param label The string prefix of the labels
 	 */
-	void setData(List<PlotData> samplesList) {
+	void setData(List<PlotData> samplesList, String label) {
 		xySeries = new SeriesData();
 		yzSeries = new SeriesData();
 		xzSeries = new SeriesData();
@@ -123,9 +124,9 @@ class PlotUI extends ClientUI {
 			XYChart.Series yzSerie = new XYChart.Series();
 			XYChart.Series xzSerie = new XYChart.Series();
 
-			xySerie.setName("Cluster #" + id);
-			yzSerie.setName("Cluster #" + id);
-			xzSerie.setName("Cluster #" + id);
+			xySerie.setName(label + id);
+			yzSerie.setName(label + id);
+			xzSerie.setName(label + id);
 
 			for (double[] xyz : data) {
 				xySerie.getData().add(new XYChart.Data(xyz[0], xyz[1]));
@@ -140,28 +141,21 @@ class PlotUI extends ClientUI {
 			id++;
 		}
 
-		resetButtons();
-		chart.setData(xySeries);
+		updateChart();
 	}
 
 	/**
-	 * Set the visibility of the plot to ON.
+	 * Update the chart based on the pressed button.
 	 */
-	void setOn() {
-		setVisible(true);
-	}
+	private void updateChart() {
+		RadioButton selected = (RadioButton) group.getSelectedToggle();
 
-	/**
-	 * Set the visibility of the plot to OFF.
-	 */
-	void setOff() {
-		setVisible(false);
-	}
-
-	/**
-	 * Reset the buttons state.
-	 */
-	private void resetButtons() {
-		xyButton.setSelected(true);
+		if (selected == xyButton) {
+			chart.setData(xySeries);
+		} else if (selected == yzButton) {
+			chart.setData(yzSeries);
+		} else {
+			chart.setData(xzSeries);
+		}
 	}
 }

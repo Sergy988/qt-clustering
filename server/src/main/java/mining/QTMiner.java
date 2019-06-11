@@ -146,7 +146,7 @@ public class QTMiner {
 			}
 
 			Tuple centroid = data.getTuple(i);
-			Cluster cluster = new Cluster(centroid);
+			Cluster cluster = new Cluster(i, centroid);
 
 			for (int j = 0; j < data.getNumberOfExamples(); j++) {
 				if (isClustered[j]) {

@@ -58,6 +58,16 @@ class LearningUI extends ClientUI {
 	private String centroids;
 
 	/**
+	 * The data to plot of clusters.
+	 */
+	private List<PlotData> clustersPlotData;
+
+	/**
+	 * The data to plot of centroids.
+	 */
+	private List<PlotData> centroidsPlotData;
+
+	/**
 	 * Construct a client connection UI.
 	 * @param client A reference to the client
 	 * @param resultUI The result UI where to write the learning result.
@@ -89,16 +99,15 @@ class LearningUI extends ClientUI {
 
 		learnDataButton = new Button("Learn from database");
 		learnDataButton.setOnAction(event -> {
+			if (!settingsChanged && clusterSet != null) {
+				updateClusters();
+				return;
+			}
+
 			if (!client.isConnected()) {
 				ClientUI.showError(
 					"Your are not connected to the server", ""
 				);
-				return;
-			}
-
-			if (!settingsChanged && clusterSet != null) {
-				plotUI.setOn();
-				resultUI.setContent(clusterSet);
 				return;
 			}
 
@@ -126,12 +135,8 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			resultUI.setContent(clusterSet);
-
-			List<PlotData> plotData = null;
-
 			try {
-				plotData = client.receivePlotData();
+				clustersPlotData = client.receiveProjectedClusters();
 			} catch (IOException
 				| ClassNotFoundException
 				| ServerException e) {
@@ -141,25 +146,22 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			plotUI.setData(plotData);
-			plotUI.setOn();
-
+			updateClusters();
 			settingsChanged = false;
 		});
 		add(learnDataButton, 0, 3);
 
 		learnFileButton = new Button("Learn from file");
 		learnFileButton.setOnAction(event -> {
+			if (!settingsChanged && centroids != null) {
+				updateCentroids();
+				return;
+			}
+
 			if (!client.isConnected()) {
 				ClientUI.showError(
 					"Your are not connected to the server", ""
 				);
-				return;
-			}
-
-			if (!settingsChanged && centroids != null) {
-				plotUI.setOff();
-				resultUI.setContent(centroids);
 				return;
 			}
 
@@ -187,12 +189,36 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			resultUI.setContent(centroids);
+			try {
+				centroidsPlotData = client.receiveProjectedCentroids();
+			} catch (IOException
+				| ClassNotFoundException
+				| ServerException e) {
+				ClientUI.showError(
+					"Receive data to plot failed", e.getMessage()
+				);
+				return;
+			}
 
-			plotUI.setOff();
-
+			updateCentroids();
 			settingsChanged = false;
 		});
 		add(learnFileButton, 1, 3);
+	}
+
+	/**
+	 * Update the result UI and the plot UI placing clusters data.
+	 */
+	private void updateClusters() {
+		resultUI.setContent(clusterSet);
+		plotUI.setData(clustersPlotData, "Cluster #");
+	}
+
+	/**
+	 * Update the result UI and the plot UI placing centroids data.
+	 */
+	private void updateCentroids() {
+		resultUI.setContent(centroids);
+		plotUI.setData(centroidsPlotData, "Centroid #");
 	}
 }

@@ -105,7 +105,6 @@ public class ClientMain extends Application {
 		grid.add(learningUI, 1, 0);
 		grid.add(resultUI, 0, 1);
 		grid.add(plotUI, 1, 1);
-		plotUI.setOff();
 
 		Scene scene = new Scene(grid, WIN_WIDTH, WIN_HEIGHT);
 
@@ -167,13 +166,11 @@ public class ClientMain extends Application {
 	 * @param radius The radius of the mining
 	 * @return The cluster set string
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
 	String learnFromData(String tableName, double radius)
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
+		throws IOException, ClassNotFoundException, ServerException {
 		storeTableFromDB(tableName);
 
 		String clusterSet = learnFromDBTable(radius);
@@ -186,13 +183,11 @@ public class ClientMain extends Application {
 	 * Store the table from database.
 	 * @param tableName The name of the table
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
 	void storeTableFromDB(String tableName)
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
+		throws IOException, ClassNotFoundException, ServerException {
 		outStream.writeObject(0);
 
 		outStream.writeObject(tableName);
@@ -208,14 +203,12 @@ public class ClientMain extends Application {
 	 * Learn from the database table.
 	 * @param radius The radius of the mining
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 * @return The cluster set string
 	 */
 	String learnFromDBTable(double radius)
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
+		throws IOException, ClassNotFoundException, ServerException {
 		outStream.writeObject(1);
 
 		outStream.writeObject(radius);
@@ -232,13 +225,11 @@ public class ClientMain extends Application {
 	/**
 	 * Store the cluster in file.
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
 	void storeClusterInFile()
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
+		throws IOException, ClassNotFoundException, ServerException {
 		outStream.writeObject(2);
 
 		String result = (String) inStream.readObject();
@@ -254,13 +245,11 @@ public class ClientMain extends Application {
 	 * @param radius The radius of the mining
 	 * @return The centroids string
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
 	String learnFromFile(String tableName, double radius)
-		throws IOException,
-		       ClassNotFoundException,
-		       ServerException {
+		throws IOException, ClassNotFoundException, ServerException {
 		outStream.writeObject(3);
 
 		outStream.writeObject(tableName);
@@ -279,16 +268,14 @@ public class ClientMain extends Application {
 	}
 
 	/**
-	 * Receive the projected points matrix.
-	 * @return Al list of plotting data.
+	 * Receive the projected clusters samples.
+	 * @return A list of the data to plot
 	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 * @throws ClassNotFoundException Thrown when a class is not found
 	 * @throws ServerException Thrown when the server result is invalid
 	 */
-	List<PlotData> receivePlotData()
-		throws IOException,
-			ClassNotFoundException,
-			ServerException {
+	List<PlotData> receiveProjectedClusters()
+		throws IOException, ClassNotFoundException, ServerException {
 		outStream.writeObject(4);
 
 		String result = (String) inStream.readObject();
@@ -304,6 +291,32 @@ public class ClientMain extends Application {
 		while (samples != null) {
 			samplesList.add(new PlotData(samples));
 			samples = (List<double[]>) inStream.readObject();
+		}
+
+		return samplesList;
+	}
+
+	/**
+	 * Receive the projected centroids samples.
+	 * @return A list of the data to plot
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown when a class is not found
+	 * @throws ServerException Thrown when the server result is invalid
+	 */
+	List<PlotData> receiveProjectedCentroids()
+		throws IOException, ClassNotFoundException, ServerException {
+		outStream.writeObject(5);
+
+		List<PlotData> samplesList = new LinkedList<PlotData>();
+
+		double[] sample = (double[]) inStream.readObject();
+
+		while (sample != null) {
+			List<double[]> samples = new LinkedList<double[]>();
+			samples.add(sample);
+
+			samplesList.add(new PlotData(samples));
+			sample = (double[]) inStream.readObject();
 		}
 
 		return samplesList;

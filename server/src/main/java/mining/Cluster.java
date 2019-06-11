@@ -20,6 +20,11 @@ public class Cluster
 	implements Iterable<Integer>, Comparable<Cluster>, Serializable {
 
 	/**
+	 * The identified of the cluster (the index of the centroid in the dataset).
+	 */
+	private int id;
+
+	/**
 	 * The centroid tuple of the cluster.
 	 */
 	private Tuple centroid;
@@ -31,10 +36,20 @@ public class Cluster
 
 	/**
 	 * Instantiate a Cluster.
+	 * @param id The identifier of the cluster
 	 * @param centroid The centroid tuple
 	 */
-	public Cluster(Tuple centroid) {
+	public Cluster(int id, Tuple centroid) {
+		this.id = id;
 		this.centroid = centroid;
+	}
+
+	/**
+	 * Get the cluster id.
+	 * @return The cluster id
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -88,15 +103,30 @@ public class Cluster
 	}
 
 	/**
+	 * Check if two clusters are equal.
+	 * @param other The other cluster
+	 * @return true if the two clusters are equal, false otherwise
+	 */
+	public boolean equals(Object other) {
+		if (!(other instanceof Cluster)) {
+			return false;
+		}
+
+		return id == ((Cluster) other).id;
+	}
+
+	/**
 	 * Compare to another cluster.
 	 * @param other The other cluster
 	 * @return 1 If this has more data, 0 if equal, -1 otherwise
 	 */
-	public int compareTo(final Cluster other) {
-		if (getSize() <= other.getSize()) {
-			return -1;
-		} else {
+	public int compareTo(Cluster other) {
+		if (this.equals(other)) {
+			return 0;
+		} else if (getSize() > other.getSize()) {
 			return 1;
+		} else {
+			return -1;
 		}
 	}
 
