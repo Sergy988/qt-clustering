@@ -2,10 +2,12 @@
 import java.util.List;
 import java.util.LinkedList;
 
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.net.Socket;
 import java.net.InetAddress;
@@ -93,19 +95,13 @@ class ServerOneClient extends Thread {
 						storeTableFromDB();
 						break;
 					case 1:
-						learningFromDBTable();
+						learnFromDBTable();
 						break;
 					case 2:
-						storeClusterInFile();
+						storeClustersInFile();
 						break;
 					case 3:
-						learningFromServerFile();
-						break;
-					case 4:
-						sendProjectedClusters();
-						break;
-					case 5:
-						sendProjectedCentroids();
+						learnFromFile();
 						break;
 					default:
 						break;
@@ -159,11 +155,11 @@ class ServerOneClient extends Thread {
 	}
 
 	/**
-	 * Learning from the database table.
+	 * Learn from the database table.
 	 * @throws IOException Thrown when an I/O error occurs
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 */
-	private void learningFromDBTable()
+	private void learnFromDBTable()
 		throws IOException, ClassNotFoundException {
 		String result = "OK";
 		double radius = (double) inStream.readObject();
@@ -180,63 +176,12 @@ class ServerOneClient extends Thread {
 
 		outStream.writeObject(result);
 
-		if (result == "OK") {
-			outStream.writeObject(qt.getClusterSet().toString(data));
-		}
-	}
-
-	/**
-	 * Store the cluster in file.
-	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
-	 */
-	private void storeClusterInFile()
-		throws IOException, ClassNotFoundException {
-		String result = "OK";
-
-		try {
-			qt.save(clusterSetFileName(data.getTableName(), qt.getRadius()));
-		} catch (IOException e) {
-			result = e.toString();
+		if (!result.equals("OK")) {
+			return;
 		}
 
-		outStream.writeObject(result);
-	}
-
-	/**
-	 * Retrieve the server file.
-	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
-	 */
-	private void learningFromServerFile()
-		throws IOException, ClassNotFoundException {
-		String result = "OK";
-		String tableName = (String) inStream.readObject();
-		double radius = (double) inStream.readObject();
-
-		try {
-			qt = new QTMiner(clusterSetFileName(tableName, radius));
-		} catch (IOException e) {
-			result = e.toString();
-		} catch (ClassNotFoundException e) {
-			result = e.toString();
-		}
-
-		outStream.writeObject(result);
-
-		if (result == "OK") {
-			outStream.writeObject(qt.getClusterSet().toString());
-		}
-	}
-
-	/**
-	 * Send the projected clusters set samples to the client.
-	 * @throws IOException Thrown when an I/O error occurs
-	 * @throws ClassNotFoundException Thrown whena a class is not found
-	 */
-	private void sendProjectedClusters()
-		throws IOException, ClassNotFoundException {
-		String result = "OK";
+		ClusterSet clusterSet = qt.getClusterSet();
+		outStream.writeObject(clusterSet.toString(data));
 
 		try {
 			pca.project(data);
@@ -246,11 +191,9 @@ class ServerOneClient extends Thread {
 
 		outStream.writeObject(result);
 
-		if (result != "OK") {
+		if (!result.equals("OK")) {
 			return;
 		}
-
-		ClusterSet clusterSet = qt.getClusterSet();
 
 		for (Cluster cluster : clusterSet) {
 			List<double[]> samples = new LinkedList<double[]>();
@@ -272,27 +215,94 @@ class ServerOneClient extends Thread {
 	}
 
 	/**
-	 * Send the projected centroids samples to the client.
+	 * Store the clusters in file.
 	 * @throws IOException Thrown when an I/O error occurs
 	 * @throws ClassNotFoundException Thrown whena a class is not found
 	 */
-	private void sendProjectedCentroids()
+	private void storeClustersInFile()
 		throws IOException, ClassNotFoundException {
+		String result = "OK";
+
 		ClusterSet clusterSet = qt.getClusterSet();
 
-		for (Cluster cluster : clusterSet) {
-			int index = cluster.getId();
+		String fileName = clusterSetFileName(
+			data.getTableName(), qt.getRadius()
+		);
 
-			double[] sample = new double[] {
-				pca.get(index, 0),
-				pca.get(index, 1),
-				pca.get(index, 2)
-			};
+		try {
+			FileOutputStream fileStream = new FileOutputStream(fileName);
+			ObjectOutputStream objectStream = new ObjectOutputStream(
+				fileStream
+			);
 
-			outStream.writeObject(sample);
+			objectStream.writeObject(clusterSet);
+
+			for (Cluster cluster : clusterSet) {
+				int index = cluster.getId();
+
+				double[] sample = new double[] {
+					pca.get(index, 0),
+					pca.get(index, 1),
+					pca.get(index, 2)
+				};
+
+				objectStream.writeObject(sample);
+			}
+		} catch (IOException e) {
+			result = e.toString();
 		}
 
-		outStream.writeObject(null);
+		outStream.writeObject(result);
+	}
+
+	/**
+	 * Learn from file.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void learnFromFile()
+		throws IOException, ClassNotFoundException {
+		String result = "OK";
+		String tableName = (String) inStream.readObject();
+		double radius = (double) inStream.readObject();
+
+		ClusterSet clusterSet = null;
+		String fileName = clusterSetFileName(tableName, radius);
+
+		ObjectInputStream objectStream = null;
+
+		try {
+			FileInputStream fileStream = new FileInputStream(fileName);
+			objectStream = new ObjectInputStream(fileStream);
+			clusterSet = (ClusterSet) objectStream.readObject();
+		} catch (IOException e) {
+			result = e.toString();
+		} catch (ClassNotFoundException e) {
+			result = e.toString();
+		}
+
+		outStream.writeObject(result);
+
+		if (!result.equals("OK")) {
+			return;
+		}
+
+		outStream.writeObject(clusterSet.toString());
+
+		try {
+			for (Cluster cluster : clusterSet) {
+				double[] sample = (double[]) objectStream.readObject();
+				outStream.writeObject(sample);
+			}
+
+			outStream.writeObject(null);
+		} catch (IOException e) {
+			result = e.toString();
+		} catch (ClassNotFoundException e) {
+			result = e.toString();
+		}
+
+		outStream.writeObject(result);
 	}
 
 	/**

@@ -48,24 +48,14 @@ class LearningUI extends ClientUI {
 	private boolean settingsChanged;
 
 	/**
-	 * The cluster set string.
+	 * The learn clusters result.
 	 */
-	private String clusterSet;
+	private LearnResult clustersResult;
 
 	/**
-	 * The centroids string.
+	 * The learn centroids result.
 	 */
-	private String centroids;
-
-	/**
-	 * The data to plot of clusters.
-	 */
-	private List<PlotData> clustersPlotData;
-
-	/**
-	 * The data to plot of centroids.
-	 */
-	private List<PlotData> centroidsPlotData;
+	private LearnResult centroidsResult;
 
 	/**
 	 * Construct a client connection UI.
@@ -91,7 +81,7 @@ class LearningUI extends ClientUI {
 
 		add(new Label("Radius:"), 0, 2);
 
-		radiusField = new TextField("2.0");
+		radiusField = new TextField("1.0");
 		radiusField.textProperty().addListener(
 			(o, old, val) -> settingsChanged = true
 		);
@@ -99,7 +89,7 @@ class LearningUI extends ClientUI {
 
 		learnDataButton = new Button("Learn from database");
 		learnDataButton.setOnAction(event -> {
-			if (!settingsChanged && clusterSet != null) {
+			if (!settingsChanged && clustersResult != null) {
 				updateClusters();
 				return;
 			}
@@ -125,23 +115,12 @@ class LearningUI extends ClientUI {
 			String tableName = tableNameField.getText();
 
 			try {
-				clusterSet = client.learnFromData(tableName, radius);
+				clustersResult = client.learnFromData(tableName, radius);
 			} catch (IOException
 				| ClassNotFoundException
 				| ServerException e) {
 				ClientUI.showError(
 					"Learning from data failed", e.getMessage()
-				);
-				return;
-			}
-
-			try {
-				clustersPlotData = client.receiveProjectedClusters();
-			} catch (IOException
-				| ClassNotFoundException
-				| ServerException e) {
-				ClientUI.showError(
-					"Receive data to plot failed", e.getMessage()
 				);
 				return;
 			}
@@ -153,7 +132,7 @@ class LearningUI extends ClientUI {
 
 		learnFileButton = new Button("Learn from file");
 		learnFileButton.setOnAction(event -> {
-			if (!settingsChanged && centroids != null) {
+			if (!settingsChanged && centroidsResult != null) {
 				updateCentroids();
 				return;
 			}
@@ -179,23 +158,12 @@ class LearningUI extends ClientUI {
 			String tableName = tableNameField.getText();
 
 			try {
-				centroids = client.learnFromFile(tableName, radius);
+				centroidsResult = client.learnFromFile(tableName, radius);
 			} catch (IOException
 				| ClassNotFoundException
 				| ServerException e) {
 				ClientUI.showError(
 					"Learning from data failed", e.getMessage()
-				);
-				return;
-			}
-
-			try {
-				centroidsPlotData = client.receiveProjectedCentroids();
-			} catch (IOException
-				| ClassNotFoundException
-				| ServerException e) {
-				ClientUI.showError(
-					"Receive data to plot failed", e.getMessage()
 				);
 				return;
 			}
@@ -210,15 +178,15 @@ class LearningUI extends ClientUI {
 	 * Update the result UI and the plot UI placing clusters data.
 	 */
 	private void updateClusters() {
-		resultUI.setContent(clusterSet);
-		plotUI.setData(clustersPlotData, "Cluster #");
+		resultUI.setContent(clustersResult.getData());
+		plotUI.setData(clustersResult.getSamples(), "Cluster #");
 	}
 
 	/**
 	 * Update the result UI and the plot UI placing centroids data.
 	 */
 	private void updateCentroids() {
-		resultUI.setContent(centroids);
-		plotUI.setData(centroidsPlotData, "Centroid #");
+		resultUI.setContent(centroidsResult.getData());
+		plotUI.setData(centroidsResult.getSamples(), "Centroid #");
 	}
 }
