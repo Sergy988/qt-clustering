@@ -11,7 +11,7 @@ class ContinuousItem extends Item {
 	 * @param attribute The attribute
 	 * @param value The continuous value
 	 */
-	ContinuousItem(Attribute attribute, Double value) {
+	ContinuousItem(ContinuousAttribute attribute, Double value) {
 		super(attribute, value);
 	}
 

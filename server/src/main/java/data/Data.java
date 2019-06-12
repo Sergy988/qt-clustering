@@ -103,9 +103,19 @@ public class Data {
 				Attribute attr = explanatorySet.get(i);
 
 				if (attr instanceof DiscreteAttribute) {
-					tuple.add(new DiscreteItem(attr, (String) ex.get(i)), i);
+					tuple.add(
+						new DiscreteItem(
+							(DiscreteAttribute) attr,
+							(String) ex.get(i)
+						), i
+					);
 				} else {
-					tuple.add(new ContinuousItem(attr, (Double) ex.get(i)), i);
+					tuple.add(
+						new ContinuousItem(
+							(ContinuousAttribute) attr,
+							(Double) ex.get(i)
+						), i
+					);
 				}
 			}
 

@@ -11,7 +11,7 @@ class DiscreteItem extends Item {
 	 * @param attribute The attribute
 	 * @param value The discrete value
 	 */
-	DiscreteItem(Attribute attribute, String value) {
+	DiscreteItem(DiscreteAttribute attribute, String value) {
 		super(attribute, value);
 	}
 
