@@ -43,11 +43,6 @@ class LearningUI extends ClientUI {
 	private PlotUI plotUI;
 
 	/**
-	 * The flag that rappresents if the settings are changed.
-	 */
-	private boolean settingsChanged;
-
-	/**
 	 * The learn clusters result.
 	 */
 	private LearnResult clustersResult;
@@ -56,6 +51,16 @@ class LearningUI extends ClientUI {
 	 * The learn centroids result.
 	 */
 	private LearnResult centroidsResult;
+
+	/**
+	 * The must update clustersResult flag.
+	 */
+	private boolean updateClusters;
+
+	/**
+	 * The must update centroidsResult flag.
+	 */
+	private boolean updateCentroids;
 
 	/**
 	 * Construct a client connection UI.
@@ -67,7 +72,7 @@ class LearningUI extends ClientUI {
 		super(client);
 		this.resultUI = resultUI;
 		this.plotUI = plotUI;
-		settingsChanged = true;
+		updateClusters = updateCentroids = true;
 
 		add(new Label("Data mining"), 0, 0);
 
@@ -75,7 +80,7 @@ class LearningUI extends ClientUI {
 
 		tableNameField = new TextField("table");
 		tableNameField.textProperty().addListener(
-			(o, old, val) -> settingsChanged = true
+			(o, old, val) -> updateClusters = updateCentroids = true
 		);
 		add(tableNameField, 1, 1);
 
@@ -83,14 +88,14 @@ class LearningUI extends ClientUI {
 
 		radiusField = new TextField("1.0");
 		radiusField.textProperty().addListener(
-			(o, old, val) -> settingsChanged = true
+			(o, old, val) -> updateClusters = updateCentroids = true
 		);
 		add(radiusField, 1, 2);
 
 		learnDataButton = new Button("Learn from database");
 		learnDataButton.setOnAction(event -> {
-			if (!settingsChanged && clustersResult != null) {
-				updateClusters();
+			if (!updateClusters) {
+				updateClustersUI();
 				return;
 			}
 
@@ -125,15 +130,15 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			updateClusters();
-			settingsChanged = false;
+			updateClustersUI();
+			updateClusters = false;
 		});
 		add(learnDataButton, 0, 3);
 
 		learnFileButton = new Button("Learn from file");
 		learnFileButton.setOnAction(event -> {
-			if (!settingsChanged && centroidsResult != null) {
-				updateCentroids();
+			if (!updateCentroids) {
+				updateCentroidsUI();
 				return;
 			}
 
@@ -168,8 +173,8 @@ class LearningUI extends ClientUI {
 				return;
 			}
 
-			updateCentroids();
-			settingsChanged = false;
+			updateCentroidsUI();
+			updateClusters = false;
 		});
 		add(learnFileButton, 1, 3);
 	}
@@ -177,16 +182,16 @@ class LearningUI extends ClientUI {
 	/**
 	 * Update the result UI and the plot UI placing clusters data.
 	 */
-	private void updateClusters() {
+	private void updateClustersUI() {
 		resultUI.setContent(clustersResult.getData());
-		plotUI.setData(clustersResult.getSamples(), "Cluster #");
+		plotUI.setData(clustersResult.getPlotData());
 	}
 
 	/**
 	 * Update the result UI and the plot UI placing centroids data.
 	 */
-	private void updateCentroids() {
+	private void updateCentroidsUI() {
 		resultUI.setContent(centroidsResult.getData());
-		plotUI.setData(centroidsResult.getSamples(), "Centroid #");
+		plotUI.setData(centroidsResult.getPlotData());
 	}
 }

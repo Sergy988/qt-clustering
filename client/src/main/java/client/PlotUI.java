@@ -9,12 +9,9 @@ import javafx.scene.control.ToggleGroup;
 
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
-import javafx.scene.chart.XYChart;
 
 import javafx.scene.paint.Color;
 import javafx.scene.effect.DropShadow;
-
-import javafx.collections.ObservableList;
 
 /**
  * The result plotter UI.
@@ -32,19 +29,9 @@ class PlotUI extends ClientUI {
 	private ScatterChart<Number, Number> chart;
 
 	/**
-	 * The series of XY projected samples.
+	 * The plot data to show.
 	 */
-	private ObservableList<XYChart.Series<Number, Number>> xySeries;
-
-	/**
-	 * The series of XY projected samples.
-	 */
-	private ObservableList<XYChart.Series<Number, Number>> yzSeries;
-
-	/**
-	 * The series of XY projected samples.
-	 */
-	private ObservableList<XYChart.Series<Number, Number>> xzSeries;
+	private PlotData plotData;
 
 	/**
 	 * The toggle coordinates group.
@@ -82,9 +69,9 @@ class PlotUI extends ClientUI {
 		xzButton.setToggleGroup(group);
 		xyButton.setSelected(true);
 
-		xyButton.setOnAction(event -> chart.setData(xySeries));
-		yzButton.setOnAction(event -> chart.setData(yzSeries));
-		xzButton.setOnAction(event -> chart.setData(xzSeries));
+		xyButton.setOnAction(event -> updateChart());
+		yzButton.setOnAction(event -> updateChart());
+		xzButton.setOnAction(event -> updateChart());
 
 		HBox hbox = new HBox(32.0, xyButton, yzButton, xzButton);
 
@@ -108,39 +95,11 @@ class PlotUI extends ClientUI {
 	}
 
 	/**
-	 * Set the data samples to plot.
-	 * @param samplesList The samples list
-	 * @param label The string prefix of the labels
+	 * Set the plot data to show.
+	 * @param data The plot data to show
 	 */
-	void setData(List<PlotData> samplesList, String label) {
-		xySeries = new SeriesData();
-		yzSeries = new SeriesData();
-		xzSeries = new SeriesData();
-
-		int id = 0;
-
-		for (PlotData data : samplesList) {
-			XYChart.Series xySerie = new XYChart.Series();
-			XYChart.Series yzSerie = new XYChart.Series();
-			XYChart.Series xzSerie = new XYChart.Series();
-
-			xySerie.setName(label + id);
-			yzSerie.setName(label + id);
-			xzSerie.setName(label + id);
-
-			for (double[] xyz : data) {
-				xySerie.getData().add(new XYChart.Data(xyz[0], xyz[1]));
-				yzSerie.getData().add(new XYChart.Data(xyz[1], xyz[2]));
-				xzSerie.getData().add(new XYChart.Data(xyz[0], xyz[2]));
-			}
-
-			xySeries.add(xySerie);
-			yzSeries.add(yzSerie);
-			xzSeries.add(xzSerie);
-
-			id++;
-		}
-
+	void setData(PlotData data) {
+		plotData = data;
 		updateChart();
 	}
 
@@ -148,14 +107,18 @@ class PlotUI extends ClientUI {
 	 * Update the chart based on the pressed button.
 	 */
 	private void updateChart() {
+		if (plotData == null) {
+			return;
+		}
+
 		RadioButton selected = (RadioButton) group.getSelectedToggle();
 
 		if (selected == xyButton) {
-			chart.setData(xySeries);
+			chart.setData(plotData.getXYSeries());
 		} else if (selected == yzButton) {
-			chart.setData(yzSeries);
+			chart.setData(plotData.getYZSeries());
 		} else {
-			chart.setData(xzSeries);
+			chart.setData(plotData.getXZSeries());
 		}
 	}
 }

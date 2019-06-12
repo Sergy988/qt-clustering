@@ -13,17 +13,9 @@ class LearnResult {
 	private String data;
 
 	/**
-	 * The samples to plot.
+	 * The data to plot.
 	 */
-	private List<PlotData> samples;
-
-	/**
-	 * Construct a LearnResult.
-	 */
-	LearnResult() {
-		data = new String("");
-		samples = new LinkedList<PlotData>();
-	}
+	private PlotData plotData;
 
 	/**
 	 * Get the retrieved data string.
@@ -34,11 +26,11 @@ class LearnResult {
 	}
 
 	/**
-	 * Get the samples to plot.
-	 * @return The samples to plot
+	 * Get the plot data.
+	 * @return The data to plot
 	 */
-	List<PlotData> getSamples() {
-		return samples;
+	PlotData getPlotData() {
+		return plotData;
 	}
 
 	/**
@@ -50,11 +42,11 @@ class LearnResult {
 	}
 
 	/**
-	 * Add a new PlotData to the list of data to plot.
-	 * @param plotData The data to plot to add
+	 * Set the plot data.
+	 * @param plotData The data to set
 	 */
-	void addPlotData(PlotData plotData) {
-		samples.add(plotData);
+	void setPlotData(PlotData plotData) {
+		this.plotData = plotData;
 	}
 }
 

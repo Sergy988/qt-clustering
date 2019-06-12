@@ -228,12 +228,16 @@ public class ClientMain extends Application {
 			throw new ServerException(result);
 		}
 
+		PlotData plotData = new PlotData("Cluster #");
+
 		List<double[]> samples = (List<double[]>) inStream.readObject();
 
 		while (samples != null) {
-			learn.addPlotData(new PlotData(samples));
+			plotData.addSerie(samples);
 			samples = (List<double[]>) inStream.readObject();
 		}
+
+		learn.setPlotData(plotData);
 
 		return learn;
 	}
@@ -280,13 +284,15 @@ public class ClientMain extends Application {
 		LearnResult learn = new LearnResult();
 		learn.setData((String) inStream.readObject());
 
+		PlotData plotData = new PlotData("Centroid #");
+
 		double[] sample = (double[]) inStream.readObject();
 
 		while (sample != null) {
 			List<double[]> samples = new LinkedList<double[]>();
 			samples.add(sample);
 
-			learn.addPlotData(new PlotData(samples));
+			plotData.addSerie(samples);
 			sample = (double[]) inStream.readObject();
 		}
 
@@ -295,6 +301,8 @@ public class ClientMain extends Application {
 		if (!result.equals("OK")) {
 			throw new ServerException(result);
 		}
+
+		learn.setPlotData(plotData);
 
 		return learn;
 	}
