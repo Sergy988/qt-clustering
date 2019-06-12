@@ -13,7 +13,7 @@ public class DbAccess {
 	/**
 	 * The driver class name.
 	 */
-	private static final String DRIVER_CLASS_NAME = "org.mariadb.jdbc.Driver";
+	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
 	/**
 	 * The DBMS name.
@@ -58,7 +58,14 @@ public class DbAccess {
 	 */
 	public void initConnection()
 		throws ClassNotFoundException, DatabaseConnectionException {
-		Class.forName(DRIVER_CLASS_NAME);
+
+		try {
+			Class.forName(DRIVER_CLASS_NAME).newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new DatabaseConnectionException(
+				"Invalid conncector driver"
+			);
+		}
 
 		String url = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE;
 
