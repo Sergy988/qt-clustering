@@ -1,0 +1,109 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+
+\title{Quality Threshold Clustering}
+\author{Loconte Lorenzo, M. 683124}
+
+\begin{document}
+	\maketitle
+	\section{Introduzione}
+	In statistica, il \textbf{clustering} è un insieme di tecniche volte
+	alla selezione e raggruppamento di elementi omogenei in un insieme di
+	dati. Le tecniche di clustering si basano su misure relative alla
+	somiglianza degli elementi. Gli algoritmi di clustering raggruppano gli
+	elementi sulla base della loro distanza reciproca.
+
+	\section{QT-Clustering}
+	\textbf{QT-Clustering} è composto da due applicazioni, un client ed un
+	server. Lo scopo del progetto è permettere a molteplici client di
+	eseguire un algoritmo di clustering su un server utlizzando come
+	sorgente dei dati un database MySQL.
+
+	\subsection{Server}
+	Il server si occupa principalmente di accettare le richieste dei client.
+	Esso esegue l'algoritmo di clustering vero e proprio utilizzando come
+	sorgente dei dati una tabella (specificata dal client) di un database
+	MySQL. Le funzionalità del server sono le seguenti:
+	\begin{itemize}
+		\item Capacità di gestire le richieste di molteplici client in
+		contemporanea.
+		\item Leggere il contenuto di una tabella di una base di dati
+		indipendentemente dal numero di attributi e dal numero di tuple.
+		\item Eseguire l'algoritmo di \textbf{Quality Threshold
+		clustering} usando un raggio arbitrario su un numero indefinito
+		di tuple.
+		\item Fare operazioni di \textbf{Principal Component Analysis}
+		per estrarre dalle tuple le componenti principali.
+		\item Salvare su file l'esito della computazione come cache.
+		\item Restituire ai client l'esito della computazione.
+	\end{itemize}
+
+	\subsection{Client}
+	Il client è fornito di una interfaccia grafica che permette ad un'utente
+	di connettersi al server e selezionare la fonte dei dati su cui eseguire
+	l'algoritmo di clustering. Inoltre il client si occupa di rappresentare
+	in forma grafica i cluster o i centroidi all'interno di un grafico
+	bidimensionale.
+
+	\subsection{Estensioni}
+	Le estensioni rispetto al progetto originale sono due:
+	\begin{enumerate}
+		\item La grafica per l'applicazione client.
+		\item L'algoritmo di \textbf{Principal Component Analysis}.
+	\end{enumerate}
+
+	\subsubsection{Grafica}
+	La grafica per l'applicazione client è stata scritta utilizzando le
+	\textbf{JavaFX}. Essa è composta da quattro sezioni:
+	\begin{enumerate}
+		\item La sezione per la connessione al server. L'utente
+		inserisce ip e porta del server in ascolto.
+		\item La sezione che contiene i parametri per il clustering,
+		ovvero la tabella del database da cui ottenere i dati e il
+		raggio utilizzato.
+		\item La sezione che mostra il risultato della computazione,
+		costituita da una \textit{TextArea}.
+		\item La sezione che mostra uno scatter plot del risultato della
+		computazione, costituito da uno \textit{ScatterChart} compreso
+		di etichette e simboli diversi per ogni cluster. L'utente può
+		scegliere, tramite pulsanti, su quale piano (XY, YZ, o XZ)
+		proiettare i dati per rappresentarli sullo scatter plot.
+	\end{enumerate}
+
+	\subsubsection{Principal Component Analysis}
+	La \textbf{Principal Component Analysis} (da adesso abbreviato con
+	\textbf{PCA}) è una tecnica appartenente alla statistica multivariata
+	usata per estrarre da un insieme di dati N dimensionali M componenti
+	principali in modo tale da ridurre il numero di dimensioni dello spazio
+	in cui si trovano i dati. L'esigenza di fare ciò nasce dal fatto che è
+	molto difficile rappresentare tuple in uno spazio a più di tre
+	dimensioni. Pertanto, tramite algoritmi di \textbf{PCA}, è possibile
+	proiettare i dati in uno spazio tridimensionale (o anche bidimensionale)
+	che sia trattabile e soprattuto rappresentabile. Ovviamente la scelta
+	degli assi di proiezione non è arbitraria, infatti punti molto distanti
+	tra loro in uno spazio N dimensionale possono ritrovarsi ad essere molto
+	vicini in uno spazio M dimensionale (con M \textless N). Generalmente
+	si scelgono gli assi di proiezione in modo tale che il campione
+	proiettato abbia varianza massima. L'algoritmo di \textbf{PCA}
+	implementato è il seguente:
+	\begin{enumerate}
+		\item Si trasforma il campione misto (numerico e discreto) in
+		un campione numerico.
+		\item Si standardizza il campione.
+		\item Si calcola la matrice di covarianza del campione.
+		\item Si calcolano autovalori ed autovettori della matrice di
+		covarianza.
+		\item Si scelgono come assi di proiezione gli autovettori
+		associati agli autovalori più grandi.
+		\item Si proietta il campione standardizzato sugli assi di
+		proiezione.
+	\end{enumerate}
+	Si tenga presente che questa procedura sacrifica parte dell'informazione
+	del campione originario. Il calcolo delle componenti principali è
+	effettuato dal server al termine dell'esecuzione dell'algoritmo di
+	clustering. E' compito del client poi disegnare sullo scatter plot
+	i punti.Come libreria per l'algebra lineare è stata usata la libreria
+	\href{http://la4j.org}{\textbf{la4j}}.
+\end{document}
+
