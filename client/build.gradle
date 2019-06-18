@@ -47,9 +47,5 @@ checkstyle {
     configFile = file("${projectDir}/checkstyle.xml")
 }
 
-run {
-    standardInput = System.in
-}
-
 // Define the main class for the application
 mainClassName = 'ClientMain'
