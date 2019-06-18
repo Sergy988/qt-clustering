@@ -20,7 +20,7 @@ public class DataTest {
 	@Test
 	public void testData() {
 		try {
-			Data data = new Data("playtennis");
+			Data data = new Data("test");
 		} catch (ClassNotFoundException
 			| SQLException
 			| NoValueException
