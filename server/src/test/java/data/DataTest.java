@@ -15,12 +15,14 @@ import database.DatabaseConnectionException;
 public class DataTest {
 
 	/**
-	 * Test the data constructor.
+	 * Test the toString() method.
 	 */
 	@Test
-	public void testData() {
+	public void testToString() {
+		Data data = null;
+
 		try {
-			Data data = new Data("test");
+			data = new Data("test");
 		} catch (ClassNotFoundException
 			| SQLException
 			| NoValueException
@@ -28,6 +30,14 @@ public class DataTest {
 			| EmptySetException e) {
 			fail(e.toString());
 		}
+
+		String string = data.toString();
+
+		assertEquals(string,
+			  "discrete continuous "
+			+ "\n1. A 1.0 "
+			+ "\n2. B 1.5 "
+			+ "\n3. C 2.0 ");
 	}
 
 	/**
