@@ -31,8 +31,6 @@ insert into playtennis values('sunny',12.5,'normal','strong','yes');
 insert into playtennis values('overcast',12.5,'high','strong','yes');
 insert into playtennis values('overcast',29.21,'normal','weak','yes');
 insert into playtennis values('rain',12.5,'high','strong','no');
-insert into playtennis values('rain',5.0,'normal','strong','no');
-insert into playtennis values('sunny',28.0,'high','weak','yes');
 
 create table test(
     discrete varchar(10),
