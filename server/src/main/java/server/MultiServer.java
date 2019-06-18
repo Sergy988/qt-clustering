@@ -70,7 +70,7 @@ public class MultiServer {
 	/**
 	 * Close the server.
 	 */
-	private void close() {
+	public void close() {
 		try {
 			socket.close();
 		} catch (IOException e) {

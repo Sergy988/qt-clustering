@@ -38,18 +38,4 @@ public class Example {
 	public int size() {
 		return example.size();
 	}
-
-	/**
-	 * Convert the example to a string.
-	 * @return The string rappresentation of the example
-	 */
-	public String toString() {
-		String str = "";
-
-		for (Object o : example) {
-			str += o.toString() + " ";
-		}
-
-		return str;
-	}
 }

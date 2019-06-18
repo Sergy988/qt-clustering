@@ -56,14 +56,6 @@ public class TableSchema {
 		public boolean isNumber() {
 			return type.equals("number");
 		}
-
-		/**
-		 * Convert the column to a string.
-		 * @return The string rappresentation of the column
-		 */
-		public String toString() {
-			return name + ":" + type;
-		}
 	}
 
 	/**
