@@ -174,7 +174,7 @@ class LearningUI extends ClientUI {
 			}
 
 			updateCentroidsUI();
-			updateClusters = false;
+			updateCentroids = false;
 		});
 		add(learnFileButton, 1, 3);
 	}
