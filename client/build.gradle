@@ -13,9 +13,6 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
 
-    // Apply the Jacoco java plugin
-    id 'jacoco'
-
     // Apply the Checkstyle java plugin
     id 'checkstyle'
 }
@@ -32,27 +29,11 @@ sourceSets {
             srcDir 'src/main/java'
         }
     }
-
-    test {
-        java {
-            srcDir 'src/test/java'
-        }
-    }
-}
-
-dependencies {
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
 }
 
 javadoc {
     // Enable documentation of all methods and members
     options.addBooleanOption('private', true)
-}
-
-test {
-    // Produce the Jacoco coverage report at the end of the test
-    finalizedBy jacocoTestReport
 }
 
 checkstyle {
