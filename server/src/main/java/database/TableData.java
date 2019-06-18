@@ -22,7 +22,7 @@ public class TableData {
 	/**
 	 * The database access object.
 	 */
-	DbAccess db;
+	private DbAccess db;
 
 	/**
 	 * Instantiate a new table data object.
