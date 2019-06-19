@@ -109,7 +109,7 @@
 	Per il progetto è stato utilizzato lo strumento \textbf{git}. Inoltre
 	il progetto è stato hostato su un repository remoto privato su
 	\href{https://github.com}{\textbf{GitHub}}. Come strumento di build
-	system e gestione delle dipendenze è stato utilizzato \textbf{gradle}.
+	system e gestione delle dipendenze è stato utilizzato \textbf{Gradle}.
 	In questo modo si ha la completa indipendenza dall'IDE che si intende
 	utilizzare. 
 	Durante lo sviluppo sono stati utilizzati i seguenti strumenti:
@@ -121,15 +121,21 @@
 	Sono stati scritti casi di test esclusivamente per il \textit{server}
 	dato che il client è costituito principalmente da codice per la UI.
 	I reports dei casi di test con \textit{JUnit} e di \textit{JaCoCo} sono
-	visualizzabili in \textit{.../qt-clustering/server/build/reports}.
+	visualizzabili in \textit{/qt-clustering/server/build/reports}.
 	Attualmente la copertura dei casi di test è pari al \textbf{74\%}.
+	La documentazione \textit{Javadoc} del client si trova in
+	\textit{/qt-clustering/client/build/docs/javadoc} mentre per il server
+	si trova in \textit{/qt-clustering/server/build/docs/javadoc}.
+	Il diagramma dei packages del server si trova in
+	\textit{/qt-clustering/doc/packages.png} mentre il diagramma delle classi
+	in \textit{/qt-clustering/doc/classes.png}.
 
 	\subsection {Importare il progetto con Eclipse}
-	Entrambi i progetti per il client e per il server contengono un file
-	chiamato \textit{build.gradle}. E' possibile importare il progetto con
+	Si può usare \textit{Gradle} direttamente da linea di comando.
+	In alternativa è possibile importare il progetto con
 	Eclipse seguendo i seguenti passi:
 	\begin{enumerate}
-		\item Importare il progetto come progetto \textit{gradle}:
+		\item Importare il progetto come progetto \textit{Gradle}:
 			\textit{File \textgreater Import ... \textgreater Gradle
 			\textgreater Existing Gradle Project}
 		\item Selezionare la root directory del progetto
@@ -142,6 +148,8 @@
 	e cliccare su \textit{application \textgreater run}. Se la finestra
 	\textit{Gradle Tasks} non è presente allora è necessario aprirla
 	selezionando \textit{Window \textgreater Show View \textgreater Other...
-	\textgreater Gradle \textgreater Gradle Tasks}.
+	\textgreater Gradle \textgreater Gradle Tasks}. Sempre dalla stessa
+	finestra \textit{Gradle Tasks} è possibile fare altre operazioni, tra
+	cui la generazione del \textit{Javadoc} e l'esecuzione dei casi di test.
 \end{document}
 
