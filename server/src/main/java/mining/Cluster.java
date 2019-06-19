@@ -161,7 +161,7 @@ public class Cluster
 		str += ")\nExamples:\n";
 
 		for (Integer i : clusteredData) {
-			str += "[";
+			str += "[ ";
 			for (int j = 0; j < data.getNumberOfExplanatoryAttributes(); j++) {
 				str += data.getValue(i, j) + " ";
 			}

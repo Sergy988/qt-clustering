@@ -94,15 +94,15 @@ public class QTMinerTest {
 		assertEquals(clusterSet.toString(data),
 			  "0: Centroid = ( C 2.0 )\n"
 			+ "Examples:\n"
-			+ "[C 2.0 ] dist=0.0\n"
+			+ "[ C 2.0 ] dist=0.0\n"
 			+ "AvgDistance=0.0\n\n"
 			+ "1: Centroid = ( B 1.5 )\n"
 			+ "Examples:\n"
-			+ "[B 1.5 ] dist=0.0\n"
+			+ "[ B 1.5 ] dist=0.0\n"
 			+ "AvgDistance=0.0\n\n"
 			+ "2: Centroid = ( A 1.0 )\n"
 			+ "Examples:\n"
-			+ "[A 1.0 ] dist=0.0\n"
+			+ "[ A 1.0 ] dist=0.0\n"
 			+ "AvgDistance=0.0\n\n");
 	}
 

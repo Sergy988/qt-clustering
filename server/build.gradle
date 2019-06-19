@@ -67,4 +67,4 @@ checkstyle {
 }
 
 // Define the main class for the application
-mainClassName = 'MultiServer'
+mainClassName = 'server.MultiServer'

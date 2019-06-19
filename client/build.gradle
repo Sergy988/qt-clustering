@@ -48,4 +48,4 @@ checkstyle {
 }
 
 // Define the main class for the application
-mainClassName = 'ClientMain'
+mainClassName = 'client.ClientMain'
