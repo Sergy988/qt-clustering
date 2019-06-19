@@ -60,22 +60,22 @@ public class ClientMain extends Application {
 	/**
 	 * The result user interface.
 	 */
-	ResultUI resultUI;
+	private ResultUI resultUI;
 
 	/**
 	 * The connection user interface.
 	 */
-	ConnectionUI connectionUI;
+	private ConnectionUI connectionUI;
 
 	/**
 	 * The learning stuff user interface.
 	 */
-	LearningUI learningUI;
+	private LearningUI learningUI;
 
 	/**
 	 * The result scatter plot user interface.
 	 */
-	PlotUI plotUI;
+	private PlotUI plotUI;
 
 	/**
 	 * The entry point.
