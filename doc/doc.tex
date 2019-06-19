@@ -110,10 +110,9 @@
 	il progetto è stato hostato su un repository remoto privato su
 	\href{https://github.com}{\textbf{GitHub}}. Come strumento di build
 	system e gestione delle dipendenze è stato utilizzato \textbf{gradle}.
-	E' possibile importare sia il progetto relativo al client sia il
-	progetto relativo al server sull'IDE \textbf{Eclipse} specificando come
-	tipologia di progetto \textit{gradle}. Durante lo sviluppo sono stati
-	utilizzati i seguenti strumenti:
+	In questo modo si ha la completa indipendenza dall'IDE che si intende
+	utilizzare. 
+	Durante lo sviluppo sono stati utilizzati i seguenti strumenti:
 	\begin{itemize}
 		\item \textit{JUnit 4.12}, per i casi di test.
 		\item \textit{JaCoCo}, per la copertura dei casi di test.
@@ -124,5 +123,25 @@
 	I reports dei casi di test con \textit{JUnit} e di \textit{JaCoCo} sono
 	visualizzabili in \textit{.../qt-clustering/server/build/reports}.
 	Attualmente la copertura dei casi di test è pari al \textbf{74\%}.
+
+	\subsection {Importare il progetto con Eclipse}
+	Entrambi i progetti per il client e per il server contengono un file
+	chiamato \textit{build.gradle}. E' possibile importare il progetto con
+	Eclipse seguendo i seguenti passi:
+	\begin{enumerate}
+		\item Selezionare \textit{File \textgreater Import ...}
+		\item Selezionare \textit{Gradle \textgreater Existing Gradle
+			Project}
+		\item Selezionare la root directory del progetto
+		\item Cliccare su \textit{Finish}
+	\end{enumerate}
+	Verranno così importati due progetti, uno per il \textit{server} e uno
+	per il \textit{client}. Gradle scaricherà automaticamente tutte le
+	dipendenze necessarie. Per eseguire il \textit{client/server} basterà
+	aprire la finestra dei \textit{Gradle Tasks}, selezionare il progetto,
+	e cliccare su \textit{application \textgreater run}. Se la finestra
+	\textit{Gradle Tasks} non è presente allora è necessario aprirla
+	selezionando \textit{Window \textgreater Show View \textgreater Other...
+	\textgreater Gradle \textgreater Gradle Tasks}.
 \end{document}
 
