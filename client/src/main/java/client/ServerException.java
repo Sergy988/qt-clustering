@@ -1,4 +1,6 @@
 
+package client;
+
 /**
  * Server Exception class.
  */

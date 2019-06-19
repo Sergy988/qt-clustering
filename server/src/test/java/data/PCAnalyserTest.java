@@ -1,4 +1,6 @@
 
+package data;
+
 import org.junit.Test;
 import org.junit.BeforeClass;
 import static org.junit.Assert.fail;
