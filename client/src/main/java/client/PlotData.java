@@ -1,4 +1,6 @@
 
+package client;
+
 import java.util.List;
 
 import javafx.scene.chart.XYChart;
