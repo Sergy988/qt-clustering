@@ -49,7 +49,7 @@ public class DataTest {
 	@Test(expected = SQLException.class)
 	public void testDataSQLException() throws SQLException {
 		try {
-			Data data = new Data("table that doesn't exist");
+			new Data("table that doesn't exist");
 		} catch (ClassNotFoundException
 			| NoValueException
 			| DatabaseConnectionException

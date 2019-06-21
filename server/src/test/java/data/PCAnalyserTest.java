@@ -4,7 +4,6 @@ package data;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
 
 import data.Data;
 import data.PCAnalyser;
@@ -15,17 +14,10 @@ import database.DatabaseConnectionException;
 
 import stats.StatisticException;
 
-import org.la4j.Matrix;
-
 /**
  * PCAnalyser class tester.
  */
 public class PCAnalyserTest {
-
-	/**
-	 * The accuracy of the test.
-	 */
-	static private final double EPS = 1e-8;
 
 	/**
 	 * The dataset.

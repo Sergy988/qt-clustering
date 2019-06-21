@@ -1,12 +1,7 @@
 
 package stats;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import org.la4j.Matrix;
-import org.la4j.Vector;
-import org.la4j.vector.dense.BasicVector;
 import org.la4j.matrix.dense.Basic2DMatrix;
 import org.la4j.decomposition.EigenDecompositor;
 

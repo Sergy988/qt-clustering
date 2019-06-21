@@ -8,12 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.net.Socket;
-import java.net.InetAddress;
-import java.net.SocketException;
 
 import java.sql.SQLException;
 
@@ -294,7 +291,7 @@ class ServerOneClient extends Thread {
 		outStream.writeObject(clusterSet.toString());
 
 		try {
-			for (Cluster cluster : clusterSet) {
+			for (int i = 0; i < clusterSet.size(); i++) {
 				double[] sample = (double[]) objectStream.readObject();
 				outStream.writeObject(sample);
 			}

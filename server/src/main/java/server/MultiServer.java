@@ -2,14 +2,9 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileNotFoundException;
 
 import java.net.Socket;
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.SocketException;
 
 /**
  * The multithread server main class.

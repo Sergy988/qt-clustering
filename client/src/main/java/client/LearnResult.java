@@ -1,9 +1,6 @@
 
 package client;
 
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * The learn result computed by the server.
  */

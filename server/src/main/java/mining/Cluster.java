@@ -8,11 +8,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.io.Serializable;
 
-import stats.Mean;
-import stats.Variance;
-import stats.Correlation;
-import stats.StatisticException;
-
 /**
  * The Cluster class.
  */

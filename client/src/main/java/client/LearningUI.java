@@ -1,8 +1,6 @@
 
 package client;
 
-import java.util.List;
-
 import java.io.IOException;
 
 import javafx.scene.control.Label;

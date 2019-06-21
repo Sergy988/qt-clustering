@@ -1,9 +1,6 @@
 
 package mining;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.junit.Test;
 import org.junit.BeforeClass;
 import static org.junit.Assert.fail;
@@ -113,10 +110,9 @@ public class QTMinerTest {
 	@Test(expected = ClusteringRadiusException.class)
 	public void testComputeException() throws ClusteringRadiusException {
 		QTMiner qt = new QTMiner(1000.0);
-		int clustersCount = 0;
 
 		try {
-			clustersCount = qt.compute(data);
+			qt.compute(data);
 		} catch (EmptyDatasetException e) {
 			fail(e.toString());
 		}

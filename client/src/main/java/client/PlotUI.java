@@ -1,10 +1,6 @@
 
 package client;
 
-import java.util.List;
-
-import java.io.IOException;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;

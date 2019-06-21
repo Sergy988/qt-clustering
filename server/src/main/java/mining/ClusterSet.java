@@ -27,10 +27,18 @@ public class ClusterSet implements Iterable<Cluster>, Serializable {
 
 	/**
 	 * Get the iterator to the clusters.
-	 * @return An iterator to the clusters.
+	 * @return An iterator to the clusters
 	 */
 	public Iterator<Cluster> iterator() {
 		return clusters.iterator();
+	}
+
+	/**
+	 * Get the number of clusters.
+	 * @return The number of clusters.
+	 */
+	public int size() {
+		return clusters.size();
 	}
 
 	/**

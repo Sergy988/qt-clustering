@@ -1,17 +1,12 @@
 
 package data;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import stats.Standard;
 import stats.Covariance;
 import stats.MultiVariation;
 import stats.StatisticException;
 
-import org.la4j.Vector;
 import org.la4j.Matrix;
-import org.la4j.vector.dense.BasicVector;
 import org.la4j.matrix.dense.Basic2DMatrix;
 
 /**
