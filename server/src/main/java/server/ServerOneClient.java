@@ -250,6 +250,8 @@ class ServerOneClient extends Thread {
 
 				objectStream.writeObject(sample);
 			}
+
+			objectStream.close();
 		} catch (IOException e) {
 			result = e.toString();
 		}
@@ -303,6 +305,8 @@ class ServerOneClient extends Thread {
 		} catch (ClassNotFoundException e) {
 			result = e.toString();
 		}
+
+		objectStream.close();
 
 		outStream.writeObject(result);
 	}
