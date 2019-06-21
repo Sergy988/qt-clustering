@@ -27,10 +27,18 @@ import java.io.Serializable;
 
 	/**
 	 * Get the iterator to the clusters.
-	 * @return An iterator to the clusters.
+	 * @return An iterator to the clusters
 	 */
 	public Iterator&lt;Cluster&gt; iterator() {
 <span class="nc" id="L33">		return clusters.iterator();</span>
+	}
+
+	/**
+	 * Get the number of clusters.
+	 * @return The number of clusters.
+	 */
+	public int size() {
+<span class="nc" id="L41">		return clusters.size();</span>
 	}
 
 	/**
@@ -38,18 +46,18 @@ import java.io.Serializable;
 	 * @return The textual rappresentation of the cluster set
 	 */
 	public String toString() {
-<span class="fc" id="L41">		String str = &quot;&quot;;</span>
+<span class="fc" id="L49">		String str = &quot;&quot;;</span>
 
-<span class="fc" id="L43">		int i = 0;</span>
+<span class="fc" id="L51">		int i = 0;</span>
 
-<span class="fc bfc" id="L45" title="All 2 branches covered.">		for (Cluster c : clusters) {</span>
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">			if (c != null) {</span>
-<span class="fc" id="L47">				str += i + &quot;: &quot; + c.toString() + &quot;\n&quot;;</span>
-<span class="fc" id="L48">				i++;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		for (Cluster c : clusters) {</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">			if (c != null) {</span>
+<span class="fc" id="L55">				str += i + &quot;: &quot; + c.toString() + &quot;\n&quot;;</span>
+<span class="fc" id="L56">				i++;</span>
 			}
-<span class="fc" id="L50">		}</span>
+<span class="fc" id="L58">		}</span>
 
-<span class="fc" id="L52">		return str;</span>
+<span class="fc" id="L60">		return str;</span>
 	}
 
 	/**
@@ -58,18 +66,18 @@ import java.io.Serializable;
 	 * @return The textual rappresentation of the cluster set
 	 */
 	public String toString(Data data) {
-<span class="fc" id="L61">		String str = &quot;&quot;;</span>
+<span class="fc" id="L69">		String str = &quot;&quot;;</span>
 
-<span class="fc" id="L63">		int i = 0;</span>
+<span class="fc" id="L71">		int i = 0;</span>
 
-<span class="fc bfc" id="L65" title="All 2 branches covered.">		for (Cluster c : clusters) {</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">			if (c != null) {</span>
-<span class="fc" id="L67">				str += i + &quot;: &quot; + c.toString(data) + &quot;\n&quot;;</span>
-<span class="fc" id="L68">				i++;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		for (Cluster c : clusters) {</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">			if (c != null) {</span>
+<span class="fc" id="L75">				str += i + &quot;: &quot; + c.toString(data) + &quot;\n&quot;;</span>
+<span class="fc" id="L76">				i++;</span>
 			}
-<span class="fc" id="L70">		}</span>
+<span class="fc" id="L78">		}</span>
 
-<span class="fc" id="L72">		return str;</span>
+<span class="fc" id="L80">		return str;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

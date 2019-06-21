@@ -2,14 +2,9 @@
 package server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileNotFoundException;
 
 import java.net.Socket;
-import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.SocketException;
 
 /**
  * The multithread server main class.
@@ -32,20 +27,20 @@ public class MultiServer {
 	 */
 	public static void main(String[] args) {
 		try {
-<span class="nc" id="L35">			new MultiServer(PORT).run();</span>
-<span class="nc" id="L36">		} catch (IOException e) {</span>
-<span class="nc" id="L37">			System.err.println(e.getMessage());</span>
-<span class="nc" id="L38">		}</span>
-<span class="nc" id="L39">	}</span>
+<span class="nc" id="L30">			new MultiServer(PORT).run();</span>
+<span class="nc" id="L31">		} catch (IOException e) {</span>
+<span class="nc" id="L32">			System.err.println(e.getMessage());</span>
+<span class="nc" id="L33">		}</span>
+<span class="nc" id="L34">	}</span>
 
 	/**
 	 * Construct a multithread server.
 	 * @param port The connection port
 	 * @throws IOException Thrown when the server socket constructor fails
 	 */
-<span class="fc" id="L46">	public MultiServer(int port) throws IOException {</span>
-<span class="fc" id="L47">		socket = new ServerSocket(port);</span>
-<span class="fc" id="L48">	}</span>
+<span class="fc" id="L41">	public MultiServer(int port) throws IOException {</span>
+<span class="fc" id="L42">		socket = new ServerSocket(port);</span>
+<span class="fc" id="L43">	}</span>
 
 	/**
 	 * Run the server.
@@ -53,32 +48,32 @@ public class MultiServer {
 	public void run() {
 		try {
 			while (true) {
-<span class="nc" id="L56">				Socket clientSocket = socket.accept();</span>
-<span class="nc" id="L57">				System.out.println(&quot;accepting &quot; + clientSocket);</span>
+<span class="nc" id="L51">				Socket clientSocket = socket.accept();</span>
+<span class="nc" id="L52">				System.out.println(&quot;accepting &quot; + clientSocket);</span>
 
 				try {
-<span class="nc" id="L60">					new ServerOneClient(clientSocket);</span>
-<span class="nc" id="L61">				} catch (IOException e) {</span>
-<span class="nc" id="L62">					System.err.println(e.getMessage());</span>
-<span class="nc" id="L63">				}</span>
-<span class="nc" id="L64">			}</span>
-<span class="nc" id="L65">		} catch (IOException e) {</span>
-<span class="nc" id="L66">			System.err.println(e.getMessage());</span>
+<span class="nc" id="L55">					new ServerOneClient(clientSocket);</span>
+<span class="nc" id="L56">				} catch (IOException e) {</span>
+<span class="nc" id="L57">					System.err.println(e.getMessage());</span>
+<span class="nc" id="L58">				}</span>
+<span class="nc" id="L59">			}</span>
+<span class="nc" id="L60">		} catch (IOException e) {</span>
+<span class="nc" id="L61">			System.err.println(e.getMessage());</span>
 		} finally {
-<span class="nc" id="L68">			close();</span>
+<span class="nc" id="L63">			close();</span>
 		}
-<span class="nc" id="L70">	}</span>
+<span class="nc" id="L65">	}</span>
 
 	/**
 	 * Close the server.
 	 */
 	public void close() {
 		try {
-<span class="fc" id="L77">			socket.close();</span>
-<span class="nc" id="L78">		} catch (IOException e) {</span>
-<span class="nc" id="L79">			System.err.println(e.getMessage());</span>
-<span class="fc" id="L80">		}</span>
-<span class="fc" id="L81">	}</span>
+<span class="fc" id="L72">			socket.close();</span>
+<span class="nc" id="L73">		} catch (IOException e) {</span>
+<span class="nc" id="L74">			System.err.println(e.getMessage());</span>
+<span class="fc" id="L75">		}</span>
+<span class="fc" id="L76">	}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

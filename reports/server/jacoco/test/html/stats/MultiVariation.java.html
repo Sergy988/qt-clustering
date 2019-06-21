@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultiVariation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">stats</a> &gt; <span class="el_source">MultiVariation.java</span></div><h1>MultiVariation.java</h1><pre class="source lang-java linenums">
 package stats;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import org.la4j.Matrix;
-import org.la4j.Vector;
-import org.la4j.vector.dense.BasicVector;
 import org.la4j.matrix.dense.Basic2DMatrix;
 import org.la4j.decomposition.EigenDecompositor;
 
@@ -34,35 +29,35 @@ public class MultiVariation {
 	public static Matrix majorEigenvectors(int dim, Matrix correlation)
 		throws StatisticException {
 		// Check if the correlation matrix is valid
-<span class="fc bfc" id="L37" title="All 2 branches covered.">		if (correlation.rows() != correlation.columns()) {</span>
-<span class="fc" id="L38">			throw new StatisticException(&quot;Correlation matrix is not square&quot;);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">		if (correlation.rows() != correlation.columns()) {</span>
+<span class="fc" id="L33">			throw new StatisticException(&quot;Correlation matrix is not square&quot;);</span>
 		}
 
-<span class="fc bfc" id="L41" title="All 2 branches covered.">		if (correlation.columns() &lt; dim) {</span>
-<span class="fc" id="L42">			throw new StatisticException(&quot;Correlation matrix is too small&quot;);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">		if (correlation.columns() &lt; dim) {</span>
+<span class="fc" id="L37">			throw new StatisticException(&quot;Correlation matrix is too small&quot;);</span>
 		}
 
-<span class="fc" id="L45">		EigenDecompositor eigen = new EigenDecompositor(correlation);</span>
+<span class="fc" id="L40">		EigenDecompositor eigen = new EigenDecompositor(correlation);</span>
 
 		// Get the eigen decomposition
-<span class="fc" id="L48">		Matrix[] decomposition = eigen.decompose();</span>
+<span class="fc" id="L43">		Matrix[] decomposition = eigen.decompose();</span>
 
-<span class="fc" id="L50">		Matrix eigenvectors = decomposition[0];</span>
-<span class="fc" id="L51">		Matrix eigenvalues  = decomposition[1];</span>
+<span class="fc" id="L45">		Matrix eigenvectors = decomposition[0];</span>
+<span class="fc" id="L46">		Matrix eigenvalues  = decomposition[1];</span>
 
-<span class="fc" id="L53">		Matrix majorEigenvectors = new Basic2DMatrix(eigenvectors.rows(), dim);</span>
+<span class="fc" id="L48">		Matrix majorEigenvectors = new Basic2DMatrix(eigenvectors.rows(), dim);</span>
 
 		// Build the major eigevectors matrix
-<span class="fc bfc" id="L56" title="All 2 branches covered.">		for (int i = 0; i &lt; dim; i++) {</span>
-<span class="fc" id="L57">			int evIndex = maximumEigevalue(eigenvalues);</span>
-<span class="fc" id="L58">			eigenvalues.set(evIndex, evIndex, -0.0);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		for (int i = 0; i &lt; dim; i++) {</span>
+<span class="fc" id="L52">			int evIndex = maximumEigevalue(eigenvalues);</span>
+<span class="fc" id="L53">			eigenvalues.set(evIndex, evIndex, -0.0);</span>
 
-<span class="fc" id="L60">			majorEigenvectors.setColumn(</span>
-<span class="fc" id="L61">				i, eigenvectors.getColumn(evIndex)</span>
+<span class="fc" id="L55">			majorEigenvectors.setColumn(</span>
+<span class="fc" id="L56">				i, eigenvectors.getColumn(evIndex)</span>
 			);
 		}
 
-<span class="fc" id="L65">		return majorEigenvectors;</span>
+<span class="fc" id="L60">		return majorEigenvectors;</span>
 	}
 
 	/**
@@ -71,17 +66,17 @@ public class MultiVariation {
 	 * @return The position of the maximum eigenvalue
 	 */
 	private static int maximumEigevalue(Matrix eigenvalues) {
-<span class="fc" id="L74">		int index = 0;</span>
-<span class="fc" id="L75">		double max = eigenvalues.get(0, 0);</span>
+<span class="fc" id="L69">		int index = 0;</span>
+<span class="fc" id="L70">		double max = eigenvalues.get(0, 0);</span>
 
-<span class="fc bfc" id="L77" title="All 2 branches covered.">		for (int i = 1; i &lt; eigenvalues.columns(); i++) {</span>
-<span class="pc bpc" id="L78" title="1 of 2 branches missed.">			if (eigenvalues.get(i, i) &gt; max) {</span>
-<span class="nc" id="L79">				max = eigenvalues.get(i, i);</span>
-<span class="nc" id="L80">				index = i;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">		for (int i = 1; i &lt; eigenvalues.columns(); i++) {</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">			if (eigenvalues.get(i, i) &gt; max) {</span>
+<span class="nc" id="L74">				max = eigenvalues.get(i, i);</span>
+<span class="nc" id="L75">				index = i;</span>
 			}
 		}
 
-<span class="fc" id="L84">		return index;</span>
+<span class="fc" id="L79">		return index;</span>
 	}
 }
 
