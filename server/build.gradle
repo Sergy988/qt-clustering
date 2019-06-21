@@ -66,5 +66,13 @@ checkstyle {
     configFile = file("${projectDir}/checkstyle.xml")
 }
 
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'server.MultiServer'
+        )
+    }
+}
+
 // Define the main class for the application
 mainClassName = 'server.MultiServer'

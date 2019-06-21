@@ -47,5 +47,13 @@ checkstyle {
     configFile = file("${projectDir}/checkstyle.xml")
 }
 
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'client.ClientMain'
+        )
+    }
+}
+
 // Define the main class for the application
 mainClassName = 'client.ClientMain'
