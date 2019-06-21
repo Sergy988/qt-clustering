@@ -76,18 +76,31 @@ class PlotData {
 	 * @param samples The serie of samples to add
 	 */
 	void addSerie(List<double[]> samples) {
-		XYChart.Series xySerie = new XYChart.Series();
-		XYChart.Series yzSerie = new XYChart.Series();
-		XYChart.Series xzSerie = new XYChart.Series();
+		XYChart.Series<Number, Number> xySerie =
+			new XYChart.Series<Number, Number>();
+
+		XYChart.Series<Number, Number> yzSerie =
+			new XYChart.Series<Number, Number>();
+
+		XYChart.Series<Number, Number> xzSerie =
+			new XYChart.Series<Number, Number>();
 
 		xySerie.setName(label + id);
 		yzSerie.setName(label + id);
 		xzSerie.setName(label + id);
 
 		for (double[] xyz : samples) {
-			xySerie.getData().add(new XYChart.Data(xyz[0], xyz[1]));
-			yzSerie.getData().add(new XYChart.Data(xyz[1], xyz[2]));
-			xzSerie.getData().add(new XYChart.Data(xyz[0], xyz[2]));
+			xySerie.getData().add(
+				new XYChart.Data<Number, Number>(xyz[0], xyz[1])
+			);
+
+			yzSerie.getData().add(
+				new XYChart.Data<Number, Number>(xyz[1], xyz[2])
+			);
+
+			xzSerie.getData().add(
+				new XYChart.Data<Number, Number>(xyz[0], xyz[2])
+			);
 		}
 
 		xySeries.add(xySerie);

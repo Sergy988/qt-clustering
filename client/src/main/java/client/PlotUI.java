@@ -82,7 +82,7 @@ class PlotUI extends ClientUI {
 		NumberAxis xAxis = new NumberAxis(-3.0, +3.0, 0.1);
 		NumberAxis yAxis = new NumberAxis(-3.0, +3.0, 0.1);
 
-		chart = new ScatterChart(xAxis, yAxis);
+		chart = new ScatterChart<Number, Number>(xAxis, yAxis);
 		chart.setTitle("Scatter plot:");
 		chart.setPrefWidth(PLOT_SIZE);
 		chart.setPrefHeight(PLOT_SIZE);
