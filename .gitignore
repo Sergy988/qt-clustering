@@ -8,7 +8,9 @@
 # Ignore Gradle build output directory
 build
 
-bin
+# Ignore projects binaries
+client/bin
+server/bin
 
 # Ignore Cluster Sets dump files
 *.dmp
