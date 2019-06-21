@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PCAnalyser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">data</a> &gt; <span class="el_source">PCAnalyser.java</span></div><h1>PCAnalyser.java</h1><pre class="source lang-java linenums">
+package data;
+
+import java.util.List;
+import java.util.LinkedList;
+
+import stats.Standard;
+import stats.Covariance;
+import stats.MultiVariation;
+import stats.StatisticException;
+
+import org.la4j.Vector;
+import org.la4j.Matrix;
+import org.la4j.vector.dense.BasicVector;
+import org.la4j.matrix.dense.Basic2DMatrix;
+
+/**
+ * Principal Component Analyser.
+ */
+public class PCAnalyser {
+
+	/**
+	 * The dimensions of the projected data.
+	 */
+	private int dimensions;
+
+	/**
+	 * The projection of the points of the dataset.
+	 */
+	private Matrix points;
+
+	/**
+	 * Construct a Principal Component Analyser.
+	 * @param dim The dimensions of the projected data.
+	 *            Note that if dim is zero the points will
+	 *            be projected to the Zero axes.
+	 */
+<span class="fc" id="L38">	public PCAnalyser(int dim) {</span>
+<span class="fc" id="L39">		this.dimensions = dim;</span>
+<span class="fc" id="L40">	}</span>
+
+	/**
+	 * Project the dataset specified by data.
+	 * @param data The dataset to project
+	 * @throws StatisticException Thrown when a statistic error occurs
+	 */
+	public void project(Data data) throws StatisticException {
+<span class="fc" id="L48">		int samplesCount = data.getNumberOfExamples();</span>
+<span class="fc" id="L49">		int attributesCount = data.getNumberOfExplanatoryAttributes();</span>
+
+<span class="fc" id="L51">		Matrix samples = new Basic2DMatrix(samplesCount, attributesCount);</span>
+
+		// Build the samples matrix
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for (int i = 0; i &lt; samplesCount; i++) {</span>
+<span class="fc" id="L55">			samples.setRow(i, data.getTuple(i).toNumericVector());</span>
+		}
+
+		// Standardize the samples
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		for (int i = 0; i &lt; attributesCount; i++) {</span>
+<span class="fc" id="L60">			samples.setColumn(i, Standard.standardize(samples.getColumn(i)));</span>
+		}
+
+		// Build the covariance matrix
+<span class="fc" id="L64">		Matrix covariance = Covariance.covariance(samples);</span>
+
+<span class="fc" id="L66">		Matrix projectionMatrix = null;</span>
+
+		try {
+			// Get the major eigenvectors
+<span class="fc" id="L70">			projectionMatrix = MultiVariation.majorEigenvectors(</span>
+				dimensions, covariance
+			);
+<span class="fc" id="L73">		} catch (StatisticException e) {</span>
+			// Build versor eigenvectors
+<span class="fc" id="L75">			projectionMatrix = Basic2DMatrix.zero(attributesCount, dimensions);</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">			for (int i = 0; i &lt; attributesCount; i++) {</span>
+<span class="fc" id="L78">				projectionMatrix.set(i, i, 1.0);</span>
+			}
+<span class="fc" id="L80">		}</span>
+
+		// Transpose the projection matrix
+<span class="fc" id="L83">		projectionMatrix = projectionMatrix.transpose();</span>
+
+		// Instantiate the projected points matrix
+<span class="fc" id="L86">		points = new Basic2DMatrix(samplesCount, dimensions);</span>
+
+		// Project the samples to the projection axes
+<span class="fc bfc" id="L89" title="All 2 branches covered.">		for (int i = 0; i &lt; samplesCount; i++) {</span>
+<span class="fc" id="L90">			points.setRow(i, projectionMatrix.multiply(samples.getRow(i)));</span>
+		}
+<span class="fc" id="L92">	}</span>
+
+	/**
+	 * Get the i-th point coordinate at index j.
+	 * @param i The index of the point in the projected dataset
+	 * @param j The index of the coordinate
+	 * @return The j-th coordinate of the i-th point
+	 */
+	public double get(int i, int j) {
+<span class="nc" id="L101">		return points.get(i, j);</span>
+	}
+
+	/**
+	 * Get the projection dimensions number.
+	 * @return The dimensions number
+	 */
+	public int getDimensions() {
+<span class="nc" id="L109">		return dimensions;</span>
+	}
+
+	/**
+	 * Get the number of samples of the projected data.
+	 * @return The number of samples
+	 */
+	public int getSamplesCount() {
+<span class="nc" id="L117">		return points.rows();</span>
+	}
+
+	/**
+	 * Get the projected points matrix.
+	 * @return The projected points matrix
+	 */
+	public Matrix getSamples() {
+<span class="nc" id="L125">		return points;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

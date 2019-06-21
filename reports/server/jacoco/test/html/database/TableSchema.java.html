@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableSchema.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">TableSchema.java</span></div><h1>TableSchema.java</h1><pre class="source lang-java linenums">
+package database;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * The scheme of a table class.
+ */
+public class TableSchema {
+
+	/**
+	 * The column inner class.
+	 */
+	public class Column {
+
+		/**
+		 * The name of the column.
+		 */
+		private String name;
+
+		/**
+		 * The type of the column.
+		 */
+		private String type;
+
+		/**
+		 * Instantiate a new column.
+		 * @param name The name of the column
+		 * @param type The type of the column
+		 */
+<span class="fc" id="L38">		Column(String name, String type) {</span>
+<span class="fc" id="L39">			this.name = name;</span>
+<span class="fc" id="L40">			this.type = type;</span>
+<span class="fc" id="L41">		}</span>
+
+		/**
+		 * Get the column name.
+		 * @return The column name
+		 */
+		public String getName() {
+<span class="fc" id="L48">			return name;</span>
+		}
+
+		/**
+		 * Check if the column is numerical.
+		 * @return true if the column type is a number,
+		 *         false otherwise
+		 */
+		public boolean isNumber() {
+<span class="fc" id="L57">			return type.equals(&quot;number&quot;);</span>
+		}
+	}
+
+	/**
+	 * The table schema object (array of columns).
+	 */
+<span class="fc" id="L64">	List&lt;Column&gt; tableSchema = new ArrayList&lt;Column&gt;();</span>
+
+	/**
+	 * Instantiate a table schema.
+	 * @param db The database access
+	 * @param tableName The name of the table
+	 * @throws SQLException Thrown whene a sql exception occurs
+	 */
+<span class="fc" id="L72">	public TableSchema(DbAccess db, String tableName) throws SQLException {</span>
+		//http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/mapping.html
+<span class="fc" id="L74">		HashMap&lt;String, String&gt; sqlTypesMap = new HashMap&lt;String, String&gt;();</span>
+<span class="fc" id="L75">		sqlTypesMap.put(&quot;CHAR&quot;, &quot;string&quot;);</span>
+<span class="fc" id="L76">		sqlTypesMap.put(&quot;VARCHAR&quot;, &quot;string&quot;);</span>
+<span class="fc" id="L77">		sqlTypesMap.put(&quot;LONGVARCHAR&quot;, &quot;string&quot;);</span>
+<span class="fc" id="L78">		sqlTypesMap.put(&quot;BIT&quot;, &quot;string&quot;);</span>
+<span class="fc" id="L79">		sqlTypesMap.put(&quot;SHORT&quot;, &quot;number&quot;);</span>
+<span class="fc" id="L80">		sqlTypesMap.put(&quot;INT&quot;, &quot;number&quot;);</span>
+<span class="fc" id="L81">		sqlTypesMap.put(&quot;LONG&quot;, &quot;number&quot;);</span>
+<span class="fc" id="L82">		sqlTypesMap.put(&quot;FLOAT&quot;, &quot;number&quot;);</span>
+<span class="fc" id="L83">		sqlTypesMap.put(&quot;DOUBLE&quot;, &quot;number&quot;);</span>
+
+<span class="fc" id="L85">		Connection con = db.getConnection();</span>
+<span class="fc" id="L86">		DatabaseMetaData meta = con.getMetaData();</span>
+<span class="fc" id="L87">		ResultSet res = meta.getColumns(null, null, tableName, null);</span>
+
+<span class="fc bfc" id="L89" title="All 2 branches covered.">		while (res.next()) {</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">			if (sqlTypesMap.containsKey(res.getString(&quot;TYPE_NAME&quot;))) {</span>
+<span class="fc" id="L91">				tableSchema.add(new Column(</span>
+<span class="fc" id="L92">					res.getString(&quot;COLUMN_NAME&quot;),</span>
+<span class="fc" id="L93">					sqlTypesMap.get(res.getString(&quot;TYPE_NAME&quot;)))</span>
+				);
+			}
+		}
+
+<span class="fc" id="L98">		res.close();</span>
+<span class="fc" id="L99">	}</span>
+
+	/**
+	 * Get the number of attributes.
+	 * @return The number of attributes
+	 */
+	public int getNumberOfAttributes() {
+<span class="fc" id="L106">		return tableSchema.size();</span>
+	}
+
+	/**
+	 * Get the column at index i.
+	 * @param i The index
+	 * @return The column at i
+	 */
+	public Column getColumn(int i) {
+<span class="fc" id="L115">		return tableSchema.get(i);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

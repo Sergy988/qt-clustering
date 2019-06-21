@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.17">
+<file name="/home/loreloc/qt-clustering/server/src/test/java/data/DataTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/data/PCAnalyserTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/data/TupleTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/mining/QTMinerTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/server/MultiServerTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/stats/CorrelationTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/stats/CovarianceTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/stats/MultiVariationTest.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/test/java/stats/StandardTest.java">
+</file>
+</checkstyle>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServerOneClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">server</a> &gt; <span class="el_source">ServerOneClient.java</span></div><h1>ServerOneClient.java</h1><pre class="source lang-java linenums">
+package server;
+
+import java.util.List;
+import java.util.LinkedList;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import java.net.Socket;
+import java.net.InetAddress;
+import java.net.SocketException;
+
+import java.sql.SQLException;
+
+import stats.StatisticException;
+
+import data.Data;
+import data.PCAnalyser;
+import data.EmptyDatasetException;
+
+import mining.QTMiner;
+import mining.Cluster;
+import mining.ClusterSet;
+import mining.ClusteringRadiusException;
+
+import database.NoValueException;
+import database.EmptySetException;
+import database.DatabaseConnectionException;
+
+/**
+ * Server one client thread class.
+ */
+class ServerOneClient extends Thread {
+
+	/**
+	 * The QT miner object.
+	 */
+	private QTMiner qt;
+
+	/**
+	 * The data read from a database table.
+	 */
+	private Data data;
+
+	/**
+	 * The principal component analyser.
+	 */
+	private PCAnalyser pca;
+
+	/**
+	 * The connection socket.
+	 */
+	private Socket socket;
+
+	/**
+	 * The object input stream to the client.
+	 */
+	private ObjectInputStream inStream;
+
+	/**
+	 * The object output stream to the client.
+	 */
+	private ObjectOutputStream outStream;
+
+	/**
+	 * Construct a ServerOneClient.
+	 * @param socket The client socket
+	 * @throws IOException Thrown when a I/O exception occurs
+	 */
+<span class="nc" id="L75">	ServerOneClient(Socket socket) throws IOException {</span>
+<span class="nc" id="L76">		this.socket = socket;</span>
+
+<span class="nc" id="L78">		inStream = new ObjectInputStream(socket.getInputStream());</span>
+<span class="nc" id="L79">		outStream = new ObjectOutputStream(socket.getOutputStream());</span>
+
+<span class="nc" id="L81">		pca = new PCAnalyser(3);</span>
+
+<span class="nc" id="L83">		start();</span>
+<span class="nc" id="L84">	}</span>
+
+	/**
+	 * Run the thread.
+	 */
+	@Override
+	public void run() {
+		try {
+			while (true) {
+<span class="nc" id="L93">				Integer operation = (Integer) inStream.readObject();</span>
+
+<span class="nc bnc" id="L95" title="All 5 branches missed.">				switch (operation) {</span>
+					case 0:
+<span class="nc" id="L97">						storeTableFromDB();</span>
+<span class="nc" id="L98">						break;</span>
+					case 1:
+<span class="nc" id="L100">						learnFromDBTable();</span>
+<span class="nc" id="L101">						break;</span>
+					case 2:
+<span class="nc" id="L103">						storeClustersInFile();</span>
+<span class="nc" id="L104">						break;</span>
+					case 3:
+<span class="nc" id="L106">						learnFromFile();</span>
+<span class="nc" id="L107">						break;</span>
+					default:
+						break;
+				}
+<span class="nc" id="L111">			}</span>
+<span class="nc" id="L112">		} catch (IOException e) {</span>
+<span class="nc" id="L113">			System.err.println(socket + &quot; disconnected&quot;);</span>
+<span class="nc" id="L114">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L115">			System.err.println(socket + &quot;: &quot; + e);</span>
+		} finally {
+<span class="nc" id="L117">			close();</span>
+		}
+<span class="nc" id="L119">	}</span>
+
+	/**
+	 * Close the server one client thread.
+	 */
+	private void close() {
+		try {
+<span class="nc" id="L126">			socket.close();</span>
+<span class="nc" id="L127">		} catch (IOException e) {</span>
+<span class="nc" id="L128">			System.err.println(e.getMessage());</span>
+<span class="nc" id="L129">		}</span>
+<span class="nc" id="L130">	}</span>
+
+	/**
+	 * Store the table from database.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void storeTableFromDB()
+		throws IOException, ClassNotFoundException {
+<span class="nc" id="L139">		String result = &quot;OK&quot;;</span>
+<span class="nc" id="L140">		String tableName = (String) inStream.readObject();</span>
+
+		try {
+<span class="nc" id="L143">			data = new Data(tableName);</span>
+<span class="nc" id="L144">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L145">			result = e.toString();</span>
+<span class="nc" id="L146">		} catch (SQLException e) {</span>
+<span class="nc" id="L147">			result = e.toString();</span>
+<span class="nc" id="L148">		} catch (NoValueException e) {</span>
+<span class="nc" id="L149">			result = e.toString();</span>
+<span class="nc" id="L150">		} catch (DatabaseConnectionException e) {</span>
+<span class="nc" id="L151">			result = e.toString();</span>
+<span class="nc" id="L152">		} catch (EmptySetException e) {</span>
+<span class="nc" id="L153">			result = e.toString();</span>
+<span class="nc" id="L154">		}</span>
+
+<span class="nc" id="L156">		outStream.writeObject(result);</span>
+<span class="nc" id="L157">	}</span>
+
+	/**
+	 * Learn from the database table.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void learnFromDBTable()
+		throws IOException, ClassNotFoundException {
+<span class="nc" id="L166">		String result = &quot;OK&quot;;</span>
+<span class="nc" id="L167">		double radius = (double) inStream.readObject();</span>
+
+<span class="nc" id="L169">		qt = new QTMiner(radius);</span>
+
+		try {
+<span class="nc" id="L172">			qt.compute(data);</span>
+<span class="nc" id="L173">		} catch (ClusteringRadiusException e) {</span>
+<span class="nc" id="L174">			result = e.toString();</span>
+<span class="nc" id="L175">		} catch (EmptyDatasetException e) {</span>
+<span class="nc" id="L176">			result = e.toString();</span>
+<span class="nc" id="L177">		}</span>
+
+<span class="nc" id="L179">		outStream.writeObject(result);</span>
+
+<span class="nc bnc" id="L181" title="All 2 branches missed.">		if (!result.equals(&quot;OK&quot;)) {</span>
+<span class="nc" id="L182">			return;</span>
+		}
+
+<span class="nc" id="L185">		ClusterSet clusterSet = qt.getClusterSet();</span>
+<span class="nc" id="L186">		outStream.writeObject(clusterSet.toString(data));</span>
+
+		try {
+<span class="nc" id="L189">			pca.project(data);</span>
+<span class="nc" id="L190">		} catch (StatisticException e) {</span>
+<span class="nc" id="L191">			result = e.toString();</span>
+<span class="nc" id="L192">		}</span>
+
+<span class="nc" id="L194">		outStream.writeObject(result);</span>
+
+<span class="nc bnc" id="L196" title="All 2 branches missed.">		if (!result.equals(&quot;OK&quot;)) {</span>
+<span class="nc" id="L197">			return;</span>
+		}
+
+<span class="nc bnc" id="L200" title="All 2 branches missed.">		for (Cluster cluster : clusterSet) {</span>
+<span class="nc" id="L201">			List&lt;double[]&gt; samples = new LinkedList&lt;double[]&gt;();</span>
+
+<span class="nc bnc" id="L203" title="All 2 branches missed.">			for (Integer index : cluster) {</span>
+<span class="nc" id="L204">				samples.add(</span>
+					new double[]{
+<span class="nc" id="L206">						pca.get(index, 0),</span>
+<span class="nc" id="L207">						pca.get(index, 1),</span>
+<span class="nc" id="L208">						pca.get(index, 2)</span>
+					}
+				);
+<span class="nc" id="L211">			}</span>
+
+<span class="nc" id="L213">			outStream.writeObject(samples);</span>
+<span class="nc" id="L214">		}</span>
+
+<span class="nc" id="L216">		outStream.writeObject(null);</span>
+<span class="nc" id="L217">	}</span>
+
+	/**
+	 * Store the clusters in file.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void storeClustersInFile()
+		throws IOException, ClassNotFoundException {
+<span class="nc" id="L226">		String result = &quot;OK&quot;;</span>
+
+<span class="nc" id="L228">		ClusterSet clusterSet = qt.getClusterSet();</span>
+
+<span class="nc" id="L230">		String fileName = clusterSetFileName(</span>
+<span class="nc" id="L231">			data.getTableName(), qt.getRadius()</span>
+		);
+
+		try {
+<span class="nc" id="L235">			FileOutputStream fileStream = new FileOutputStream(fileName);</span>
+<span class="nc" id="L236">			ObjectOutputStream objectStream = new ObjectOutputStream(</span>
+				fileStream
+			);
+
+<span class="nc" id="L240">			objectStream.writeObject(clusterSet);</span>
+
+<span class="nc bnc" id="L242" title="All 2 branches missed.">			for (Cluster cluster : clusterSet) {</span>
+<span class="nc" id="L243">				int index = cluster.getId();</span>
+
+<span class="nc" id="L245">				double[] sample = new double[] {</span>
+<span class="nc" id="L246">					pca.get(index, 0),</span>
+<span class="nc" id="L247">					pca.get(index, 1),</span>
+<span class="nc" id="L248">					pca.get(index, 2)</span>
+				};
+
+<span class="nc" id="L251">				objectStream.writeObject(sample);</span>
+<span class="nc" id="L252">			}</span>
+<span class="nc" id="L253">		} catch (IOException e) {</span>
+<span class="nc" id="L254">			result = e.toString();</span>
+<span class="nc" id="L255">		}</span>
+
+<span class="nc" id="L257">		outStream.writeObject(result);</span>
+<span class="nc" id="L258">	}</span>
+
+	/**
+	 * Learn from file.
+	 * @throws IOException Thrown when an I/O error occurs
+	 * @throws ClassNotFoundException Thrown whena a class is not found
+	 */
+	private void learnFromFile()
+		throws IOException, ClassNotFoundException {
+<span class="nc" id="L267">		String result = &quot;OK&quot;;</span>
+<span class="nc" id="L268">		String tableName = (String) inStream.readObject();</span>
+<span class="nc" id="L269">		double radius = (double) inStream.readObject();</span>
+
+<span class="nc" id="L271">		ClusterSet clusterSet = null;</span>
+<span class="nc" id="L272">		String fileName = clusterSetFileName(tableName, radius);</span>
+
+<span class="nc" id="L274">		ObjectInputStream objectStream = null;</span>
+
+		try {
+<span class="nc" id="L277">			FileInputStream fileStream = new FileInputStream(fileName);</span>
+<span class="nc" id="L278">			objectStream = new ObjectInputStream(fileStream);</span>
+<span class="nc" id="L279">			clusterSet = (ClusterSet) objectStream.readObject();</span>
+<span class="nc" id="L280">		} catch (IOException e) {</span>
+<span class="nc" id="L281">			result = e.toString();</span>
+<span class="nc" id="L282">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L283">			result = e.toString();</span>
+<span class="nc" id="L284">		}</span>
+
+<span class="nc" id="L286">		outStream.writeObject(result);</span>
+
+<span class="nc bnc" id="L288" title="All 2 branches missed.">		if (!result.equals(&quot;OK&quot;)) {</span>
+<span class="nc" id="L289">			return;</span>
+		}
+
+<span class="nc" id="L292">		outStream.writeObject(clusterSet.toString());</span>
+
+		try {
+<span class="nc bnc" id="L295" title="All 2 branches missed.">			for (Cluster cluster : clusterSet) {</span>
+<span class="nc" id="L296">				double[] sample = (double[]) objectStream.readObject();</span>
+<span class="nc" id="L297">				outStream.writeObject(sample);</span>
+<span class="nc" id="L298">			}</span>
+
+<span class="nc" id="L300">			outStream.writeObject(null);</span>
+<span class="nc" id="L301">		} catch (IOException e) {</span>
+<span class="nc" id="L302">			result = e.toString();</span>
+<span class="nc" id="L303">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L304">			result = e.toString();</span>
+<span class="nc" id="L305">		}</span>
+
+<span class="nc" id="L307">		outStream.writeObject(result);</span>
+<span class="nc" id="L308">	}</span>
+
+	/**
+	 * Convert a table name and a radius to a filename.
+	 * @param tableName The name of the table
+	 * @param radius The radius
+	 * @return The filename of the cluster set dump
+	 */
+	private static String clusterSetFileName(String tableName, double radius) {
+<span class="nc" id="L317">		return tableName + &quot;_&quot; + radius + &quot;.dmp&quot;;</span>
+	}
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tuple.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">data</a> &gt; <span class="el_source">Tuple.java</span></div><h1>Tuple.java</h1><pre class="source lang-java linenums">
+package data;
+
+import java.util.Set;
+import java.io.Serializable;
+
+import org.la4j.Vector;
+import org.la4j.vector.dense.BasicVector;
+
+/**
+ * Sequence of items.
+ */
+public class Tuple implements Serializable {
+	/**
+	 * The item array.
+	 */
+	private Item[] tuple;
+
+	/**
+	 * Construct a tuple.
+	 * @param size The number of items
+	 */
+<span class="fc" id="L23">	public Tuple(int size) {</span>
+<span class="fc" id="L24">		tuple = new Item[size];</span>
+<span class="fc" id="L25">	}</span>
+
+	/**
+	 * Get the length.
+	 * @return The length
+	 */
+	public int getLength() {
+<span class="fc" id="L32">		return tuple.length;</span>
+	}
+
+	/**
+	 * Get an item.
+	 * @param i The position of the item
+	 * @return The item at position i
+	 */
+	public Item get(int i) {
+<span class="fc" id="L41">		return tuple[i];</span>
+	}
+
+	/**
+	 * Add a new item.
+	 * @param item The item to add
+	 * @param i The position in which place the item
+	 */
+	public void add(Item item, int i) {
+<span class="fc" id="L50">		tuple[i] = item;</span>
+<span class="fc" id="L51">	}</span>
+
+	/**
+	 * Get the distance from another tuple.
+	 * @param tuple The tuple from calculate the distance
+	 * @return The actual distance
+	 */
+	public double getDistance(Tuple tuple) {
+<span class="fc" id="L59">		double distance = 0.0;</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		for (int i = 0; i &lt; getLength(); i++) {</span>
+<span class="fc" id="L62">			distance += get(i).distance(tuple.get(i).getValue());</span>
+		}
+
+<span class="fc" id="L65">		return distance;</span>
+	}
+
+	/**
+	 * Get the average distance from the items of a source data.
+	 * @param data The source data
+	 * @param clusteredData The indices of the indices
+	 * from which calculate the distance
+	 * @return The actual average distance
+	 */
+	public double avgDistance(Data data, Set&lt;Integer&gt; clusteredData) {
+<span class="fc" id="L76">		double sumDist = 0.0;</span>
+
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		for (Integer i : clusteredData) {</span>
+<span class="fc" id="L79">			sumDist += getDistance(data.getTuple(i));</span>
+<span class="fc" id="L80">		}</span>
+
+<span class="fc" id="L82">		return sumDist / clusteredData.size();</span>
+	}
+
+	/**
+	 * Get a numeric vector that rappresents the tuple.
+	 * @return A vector of doubles
+	 */
+	public Vector toNumericVector() {
+<span class="fc" id="L90">		Vector result = new BasicVector(getLength());</span>
+
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		for (int i = 0; i &lt; getLength(); i++) {</span>
+<span class="fc" id="L93">			result.set(i, get(i).toNumeric());</span>
+		}
+
+<span class="fc" id="L96">		return result;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

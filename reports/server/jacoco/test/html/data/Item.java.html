@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Item.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">data</a> &gt; <span class="el_source">Item.java</span></div><h1>Item.java</h1><pre class="source lang-java linenums">
+package data;
+
+import java.io.Serializable;
+
+/**
+ * Generic item.
+ */
+abstract class Item implements Serializable {
+	/**
+	 * The attribute.
+	 */
+	private Attribute attribute;
+
+	/**
+	 * The actual value.
+	 */
+	private Object value;
+
+	/**
+	 * Construct an Item.
+	 * @param attribute The attribute
+	 * @param value The generic value
+	 */
+<span class="fc" id="L25">	Item(Attribute attribute, Object value) {</span>
+<span class="fc" id="L26">		this.attribute = attribute;</span>
+<span class="fc" id="L27">		this.value = value;</span>
+<span class="fc" id="L28">	}</span>
+
+	/**
+	 * Get the attribute.
+	 * @return The attribute
+	 */
+	Attribute getAttribute() {
+<span class="fc" id="L35">		return attribute;</span>
+	}
+
+	/**
+	 * Get the value.
+	 * @return The value
+	 */
+	Object getValue() {
+<span class="fc" id="L43">		return value;</span>
+	}
+
+	/**
+	 * Convert the item to a string.
+	 * @return Get the textual rappresentation of the item
+	 */
+	public String toString() {
+<span class="fc" id="L51">		return value.toString();</span>
+	}
+
+	/**
+	 * The abstract function to calculate the distance from a generic object.
+	 * @param o A generic object
+	 * @return The actual distance
+	 */
+	abstract double distance(Object o);
+
+	/**
+	 * The abstract function to get the numeric rappresentation of the item.
+	 * @return The numeric rappresentation of the item
+	 */
+	abstract double toNumeric();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

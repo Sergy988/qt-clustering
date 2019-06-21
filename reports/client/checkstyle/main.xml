@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.17">
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/ClientMain.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/ClientUI.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/ConnectionUI.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/LearnResult.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/LearningUI.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/PlotData.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/PlotUI.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/ResultUI.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/SeriesData.java">
+</file>
+<file name="/home/loreloc/qt-clustering/client/src/main/java/client/ServerException.java">
+</file>
+</checkstyle>

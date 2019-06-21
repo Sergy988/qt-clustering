@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.17">
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/Attribute.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/ContinuousAttribute.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/ContinuousItem.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/Data.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/DiscreteAttribute.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/DiscreteItem.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/EmptyDatasetException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/Item.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/PCAnalyser.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/data/Tuple.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/DatabaseConnectionException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/DbAccess.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/EmptySetException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/Example.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/NoValueException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/QueryType.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/TableData.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/database/TableSchema.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/mining/Cluster.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/mining/ClusterSet.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/mining/ClusteringRadiusException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/mining/QTMiner.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/server/MultiServer.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/server/ServerOneClient.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/Correlation.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/Covariance.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/Mean.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/MultiVariation.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/Standard.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/StatisticException.java">
+</file>
+<file name="/home/loreloc/qt-clustering/server/src/main/java/stats/Variance.java">
+</file>
+</checkstyle>

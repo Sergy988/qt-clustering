@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Covariance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">stats</a> &gt; <span class="el_source">Covariance.java</span></div><h1>Covariance.java</h1><pre class="source lang-java linenums">
+package stats;
+
+import org.la4j.Vector;
+import org.la4j.Matrix;
+import org.la4j.matrix.dense.Basic2DMatrix;
+
+/**
+ * Covariance processor class.
+ */
+public class Covariance {
+
+	/**
+	 * Disable the constructor.
+	 */
+	private Covariance() {
+		// nothing
+	}
+
+	/**
+	 * Calculate the covariance matrix of a samples matrix.
+	 * @param samples The samples matrix
+	 * @return The covariance matrix
+	 * @throws StatisticException Thrown when a static error occurs
+	 */
+	public static Matrix covariance(Matrix samples)
+		throws StatisticException {
+<span class="fc" id="L28">		Matrix covariance = new Basic2DMatrix(</span>
+<span class="fc" id="L29">			samples.columns(), samples.columns()</span>
+		);
+
+		// Build the covariance matrix
+<span class="fc bfc" id="L33" title="All 2 branches covered.">		for (int i = 0; i &lt; samples.columns(); i++) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">			for (int j = i + 1; j &lt; samples.columns(); j++) {</span>
+<span class="fc" id="L35">				double value = Covariance.covariance(</span>
+<span class="fc" id="L36">					samples.getColumn(i),</span>
+<span class="fc" id="L37">					samples.getColumn(j)</span>
+				);
+
+<span class="fc" id="L40">				covariance.set(i, j, value);</span>
+<span class="fc" id="L41">				covariance.set(j, i, value);</span>
+			}
+
+<span class="fc" id="L44">			covariance.set(i, i, Variance.variance(samples.getColumn(i)));</span>
+		}
+
+<span class="fc" id="L47">		return covariance;</span>
+	}
+
+	/**
+	 * Calculate the covariance between two samples.
+	 * @param firstSamples The first samples data
+	 * @param secondSamples The second samples data
+	 * @return The covariance factor [-1, +1]
+	 * @throws StatisticException Thrown when the number of samples
+	 *                            of the first character is not equal
+	 *                            to the number of samples of the
+	 *                            second character
+	 */
+	public static double covariance(
+		Vector firstSamples, Vector secondSamples)
+		throws StatisticException {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		if (firstSamples.length() != secondSamples.length()) {</span>
+<span class="fc" id="L64">			throw new StatisticException(&quot;Samples length mismatch&quot;);</span>
+		}
+
+<span class="fc" id="L67">		int samplesCount = firstSamples.length();</span>
+
+<span class="fc" id="L69">		double deviation = 0.0;</span>
+
+<span class="fc" id="L71">		double firstMean = Mean.arithmeticMean(firstSamples);</span>
+<span class="fc" id="L72">		double secondMean = Mean.arithmeticMean(secondSamples);</span>
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		for (int i = 0; i &lt; samplesCount; i++) {</span>
+<span class="fc" id="L75">			double firstDiff = firstSamples.get(i) - firstMean;</span>
+<span class="fc" id="L76">			double secondDiff = secondSamples.get(i) - secondMean;</span>
+
+<span class="fc" id="L78">			deviation += firstDiff * secondDiff;</span>
+		}
+
+<span class="fc" id="L81">		return deviation / samplesCount;</span>
+	}
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
