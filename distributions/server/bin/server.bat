@@ -79,7 +79,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\server.jar;%APP_HOME%\lib\la4j-0.6.0.jar
+set CLASSPATH=%APP_HOME%\lib\server.jar;%APP_HOME%\lib\mysql-connector-java-bin.jar;%APP_HOME%\lib\la4j-0.6.0.jar
 
 @rem Execute server
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %SERVER_OPTS%  -classpath "%CLASSPATH%" server.MultiServer %CMD_LINE_ARGS%

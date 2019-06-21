@@ -41,6 +41,9 @@ sourceSets {
 }
 
 dependencies {
+    // JDBC connector dependencies
+    compile files('lib/mysql-connector-java-bin.jar')
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 
