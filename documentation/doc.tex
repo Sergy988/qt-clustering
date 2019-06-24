@@ -101,18 +101,27 @@
 		\item L'utente sceglie IP e porta del server a cui desidera connettersi.
 		Un'etichetta posta in cima al form comunica lo stato della connessione.
 		Se IP o porta risultano non validi si aprirà una finestra di errore.
+		L'utente può scegliere, attraverso i pulsanti, di connettersi o
+		disconnettersi. Quando si è disconnessi e si prova a fare un'operazione
+		verrà mostrato a video un errore.
 		\item Il risultato, in forma testuale, dell'operazione di data mining.
-		Vengono mostrati i cluster e/o i centroidi.
+		Vengono mostrati i cluster e/o i centroidi e, per ogni cluster, viene
+		mostrata anche la distanza media delle tuple dal centroide.
 		\item L'utente sceglie nome della tabella del database e raggio da
 		utilizzare. Se la tabella risulta non presente nel database oppure il
 		raggio risulta non valido verrà mostrato a video un errore. L'utente
 		può scegliere se eseguire l'algoritmo di mining partendo da una tabella
-		del database oppure leggere da file.
+		del database oppure leggere da file. Se il raggio risulta talmente
+		grande tale che il risultato della computazione è un unico cluster
+		oppure il file non è presente sul server allora verrà mostrato a
+		video un errore.
 		\item L'utente sceglie uno dei tre piani di proiezione dei dati:
 		XY, YZ oppure XZ. In base alla scelta cambierà lo stato dello scatter
-		plot.
+		plot. Si tenga presente che si perde parte dell'informazione delle
+		tuple originarie.
 		\item Lo scatter plot su cui vengono rappresentati i dati. Ogni cluster
-		(o centroide) possiede un colore ed una etichetta diversa.
+		(o centroide) possiede un colore ed una etichetta diversa. Al di sotto
+		della griglia è presente una legenda.
 	\end{enumerate}
 
 	\section{Note tecniche}
