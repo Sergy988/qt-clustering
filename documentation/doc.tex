@@ -127,9 +127,22 @@
 	\textit{/qt-clustering/reports}.
 	I diagrammi delle classi e dei packages si trovano all'interno di
 	\textit{/qt-clustering/documentation}.
-	Infine i file per la distribuzione (file \textit{Bash/Bat} e
+
+	\subsection {Guida per l'installazione}
+	I file per la distribuzione (file \textit{Bash/Bat} e
 	\textit{.jar}) sia per il client che per il server si trovano in
 	\textit{/qt-clustering/distributions}.
+	Per eseguire il server è necessario aver installato MySQL.
+	Dopodichè bisogna accertarsi che il servizo di MySQL sia in
+	esecuzione. Bisogna poi inizializzare il database MySQL eseguendo lo
+	script \textit{mapdb.sql} presente nella cartella
+	\textit{/qt-clustering/distributions/server}.
+	Lo script SQL contiene le istruzioni per creare un database \textit{MapDB}
+	contenente una tabella di esempio chiamata \textbf{playtennis}
+	ed un'altra tabella chiamata \textbf{test} richiesta per
+	l'esecuzione dei casi di test. Inoltre esso crea un nuovo utente
+	(se non presente) chiamato \textit{MapUser} con diritti di accesso
+	per il database \textit{MapDB}.
 
 	\subsection {Importare il progetto con Eclipse}
 	Attraverso il tool \textit{Gradle} è possibile, da riga di comando,
@@ -155,12 +168,5 @@
 	\textgreater Gradle \textgreater Gradle Tasks}. Sempre dalla stessa
 	finestra \textit{Gradle Tasks} è possibile fare altre operazioni, tra
 	cui la generazione del \textit{Javadoc} e l'esecuzione dei casi di test.
-
-	\subsection{MySQL}
-	All'interno della cartella per la distribuzione del server è presente
-	uno script SQL chiamato \textit{mapdb.sql} che contiene le istruzioni
-	per creare un database contenente una tabella di esempio chiamata
-	\textbf{playtennis} ed un'altra tabella chiamata \textbf{test}
-	richiesta per l'esecuzione dei casi di test.
 \end{document}
 
