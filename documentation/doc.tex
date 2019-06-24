@@ -27,6 +27,7 @@
 	sorgente dei dati una tabella (specificata dal client) di un database
 	MySQL. Le funzionalità del server sono le seguenti:
 	\begin{itemize}
+		\item Inizializzare il server su una porta arbitraria.
 		\item Capacità di gestire le richieste di molteplici client in
 		contemporanea.
 		\item Leggere il contenuto di una tabella di una base di dati
@@ -93,6 +94,8 @@
 	\href{http://la4j.org}{\textbf{la4j}}.
 
 	\section{Manuale utente}
+
+	\subsection{Client}
 	\begin{figure}[h]
 		\includegraphics[width=\linewidth]{windowform.png}
 		\caption{Il form della finestra del client}
@@ -123,6 +126,14 @@
 		(o centroide) possiede un colore ed una etichetta diversa. Al di sotto
 		della griglia è presente una legenda.
 	\end{enumerate}
+
+	\subsection{Server}
+	Di default, la porta utilizzata dal server è la \textbf{8080}.
+	Tuttavia, al momento dell'esecuzione è possibile specificare
+	la porta da utilizzare da riga di comando come parametro di
+	input al file \textit{Bash/Bat}. Verrà stampato un errore
+	se il formato della porta non è valido oppure se la porta è
+	occupata.
 
 	\section{Note tecniche}
 	Per il progetto è stato utilizzato lo strumento \textbf{git}. Inoltre
