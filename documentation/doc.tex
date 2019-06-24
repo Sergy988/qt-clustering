@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 \title{Quality Threshold Clustering}
 \author{Loconte Lorenzo, M. 683124}
@@ -54,22 +55,7 @@
 
 	\subsubsection{Grafica}
 	La grafica per l'applicazione client è stata scritta utilizzando le
-	\textbf{JavaFX}.\\
-	L'interfaccia è composta da quattro sezioni:
-	\begin{enumerate}
-		\item La sezione per la connessione al server. L'utente
-		inserisce ip e porta del server in ascolto.
-		\item La sezione che contiene i parametri per il clustering,
-		ovvero la tabella del database da cui ottenere i dati e il
-		raggio utilizzato.
-		\item La sezione che mostra il risultato della computazione,
-		costituita da una \textit{TextArea}.
-		\item La sezione che mostra uno scatter plot del risultato della
-		computazione, costituito da uno \textit{ScatterChart} compreso
-		di etichette e simboli diversi per ogni cluster. L'utente può
-		scegliere, tramite pulsanti, su quale piano (XY, YZ, o XZ)
-		proiettare i dati per rappresentarli sullo scatter plot.
-	\end{enumerate}
+	\textbf{JavaFX}.
 
 	\subsubsection{Principal Component Analysis}
 	La \textbf{Principal Component Analysis} (da adesso abbreviato con
@@ -105,6 +91,29 @@
 	clustering. E' compito del client poi disegnare sullo scatter-plot
 	i punti. Come libreria per l'algebra lineare è stata usata la libreria
 	\href{http://la4j.org}{\textbf{la4j}}.
+
+	\section{Manuale utente}
+	\begin{figure}[h]
+		\includegraphics[width=\linewidth]{windowform.png}
+		\caption{Il form della finestra del client}
+	\end{figure}
+	\begin{enumerate}
+		\item L'utente sceglie IP e porta del server a cui desidera connettersi.
+		Un'etichetta posta in cima al form comunica lo stato della connessione.
+		Se IP o porta risultano non validi si aprirà una finestra di errore.
+		\item Il risultato, in forma testuale, dell'operazione di data mining.
+		Vengono mostrati i cluster e/o i centroidi.
+		\item L'utente sceglie nome della tabella del database e raggio da
+		utilizzare. Se la tabella risulta non presente nel database oppure il
+		raggio risulta non valido verrà mostrato a video un errore. L'utente
+		può scegliere se eseguire l'algoritmo di mining partendo da una tabella
+		del database oppure leggere da file.
+		\item L'utente sceglie uno dei tre piani di proiezione dei dati:
+		XY, YZ oppure XZ. In base alla scelta cambierà lo stato dello scatter
+		plot.
+		\item Lo scatter plot su cui vengono rappresentati i dati. Ogni cluster
+		(o centroide) possiede un colore ed una etichetta diversa.
+	\end{enumerate}
 
 	\section{Note tecniche}
 	Per il progetto è stato utilizzato lo strumento \textbf{git}. Inoltre
