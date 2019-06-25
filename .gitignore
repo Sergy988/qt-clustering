@@ -14,3 +14,10 @@ server/bin
 
 # Ignore Cluster Sets dump files
 *.dmp
+
+# Logs
+*.log
+
+# Documentation stuff
+*.aux
+*.out
