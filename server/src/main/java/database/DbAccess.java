@@ -67,13 +67,14 @@ public class DbAccess {
 			);
 		}
 
-		String url = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE;
+		String url = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE
+			+ "?&serverTimezone=UTC";
 
 		try {
 			connection = DriverManager.getConnection(url, USER_ID, PASSWORD);
 		} catch (SQLException e) {
 			throw new DatabaseConnectionException(
-				"Failed to connect to the database"
+				"Failed to connect to the database: " + e.getMessage()
 			);
 		}
 	}
