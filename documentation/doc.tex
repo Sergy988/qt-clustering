@@ -2,6 +2,7 @@
 
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{listings}
 
 \title{Quality Threshold Clustering}
 \author{Loconte Lorenzo, M. 683124}
@@ -169,6 +170,9 @@
 	esecuzione. Bisogna poi inizializzare il database MySQL eseguendo lo
 	script \textit{mapdb.sql} presente nella cartella
 	\textit{/qt-clustering/distributions/server}.
+	\begin{lstlisting}[language=SQL, frame=single]
+mysql>source /qt-clustering/distributions/server/mapdb.sql
+	\end{lstlisting}
 	Lo script SQL contiene le istruzioni per creare un database \textit{MapDB}
 	contenente una tabella di esempio chiamata \textbf{playtennis}
 	ed un'altra tabella chiamata \textbf{test} richiesta per
